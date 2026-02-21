@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #00843D;
+  --primary-dark: #006B2F;
+  --secondary: #00005B;
+  --accent: #FFCD00;
+  --text: #1d1d1f;
+  --text-secondary: #86868b;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background: #ffffff;
+  color: var(--text);
+}
+
+h1 { font-size: clamp(40px, 6vw, 80px); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+h2 { font-size: clamp(32px, 4vw, 56px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; }
+h3 { font-size: clamp(24px, 3vw, 40px); font-weight: 600; }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px 40px;
+  font-size: 18px;
+  font-weight: 500;
+  border-radius: 100px;
+  transition: all 0.3s ease;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: #00843D;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #006B2F;
+  transform: scale(1.02);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #00843D;
+  border: 2px solid #00843D;
+}
+
+.btn-secondary:hover {
+  background: #00843D;
+  color: white;
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #00843D 0%, #006B2F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.card {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.04);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 8px 40px rgba(0,0,0,0.1);
+  transform: translateY(-4px);
+}
