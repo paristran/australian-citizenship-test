@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import funfacts from '../../data/funfacts.json'
+import funfacts from '../data/funfacts.json'
 
 // Get 6 random fun facts for the landing page
 const getRandomFacts = (count: number) => {
