@@ -1,7 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import questions from '../../data/questions.json'
+import questions from '../data/questions.json'
+import funfacts from '../data/funfacts.json'
 
 interface Question {
   id: number
@@ -10,6 +11,12 @@ interface Question {
   options: string[]
   correct: number
   explanation: string
+}
+
+interface FunFact {
+  id: number
+  fact: string
+  emoji: string
 }
 
 export default function Test() {
@@ -21,8 +28,14 @@ export default function Test() {
   const [answered, setAnswered] = useState(0)
   const [testQuestions, setTestQuestions] = useState<Question[]>([])
   const [testComplete, setTestComplete] = useState(false)
-  const [timeLeft, setTimeLeft] = useState(2700) // 45 minutes
+  const [timeLeft, setTimeLeft] = useState(2700)
   const [testStarted, setTestStarted] = useState(false)
+  const [showFunFact, setShowFunFact] = useState(false)
+  const [currentFunFact, setCurrentFunFact] = useState<FunFact | null>(null)
+
+  const getRandomFunFact = (): FunFact => {
+    return funfacts.funFacts[Math.floor(Math.random() * funfacts.funFacts.length)]
+  }
 
   const startTest = () => {
     const shuffled = [...questions.questions].sort(() => Math.random() - 0.5).slice(0, 20)
@@ -54,7 +67,7 @@ export default function Test() {
   }
 
   const selectAnswer = (index: number) => {
-    if (showResult) return
+    if (showResult || showFunFact) return
     setSelectedAnswer(index)
   }
 
@@ -72,6 +85,25 @@ export default function Test() {
       setTestComplete(true)
       return
     }
+    
+    // Show fun fact between some questions (30% chance)
+    if (Math.random() < 0.3) {
+      setCurrentFunFact(getRandomFunFact())
+      setShowFunFact(true)
+      setShowResult(false)
+      setSelectedAnswer(null)
+    } else {
+      const next = currentIndex + 1
+      setCurrentIndex(next)
+      setCurrentQuestion(testQuestions[next])
+      setSelectedAnswer(null)
+      setShowResult(false)
+      setShowFunFact(false)
+    }
+  }
+
+  const continueFromFunFact = () => {
+    setShowFunFact(false)
     const next = currentIndex + 1
     setCurrentIndex(next)
     setCurrentQuestion(testQuestions[next])
@@ -85,6 +117,7 @@ export default function Test() {
     setTestComplete(false)
     setTestStarted(false)
     setTimeLeft(2700)
+    setShowFunFact(false)
   }
 
   if (!testStarted) {
@@ -103,6 +136,7 @@ export default function Test() {
               <li>• You need 15 correct answers (75%) to pass</li>
               <li>• Questions are randomly selected from all topics</li>
               <li>• After each question, you'll see the correct answer</li>
+              <li>• Enjoy fun facts about Australia during your test! 🎉</li>
             </ul>
           </div>
           <button onClick={startTest} className="btn btn-primary text-xl px-12">
@@ -174,70 +208,89 @@ export default function Test() {
         />
       </div>
 
-      {/* Question */}
-      <div className="max-w-3xl mx-auto py-12 px-6">
-        <div className="mb-4">
-          <span className="text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
-            {currentQuestion?.category}
-          </span>
-        </div>
-        <h2 className="text-2xl font-semibold mb-8">{currentQuestion?.question}</h2>
-
-        {/* Options */}
-        <div className="space-y-3">
-          {currentQuestion?.options.map((option, index) => {
-            let bgClass = 'bg-white hover:bg-gray-50 border-gray-200'
-            if (showResult) {
-              if (index === currentQuestion.correct) {
-                bgClass = 'bg-green-50 border-green-500 border-2'
-              } else if (index === selectedAnswer && index !== currentQuestion.correct) {
-                bgClass = 'bg-red-50 border-red-500 border-2'
-              }
-            } else if (selectedAnswer === index) {
-              bgClass = 'bg-green-50 border-green-500 border-2'
-            }
-            return (
-              <button
-                key={index}
-                onClick={() => selectAnswer(index)}
-                className={`w-full text-left p-5 rounded-xl border transition-all ${bgClass}`}
-                disabled={showResult}
-              >
-                <span className="font-medium mr-3">{['A', 'B', 'C', 'D'][index]}.</span>
-                {option}
-              </button>
-            )
-          })}
-        </div>
-
-        {/* Explanation */}
-        {showResult && currentQuestion && (
-          <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-200">
-            <p className="font-semibold text-blue-800 mb-2">💡 Explanation:</p>
-            <p className="text-blue-700">{currentQuestion.explanation}</p>
+      {/* Fun Fact Display */}
+      {showFunFact && currentFunFact && (
+        <div className="max-w-3xl mx-auto py-12 px-6">
+          <div className="bg-gradient-to-br from-amber-50 to-yellow-50 border-2 border-amber-200 rounded-2xl p-8 text-center">
+            <div className="text-6xl mb-4">{currentFunFact.emoji}</div>
+            <p className="text-xs font-semibold text-amber-600 uppercase tracking-wide mb-3">🦘 Fun Fact About Australia</p>
+            <p className="text-xl text-gray-700 leading-relaxed mb-6">{currentFunFact.fact}</p>
+            <button 
+              onClick={continueFromFunFact}
+              className="btn btn-primary"
+            >
+              Continue →
+            </button>
           </div>
-        )}
-
-        {/* Buttons */}
-        <div className="mt-8 flex gap-4">
-          {!showResult ? (
-            <button 
-              onClick={submitAnswer}
-              disabled={selectedAnswer === null}
-              className="btn btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              Submit Answer
-            </button>
-          ) : (
-            <button 
-              onClick={nextQuestion}
-              className="btn btn-primary flex-1"
-            >
-              {currentIndex >= 19 ? 'See Results' : 'Next Question →'}
-            </button>
-          )}
         </div>
-      </div>
+      )}
+
+      {/* Question */}
+      {!showFunFact && (
+        <div className="max-w-3xl mx-auto py-12 px-6">
+          <div className="mb-4">
+            <span className="text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
+              {currentQuestion?.category}
+            </span>
+          </div>
+          <h2 className="text-2xl font-semibold mb-8">{currentQuestion?.question}</h2>
+
+          {/* Options */}
+          <div className="space-y-3">
+            {currentQuestion?.options.map((option, index) => {
+              let bgClass = 'bg-white hover:bg-gray-50 border-gray-200'
+              if (showResult) {
+                if (index === currentQuestion.correct) {
+                  bgClass = 'bg-green-50 border-green-500 border-2'
+                } else if (index === selectedAnswer && index !== currentQuestion.correct) {
+                  bgClass = 'bg-red-50 border-red-500 border-2'
+                }
+              } else if (selectedAnswer === index) {
+                bgClass = 'bg-green-50 border-green-500 border-2'
+              }
+              return (
+                <button
+                  key={index}
+                  onClick={() => selectAnswer(index)}
+                  className={`w-full text-left p-5 rounded-xl border transition-all ${bgClass}`}
+                  disabled={showResult}
+                >
+                  <span className="font-medium mr-3">{['A', 'B', 'C', 'D'][index]}.</span>
+                  {option}
+                </button>
+              )
+            })}
+          </div>
+
+          {/* Explanation */}
+          {showResult && currentQuestion && (
+            <div className="mt-8 p-6 bg-blue-50 rounded-xl border border-blue-200">
+              <p className="font-semibold text-blue-800 mb-2">💡 Explanation:</p>
+              <p className="text-blue-700">{currentQuestion.explanation}</p>
+            </div>
+          )}
+
+          {/* Buttons */}
+          <div className="mt-8 flex gap-4">
+            {!showResult ? (
+              <button 
+                onClick={submitAnswer}
+                disabled={selectedAnswer === null}
+                className="btn btn-primary flex-1 disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                Submit Answer
+              </button>
+            ) : (
+              <button 
+                onClick={nextQuestion}
+                className="btn btn-primary flex-1"
+              >
+                {currentIndex >= 19 ? 'See Results' : 'Next Question →'}
+              </button>
+            )}
+          </div>
+        </div>
+      )}
     </main>
   )
 }
