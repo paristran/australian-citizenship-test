@@ -1,8 +1,8 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import questions from '../data/questions.json'
-import funfacts from '../data/funfacts.json'
+import questions from '../../data/questions.json'
+import funfacts from '../../data/funfacts.json'
 
 interface Question {
   id: number
