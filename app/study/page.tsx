@@ -12,7 +12,7 @@ interface Question {
   explanation: string
 }
 
-const categories = ['All', ...new Set(questions.questions.map(q => q.category))]
+const categories = ['All', ...Array.from(new Set(questions.questions.map(q => q.category)))]
 
 export default function Study() {
   const [selectedCategory, setSelectedCategory] = useState('All')
