@@ -1,57 +1,3265 @@
 {
   "questions": [
-    {"id": 1, "category": "Australia and its people", "question": "Who were the first inhabitants of Australia?", "options": ["British settlers", "Aboriginal and Torres Strait Islander peoples", "European explorers", "Asian migrants"], "correct": 1, "explanation": "Aboriginal and Torres Strait Islander peoples have lived in Australia for at least 65,000 years."},
-    {"id": 2, "category": "Australia and its people", "question": "When did the First Fleet arrive in Australia?", "options": ["1770", "1788", "1801", "1851"], "correct": 1, "explanation": "The First Fleet arrived on 26 January 1788."},
-    {"id": 3, "category": "Australia and its people", "question": "Who led the First Fleet?", "options": ["James Cook", "Arthur Phillip", "William Bligh", "John Hunter"], "correct": 1, "explanation": "Captain Arthur Phillip commanded the First Fleet."},
-    {"id": 4, "category": "Australia and its people", "question": "What is celebrated on Australia Day?", "options": ["Independence", "First Fleet arrival", "Federation", "World War II end"], "correct": 1, "explanation": "Australia Day commemorates 26 January 1788."},
-    {"id": 5, "category": "Australia and its people", "question": "When did Federation occur?", "options": ["1851", "1888", "1901", "1914"], "correct": 2, "explanation": "The colonies federated on 1 January 1901."},
-    {"id": 6, "category": "Australia and its people", "question": "How many colonies federated?", "options": ["Four", "Five", "Six", "Seven"], "correct": 2, "explanation": "Six colonies federated to form Australia."},
-    {"id": 7, "category": "Australia and its people", "question": "What caused 1850s immigration surge?", "options": ["Wool boom", "Gold rush", "Railways", "Farming"], "correct": 1, "explanation": "The gold rush attracted thousands of immigrants."},
-    {"id": 8, "category": "Australia and its people", "question": "What is Australia's capital?", "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"], "correct": 2, "explanation": "Canberra is the capital, chosen as a compromise."},
-    {"id": 9, "category": "Australia and its people", "question": "Why was Canberra chosen?", "options": ["Largest city", "Best climate", "Compromise between Sydney and Melbourne", "Geographic center"], "correct": 2, "explanation": "Canberra was a compromise between Sydney and Melbourne."},
-    {"id": 10, "category": "Australia and its people", "question": "How many states does Australia have?", "options": ["Four", "Five", "Six", "Seven"], "correct": 2, "explanation": "Australia has six states."},
-    {"id": 11, "category": "Australia and its people", "question": "What are the mainland territories?", "options": ["QLD and TAS", "ACT and NT", "SA and WA", "VIC and NSW"], "correct": 1, "explanation": "ACT and NT are the mainland territories."},
-    {"id": 12, "category": "Australia and its people", "question": "What is the largest city?", "options": ["Melbourne", "Sydney", "Brisbane", "Perth"], "correct": 1, "explanation": "Sydney has the largest population."},
-    {"id": 13, "category": "Australia and its people", "question": "Which state is the 'Sunshine State'?", "options": ["WA", "NSW", "QLD", "SA"], "correct": 2, "explanation": "Queensland is the Sunshine State."},
-    {"id": 14, "category": "Australia and its people", "question": "What is the Aboriginal Flag?", "options": ["Independence symbol", "Aboriginal connection to land", "British Empire", "Federation"], "correct": 1, "explanation": "It represents Aboriginal people and their connection to land."},
-    {"id": 15, "category": "Australia and its people", "question": "What are Aboriginal Flag colors?", "options": ["Red/white/blue", "Black/red/yellow", "Green/gold", "Blue/white"], "correct": 1, "explanation": "Black, red, and yellow."},
-    {"id": 16, "category": "Australia and its people", "question": "What are Torres Strait Islander Flag colors?", "options": ["Black/red/yellow", "Green/blue/black/white", "Red/white/blue", "Gold/green"], "correct": 1, "explanation": "Green, blue, black, and white."},
-    {"id": 17, "category": "Australia and its people", "question": "What is the national anthem?", "options": ["Waltzing Matilda", "Advance Australia Fair", "God Save the Queen", "I Am Australian"], "correct": 1, "explanation": "Advance Australia Fair is the anthem."},
-    {"id": 18, "category": "Australia and its people", "question": "When did Advance Australia Fair become anthem?", "options": ["1901", "1954", "1984", "2000"], "correct": 2, "explanation": "It became anthem in 1984."},
-    {"id": 19, "category": "Australia and its people", "question": "What is the first line of anthem?", "options": ["Waltzing Matilda", "Australians all let us rejoice", "Once a jolly swagman", "We are one"], "correct": 1, "explanation": "'Australians all let us rejoice'"},
-    {"id": 20, "category": "Australia and its people", "question": "What is the national floral emblem?", "options": ["Waratah", "Golden wattle", "Kangaroo paw", "Banksia"], "correct": 1, "explanation": "Golden wattle is the emblem."},
-    {"id": 21, "category": "Australia and its people", "question": "What are national colors?", "options": ["Red/white", "Blue/gold", "Green/gold", "Black/white"], "correct": 2, "explanation": "Green and gold are national colors."},
-    {"id": 22, "category": "Australia and its people", "question": "What is national gemstone?", "options": ["Diamond", "Ruby", "Opal", "Sapphire"], "correct": 2, "explanation": "Opal is the national gemstone."},
-    {"id": 23, "category": "Australia and its people", "question": "What animals are on Coat of Arms?", "options": ["Kangaroo/koala", "Kangaroo/emu", "Emu/wombat", "Koala/platypus"], "correct": 1, "explanation": "Kangaroo and emu feature on Coat of Arms."},
-    {"id": 24, "category": "Australia and its people", "question": "Why kangaroo and emu?", "options": ["Largest animals", "Cannot walk backwards", "Most popular", "Live in all states"], "correct": 1, "explanation": "They symbolize forward progress."},
-    {"id": 25, "category": "Australia and its people", "question": "How many points on Commonwealth Star?", "options": ["Five", "Six", "Seven", "Eight"], "correct": 2, "explanation": "Seven points for states and territories."},
-    {"id": 26, "category": "Democratic beliefs", "question": "What is parliamentary democracy?", "options": ["Military rule", "Citizens elect representatives", "One person rule", "Wealthy-only voting"], "correct": 1, "explanation": "Citizens elect representatives to Parliament."},
-    {"id": 27, "category": "Democratic beliefs", "question": "What is rule of law?", "options": ["Government above law", "All subject to same laws", "Laws for citizens only", "Judges create laws"], "correct": 1, "explanation": "Everyone is subject to same laws."},
-    {"id": 28, "category": "Democratic beliefs", "question": "What is freedom of speech?", "options": ["Say anything", "Express views within legal limits", "Only politicians speak", "No freedom"], "correct": 1, "explanation": "Australians can express views within legal limits."},
-    {"id": 29, "category": "Democratic beliefs", "question": "What is freedom of religion?", "options": ["One religion only", "Any religion or none", "Christians only", "Religion banned"], "correct": 1, "explanation": "Australians can practice any religion or none."},
-    {"id": 30, "category": "Democratic beliefs", "question": "What is freedom of association?", "options": ["Family only", "Form and join groups", "Military only", "No freedom"], "correct": 1, "explanation": "Right to form and join groups."},
-    {"id": 31, "category": "Democratic beliefs", "question": "What is equality in Australia?", "options": ["Same income", "Equal treatment under law", "Same job", "Same area"], "correct": 1, "explanation": "Equal treatment under the law."},
-    {"id": 32, "category": "Democratic beliefs", "question": "What is a 'fair go'?", "options": ["Free entry", "Equal opportunity", "A game", "A fair"], "correct": 1, "explanation": "Everyone deserves opportunity."},
-    {"id": 33, "category": "Democratic beliefs", "question": "What is mateship?", "options": ["Help family only", "Help others", "Live with friends", "Military work"], "correct": 1, "explanation": "Helping others in times of need."},
-    {"id": 34, "category": "Democratic beliefs", "question": "Who can vote in federal elections?", "options": ["Men only", "Property owners", "Citizens 18+", "British citizens"], "correct": 2, "explanation": "All citizens 18 and over."},
-    {"id": 35, "category": "Democratic beliefs", "question": "Is voting compulsory?", "options": ["No", "Yes, for citizens 18+", "Federal only", "State only"], "correct": 1, "explanation": "Voting is compulsory for citizens 18+."},
-    {"id": 36, "category": "Democratic beliefs", "question": "What happens if you don't vote?", "options": ["Nothing", "Fine possible", "Lose citizenship", "Prison"], "correct": 1, "explanation": "You may be fined."},
-    {"id": 37, "category": "Democratic beliefs", "question": "What is a secret ballot?", "options": ["Everyone sees vote", "No one knows vote", "Night ballot", "Secret society"], "correct": 1, "explanation": "No one knows how you voted."},
-    {"id": 38, "category": "Government and the law", "question": "What is the Constitution?", "options": ["Book of laws", "Rules for governance", "Independence declaration", "Treaty"], "correct": 1, "explanation": "Rules for how Australia is governed."},
-    {"id": 39, "category": "Government and the law", "question": "When was Constitution approved?", "options": ["1788", "1900", "1901", "1914"], "correct": 1, "explanation": "Approved by British Parliament in 1900."},
-    {"id": 40, "category": "Government and the law", "question": "How can Constitution change?", "options": ["Prime Minister", "Parliament", "Referendum", "Governor-General"], "correct": 2, "explanation": "Only through national referendum."},
-    {"id": 41, "category": "Government and the law", "question": "What is a referendum?", "options": ["Election", "Vote to change Constitution", "Parliament meeting", "Court decision"], "correct": 1, "explanation": "National vote on Constitution change."},
-    {"id": 42, "category": "Government and the law", "question": "What is needed for referendum to pass?", "options": ["Simple majority", "Double majority", "PM approval", "Two-thirds Parliament"], "correct": 1, "explanation": "Double majority: voters and states."},
-    {"id": 43, "category": "Government and the law", "question": "What are three government levels?", "options": ["Federal/State/Local", "Federal/Territory/Local", "National/Regional/City", "Commonwealth/State/Municipal"], "correct": 0, "explanation": "Federal, State/Territory, and Local."},
-    {"id": 44, "category": "Government and the law", "question": "Which level handles defence?", "options": ["State", "Local", "Federal", "Territory"], "correct": 2, "explanation": "Federal government handles defence."},
-    {"id": 45, "category": "Government and the law", "question": "Which level handles schools?", "options": ["Federal only", "State and territory", "Local only", "Federal and local"], "correct": 1, "explanation": "States and territories handle education."},
-    {"id": 46, "category": "Government and the law", "question": "Which level handles rubbish collection?", "options": ["Federal", "State", "Local", "Territory"], "correct": 2, "explanation": "Local government handles rubbish."},
-    {"id": 47, "category": "Government and the law", "question": "Where does Parliament meet?", "options": ["Sydney", "Melbourne", "Canberra", "Brisbane"], "correct": 2, "explanation": "Parliament meets in Canberra."},
-    {"id": 48, "category": "Government and the law", "question": "What are two houses of Parliament?", "options": ["Senate and House of Reps", "Lower and Upper", "People's and States'", "All above"], "correct": 3, "explanation": "House of Representatives and Senate."}
+    {
+      "id": 1,
+      "category": "Australia and its people",
+      "question": "Who were the first inhabitants of Australia?",
+      "options": [
+        "British settlers",
+        "Aboriginal and Torres Strait Islander peoples",
+        "European explorers",
+        "Asian migrants"
+      ],
+      "correct": 1,
+      "explanation": "Aboriginal and Torres Strait Islander peoples have lived in Australia for at least 65,000 years, making them the world's oldest continuous cultures."
+    },
+    {
+      "id": 2,
+      "category": "Australia and its people",
+      "question": "When did the First Fleet arrive in Australia?",
+      "options": [
+        "1770",
+        "1788",
+        "1801",
+        "1851"
+      ],
+      "correct": 1,
+      "explanation": "The First Fleet arrived at Botany Bay on 18 January 1788, then moved to Port Jackson (Sydney Cove) on 26 January 1788."
+    },
+    {
+      "id": 3,
+      "category": "Australia and its people",
+      "question": "Who was the leader of the First Fleet?",
+      "options": [
+        "James Cook",
+        "Arthur Phillip",
+        "William Bligh",
+        "John Hunter"
+      ],
+      "correct": 1,
+      "explanation": "Captain Arthur Phillip commanded the First Fleet and became the first Governor of New South Wales."
+    },
+    {
+      "id": 4,
+      "category": "Australia and its people",
+      "question": "What is celebrated on Australia Day, 26 January?",
+      "options": [
+        "Independence from Britain",
+        "The arrival of the First Fleet",
+        "The federation of Australia",
+        "The end of World War II"
+      ],
+      "correct": 1,
+      "explanation": "Australia Day commemorates the arrival of the First Fleet at Sydney Cove on 26 January 1788."
+    },
+    {
+      "id": 5,
+      "category": "Australia and its people",
+      "question": "When did the colonies join together to form the Commonwealth of Australia?",
+      "options": [
+        "1851",
+        "1888",
+        "1901",
+        "1914"
+      ],
+      "correct": 2,
+      "explanation": "On 1 January 1901, the six colonies federated to form the Commonwealth of Australia."
+    },
+    {
+      "id": 6,
+      "category": "Australia and its people",
+      "question": "How many colonies federated to form the Commonwealth of Australia?",
+      "options": [
+        "Four",
+        "Five",
+        "Six",
+        "Seven"
+      ],
+      "correct": 2,
+      "explanation": "Six colonies - New South Wales, Victoria, Queensland, South Australia, Western Australia, and Tasmania - federated in 1901."
+    },
+    {
+      "id": 7,
+      "category": "Australia and its people",
+      "question": "Which event caused a surge of immigration to Australia in the 1850s?",
+      "options": [
+        "The wool boom",
+        "The gold rush",
+        "The railway expansion",
+        "The farming expansion"
+      ],
+      "correct": 1,
+      "explanation": "The discovery of gold in New South Wales and Victoria in 1851 attracted thousands of immigrants from around the world."
+    },
+    {
+      "id": 8,
+      "category": "Australia and its people",
+      "question": "What is the capital city of Australia?",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Brisbane"
+      ],
+      "correct": 2,
+      "explanation": "Canberra has been the capital of Australia since 1927, chosen as a compromise between Sydney and Melbourne."
+    },
+    {
+      "id": 9,
+      "category": "Australia and its people",
+      "question": "Why was Canberra chosen as the capital?",
+      "options": [
+        "It was the largest city",
+        "It had the best climate",
+        "It was a compromise between Sydney and Melbourne",
+        "It was closest to the geographic center"
+      ],
+      "correct": 2,
+      "explanation": "Canberra was chosen as a compromise between the two largest cities, Sydney and Melbourne."
+    },
+    {
+      "id": 10,
+      "category": "Australia and its people",
+      "question": "How many states does Australia have?",
+      "options": [
+        "Four",
+        "Five",
+        "Six",
+        "Seven"
+      ],
+      "correct": 2,
+      "explanation": "Australia has six states: New South Wales, Victoria, Queensland, South Australia, Western Australia, and Tasmania."
+    },
+    {
+      "id": 11,
+      "category": "Australia and its people",
+      "question": "What are the two mainland territories of Australia?",
+      "options": [
+        "Queensland and Tasmania",
+        "Australian Capital Territory and Northern Territory",
+        "South Australia and Western Australia",
+        "Victoria and New South Wales"
+      ],
+      "correct": 1,
+      "explanation": "The two mainland territories are the Australian Capital Territory (ACT) and the Northern Territory (NT)."
+    },
+    {
+      "id": 12,
+      "category": "Australia and its people",
+      "question": "What is Australia's national language?",
+      "options": [
+        "There is no official national language",
+        "English",
+        "Australian English",
+        "Aboriginal languages"
+      ],
+      "correct": 0,
+      "explanation": "Australia has no official national language, though English is the most widely spoken language."
+    },
+    {
+      "id": 13,
+      "category": "Australia and its people",
+      "question": "What is the largest city in Australia by population?",
+      "options": [
+        "Melbourne",
+        "Sydney",
+        "Brisbane",
+        "Perth"
+      ],
+      "correct": 1,
+      "explanation": "Sydney is Australia's largest city by population, with over 5 million residents."
+    },
+    {
+      "id": 14,
+      "category": "Australia and its people",
+      "question": "Which Australian state is known as the 'Sunshine State'?",
+      "options": [
+        "Western Australia",
+        "New South Wales",
+        "Queensland",
+        "South Australia"
+      ],
+      "correct": 2,
+      "explanation": "Queensland is nicknamed the 'Sunshine State' due to its warm, sunny climate."
+    },
+    {
+      "id": 15,
+      "category": "Australia and its people",
+      "question": "What does the Aboriginal Flag represent?",
+      "options": [
+        "Australian independence",
+        "Aboriginal people and their connection to land",
+        "The British Empire",
+        "Australian federation"
+      ],
+      "correct": 1,
+      "explanation": "The Aboriginal Flag represents Aboriginal people, the land, and the sun - their spiritual relationship to country."
+    },
+    {
+      "id": 16,
+      "category": "Australia and its people",
+      "question": "What are the colors of the Aboriginal Flag?",
+      "options": [
+        "Red, white and blue",
+        "Black, red and yellow",
+        "Green and gold",
+        "Blue and white"
+      ],
+      "correct": 1,
+      "explanation": "The Aboriginal Flag has black (top), red (bottom), and a yellow circle in the center."
+    },
+    {
+      "id": 17,
+      "category": "Australia and its people",
+      "question": "What are the colors of the Torres Strait Islander Flag?",
+      "options": [
+        "Black, red, yellow",
+        "Green, blue, black, and white",
+        "Red, white, blue",
+        "Gold and green"
+      ],
+      "correct": 1,
+      "explanation": "The Torres Strait Islander Flag has green, blue, black, and white with a white dhari (headdress)."
+    },
+    {
+      "id": 18,
+      "category": "Australia and its people",
+      "question": "What is Australia's national anthem?",
+      "options": [
+        "Waltzing Matilda",
+        "Advance Australia Fair",
+        "God Save the Queen",
+        "I Am Australian"
+      ],
+      "correct": 1,
+      "explanation": "'Advance Australia Fair' has been Australia's national anthem since 1984."
+    },
+    {
+      "id": 19,
+      "category": "Australia and its people",
+      "question": "When did 'Advance Australia Fair' become Australia's national anthem?",
+      "options": [
+        "1901",
+        "1954",
+        "1984",
+        "2000"
+      ],
+      "correct": 2,
+      "explanation": "'Advance Australia Fair' became Australia's official national anthem on 19 April 1984."
+    },
+    {
+      "id": 20,
+      "category": "Australia and its people",
+      "question": "What is the first line of 'Advance Australia Fair'?",
+      "options": [
+        "Australians all let us rejoice",
+        "Waltzing Matilda",
+        "Once a jolly swagman",
+        "We are one but we are many"
+      ],
+      "correct": 0,
+      "explanation": "The first line is 'Australians all let us rejoice, For we are one and free.'"
+    },
+    {
+      "id": 21,
+      "category": "Australia and its people",
+      "question": "What is Australia's national floral emblem?",
+      "options": [
+        "Waratah",
+        "Golden wattle",
+        "Kangaroo paw",
+        "Banksia"
+      ],
+      "correct": 1,
+      "explanation": "The golden wattle (Acacia pycnantha) is Australia's national floral emblem."
+    },
+    {
+      "id": 22,
+      "category": "Australia and its people",
+      "question": "What are Australia's national colors?",
+      "options": [
+        "Red and white",
+        "Blue and gold",
+        "Green and gold",
+        "Black and white"
+      ],
+      "correct": 2,
+      "explanation": "Australia's national colors are green and gold, representing the golden wattle flower."
+    },
+    {
+      "id": 23,
+      "category": "Australia and its people",
+      "question": "What is Australia's national gemstone?",
+      "options": [
+        "Diamond",
+        "Ruby",
+        "Opal",
+        "Sapphire"
+      ],
+      "correct": 2,
+      "explanation": "The opal is Australia's national gemstone, found mainly in central Australia."
+    },
+    {
+      "id": 24,
+      "category": "Australia and its people",
+      "question": "What animals appear on the Australian Coat of Arms?",
+      "options": [
+        "Kangaroo and koala",
+        "Kangaroo and emu",
+        "Emu and wombat",
+        "Koala and platypus"
+      ],
+      "correct": 1,
+      "explanation": "The Australian Coat of Arms features a kangaroo and an emu."
+    },
+    {
+      "id": 25,
+      "category": "Australia and its people",
+      "question": "Why were the kangaroo and emu chosen for the Coat of Arms?",
+      "options": [
+        "They are the largest animals",
+        "They cannot easily walk backwards, symbolising a nation moving forward",
+        "They are the most popular animals",
+        "They live in all states"
+      ],
+      "correct": 1,
+      "explanation": "The kangaroo and emu were chosen because they cannot easily walk backwards, symbolising progress."
+    },
+    {
+      "id": 26,
+      "category": "Democratic beliefs",
+      "question": "What is a parliamentary democracy?",
+      "options": [
+        "A system where the military rules",
+        "A system where citizens elect representatives to make decisions",
+        "A system where one person has absolute power",
+        "A system where only the wealthy can vote"
+      ],
+      "correct": 1,
+      "explanation": "In a parliamentary democracy, citizens vote for representatives to Parliament."
+    },
+    {
+      "id": 27,
+      "category": "Democratic beliefs",
+      "question": "What is the rule of law?",
+      "options": [
+        "Only the government is bound by law",
+        "All people and organizations are subject to the same laws",
+        "Laws only apply to ordinary citizens",
+        "Judges can create any law they want"
+      ],
+      "correct": 1,
+      "explanation": "The rule of law means everyone, including governments, is subject to the same laws."
+    },
+    {
+      "id": 28,
+      "category": "Democratic beliefs",
+      "question": "What does 'freedom of speech' mean in Australia?",
+      "options": [
+        "You can say anything without consequence",
+        "People can express their views openly within legal limits",
+        "Only politicians can speak freely",
+        "Freedom of speech does not exist in Australia"
+      ],
+      "correct": 1,
+      "explanation": "Australians are free to express their views within legal limits."
+    },
+    {
+      "id": 29,
+      "category": "Democratic beliefs",
+      "question": "What is 'freedom of religion' in Australia?",
+      "options": [
+        "Everyone must follow one religion",
+        "People can practice any religion or no religion",
+        "Only Christian religions are allowed",
+        "Religion is banned in Australia"
+      ],
+      "correct": 1,
+      "explanation": "Australians are free to practice any religion, or to have no religion."
+    },
+    {
+      "id": 30,
+      "category": "Democratic beliefs",
+      "question": "What does 'freedom of association' mean in Australia?",
+      "options": [
+        "The right to form and join groups",
+        "The right to associate with family only",
+        "The right to join the military",
+        "There is no such freedom in Australia"
+      ],
+      "correct": 0,
+      "explanation": "Freedom of association means people can form and join groups such as political parties."
+    },
+    {
+      "id": 31,
+      "category": "Democratic beliefs",
+      "question": "What is meant by 'equality in Australia'?",
+      "options": [
+        "Everyone earns the same income",
+        "Everyone is treated equally under the law",
+        "Everyone has the same job",
+        "Everyone lives in the same area"
+      ],
+      "correct": 1,
+      "explanation": "Equality means all Australians are entitled to equal treatment under the law."
+    },
+    {
+      "id": 32,
+      "category": "Democratic beliefs",
+      "question": "What is a 'fair go' in Australian culture?",
+      "options": [
+        "Free entry to events",
+        "Equal opportunity for all",
+        "A special type of game",
+        "A type of fair"
+      ],
+      "correct": 1,
+      "explanation": "A 'fair go' is an Australian value meaning everyone deserves a reasonable opportunity."
+    },
+    {
+      "id": 33,
+      "category": "Democratic beliefs",
+      "question": "What does 'mate-ship' mean in Australian culture?",
+      "options": [
+        "Only helping your family",
+        "Helping others and giving support",
+        "Living with friends",
+        "Working together in the military"
+      ],
+      "correct": 1,
+      "explanation": "Mate-ship means helping others in times of need and standing together."
+    },
+    {
+      "id": 34,
+      "category": "Democratic beliefs",
+      "question": "In Australia, who has the right to vote in federal elections?",
+      "options": [
+        "Only men",
+        "Only property owners",
+        "All Australian citizens aged 18 and over",
+        "Only British citizens"
+      ],
+      "correct": 2,
+      "explanation": "All Australian citizens aged 18 years and over must vote in federal elections."
+    },
+    {
+      "id": 35,
+      "category": "Democratic beliefs",
+      "question": "Is voting compulsory in Australia?",
+      "options": [
+        "No, it is voluntary",
+        "Yes, for all Australian citizens aged 18 and over",
+        "Only for federal elections",
+        "Only for state elections"
+      ],
+      "correct": 1,
+      "explanation": "Voting is compulsory for all Australian citizens aged 18 and over."
+    },
+    {
+      "id": 36,
+      "category": "Democratic beliefs",
+      "question": "What happens if you don't vote in an Australian election?",
+      "options": [
+        "Nothing happens",
+        "You may be fined",
+        "You lose your citizenship",
+        "You go to prison"
+      ],
+      "correct": 1,
+      "explanation": "Australian citizens who don't vote without a valid reason may receive a fine."
+    },
+    {
+      "id": 37,
+      "category": "Democratic beliefs",
+      "question": "What is a secret ballot?",
+      "options": [
+        "A ballot where everyone can see how you voted",
+        "A ballot where no one knows how you voted",
+        "A ballot held at night",
+        "A ballot for secret societies"
+      ],
+      "correct": 1,
+      "explanation": "In a secret ballot, no one knows how you voted, ensuring freedom of choice."
+    },
+    {
+      "id": 38,
+      "category": "Government and law",
+      "question": "What is the Australian Constitution?",
+      "options": [
+        "A book of laws",
+        "The set of rules for how Australia is governed",
+        "A declaration of independence",
+        "A treaty with Indigenous peoples"
+      ],
+      "correct": 1,
+      "explanation": "The Australian Constitution is the set of rules that establishes how Australia is governed."
+    },
+    {
+      "id": 39,
+      "category": "Government and law",
+      "question": "When was the Australian Constitution approved?",
+      "options": [
+        "1788",
+        "1900",
+        "1901",
+        "1914"
+      ],
+      "correct": 1,
+      "explanation": "The Australian Constitution was approved by British Parliament in 1900."
+    },
+    {
+      "id": 40,
+      "category": "Government and law",
+      "question": "How can the Australian Constitution be changed?",
+      "options": [
+        "By the Prime Minister alone",
+        "By the Parliament",
+        "Through a national referendum",
+        "By the Governor-General"
+      ],
+      "correct": 2,
+      "explanation": "The Constitution can only be changed through a national referendum."
+    },
+    {
+      "id": 41,
+      "category": "Government and law",
+      "question": "What is a referendum?",
+      "options": [
+        "A type of election",
+        "A vote by the people to change the Constitution",
+        "A meeting of Parliament",
+        "A court decision"
+      ],
+      "correct": 1,
+      "explanation": "A referendum is a national vote to approve a change to the Australian Constitution."
+    },
+    {
+      "id": 42,
+      "category": "Government and law",
+      "question": "What is required for a referendum to pass?",
+      "options": [
+        "A simple majority of voters",
+        "A double majority - majority of voters AND majority of states",
+        "Approval by the Prime Minister",
+        "A two-thirds majority in Parliament"
+      ],
+      "correct": 1,
+      "explanation": "A referendum needs a 'double majority': majority of voters nationally AND majority of states."
+    },
+    {
+      "id": 43,
+      "category": "Government and law",
+      "question": "What are the three levels of government in Australia?",
+      "options": [
+        "Federal, State, and Local",
+        "Federal, Territorial, and Local",
+        "National, Regional, and City",
+        "Commonwealth, State, and Municipal"
+      ],
+      "correct": 0,
+      "explanation": "Australia has three levels: Federal (Commonwealth), State/Territory, and Local."
+    },
+    {
+      "id": 44,
+      "category": "Government and law",
+      "question": "Which level of government is responsible for defence?",
+      "options": [
+        "State government",
+        "Local government",
+        "Federal government",
+        "Territory government"
+      ],
+      "correct": 2,
+      "explanation": "The Federal government is responsible for defence, foreign affairs, and immigration."
+    },
+    {
+      "id": 45,
+      "category": "Government and law",
+      "question": "Which level of government is responsible for schools?",
+      "options": [
+        "Only the Federal government",
+        "State and territory governments",
+        "Only local government",
+        "Federal and local government"
+      ],
+      "correct": 1,
+      "explanation": "State and territory governments are primarily responsible for education."
+    },
+    {
+      "id": 46,
+      "category": "Government and law",
+      "question": "Which level of government is responsible for rubbish collection?",
+      "options": [
+        "Federal government",
+        "State government",
+        "Local government",
+        "Territory government"
+      ],
+      "correct": 2,
+      "explanation": "Local governments manage rubbish collection, parks, and local roads."
+    },
+    {
+      "id": 47,
+      "category": "Government and law",
+      "question": "Where does the Australian Parliament meet?",
+      "options": [
+        "Sydney",
+        "Melbourne",
+        "Canberra",
+        "Brisbane"
+      ],
+      "correct": 2,
+      "explanation": "The Australian Parliament meets at Parliament House in Canberra."
+    },
+    {
+      "id": 48,
+      "category": "Government and law",
+      "question": "What are the two houses of the Australian Parliament?",
+      "options": [
+        "The Senate and the House of Representatives",
+        "The Lower House and the Upper House",
+        "The People's House and the States' House",
+        "All of the above"
+      ],
+      "correct": 3,
+      "explanation": "The Australian Parliament has the House of Representatives and the Senate."
+    },
+    {
+      "id": 49,
+      "category": "Government and law",
+      "question": "How many senators are there from each state?",
+      "options": [
+        "6",
+        "8",
+        "10",
+        "12"
+      ],
+      "correct": 3,
+      "explanation": "Each state elects 12 senators, while territories elect 2 each."
+    },
+    {
+      "id": 50,
+      "category": "Government and law",
+      "question": "How many years is the term for a member of the House of Representatives?",
+      "options": [
+        "2 years",
+        "3 years",
+        "4 years",
+        "6 years"
+      ],
+      "correct": 1,
+      "explanation": "Members of the House of Representatives are elected for up to 3 years."
+    },
+    {
+      "id": 51,
+      "category": "Government and law",
+      "question": "How many years is the term for a state senator?",
+      "options": [
+        "3 years",
+        "4 years",
+        "6 years",
+        "8 years"
+      ],
+      "correct": 2,
+      "explanation": "State senators serve 6-year terms."
+    },
+    {
+      "id": 52,
+      "category": "Government and law",
+      "question": "Who is the leader of the Australian Government?",
+      "options": [
+        "The Governor-General",
+        "The Prime Minister",
+        "The Queen",
+        "The Chief Minister"
+      ],
+      "correct": 1,
+      "explanation": "The Prime Minister is the leader of the Australian Government."
+    },
+    {
+      "id": 53,
+      "category": "Government and law",
+      "question": "What is the role of the Governor-General?",
+      "options": [
+        "To make laws",
+        "To represent the King in Australia",
+        "To lead the government",
+        "To be the Prime Minister"
+      ],
+      "correct": 1,
+      "explanation": "The Governor-General is the King's representative in Australia."
+    },
+    {
+      "id": 54,
+      "category": "Government and law",
+      "question": "Who appoints the Governor-General?",
+      "options": [
+        "The Prime Minister",
+        "The Parliament",
+        "The King, on the advice of the Prime Minister",
+        "The people of Australia"
+      ],
+      "correct": 2,
+      "explanation": "The Governor-General is appointed by the King on the advice of the Prime Minister."
+    },
+    {
+      "id": 55,
+      "category": "Government and law",
+      "question": "What is the High Court of Australia?",
+      "options": [
+        "The court for serious crimes only",
+        "Australia's highest court",
+        "A local court",
+        "A court for civil cases only"
+      ],
+      "correct": 1,
+      "explanation": "The High Court of Australia is the highest court in Australia."
+    },
+    {
+      "id": 56,
+      "category": "Government and law",
+      "question": "What is the role of Ministers in the Australian Government?",
+      "options": [
+        "To interpret the law",
+        "To manage government departments",
+        "To appoint judges",
+        "To command the military"
+      ],
+      "correct": 1,
+      "explanation": "Ministers manage government departments and represent Australia internationally."
+    },
+    {
+      "id": 57,
+      "category": "Government and law",
+      "question": "What is the Cabinet?",
+      "options": [
+        "A piece of furniture",
+        "The group of senior Ministers who make major policy decisions",
+        "The opposition party",
+        "A committee of judges"
+      ],
+      "correct": 1,
+      "explanation": "The Cabinet is the group of senior Ministers who decide on major government policies."
+    },
+    {
+      "id": 58,
+      "category": "Government and law",
+      "question": "What is the role of the public service?",
+      "options": [
+        "To make government decisions",
+        "To provide expert advice and implement government policies",
+        "To elect the Prime Minister",
+        "To appoint Ministers"
+      ],
+      "correct": 1,
+      "explanation": "The public service provides expert advice and implements government policies."
+    },
+    {
+      "id": 59,
+      "category": "Government and law",
+      "question": "Who is responsible for interpreting and applying the law?",
+      "options": [
+        "The Parliament",
+        "The police",
+        "The courts",
+        "The Prime Minister"
+      ],
+      "correct": 2,
+      "explanation": "The courts interpret and apply the law."
+    },
+    {
+      "id": 60,
+      "category": "Government and law",
+      "question": "What is a jury?",
+      "options": [
+        "A group of lawyers",
+        "A group of ordinary citizens who decide if someone is guilty",
+        "A group of judges",
+        "A group of police officers"
+      ],
+      "correct": 1,
+      "explanation": "A jury is a group of ordinary citizens who decide if an accused person is guilty."
+    },
+    {
+      "id": 61,
+      "category": "Government and law",
+      "question": "What does 'innocent until proven guilty' mean?",
+      "options": [
+        "Everyone is guilty",
+        "A person is considered innocent until a court decides they are guilty",
+        "The accused must prove their innocence",
+        "Only innocent people go to court"
+      ],
+      "correct": 1,
+      "explanation": "A person is considered innocent until proven guilty beyond reasonable doubt in court."
+    },
+    {
+      "id": 62,
+      "category": "Government and law",
+      "question": "What is the role of the police in Australia?",
+      "options": [
+        "To make laws",
+        "To interpret laws",
+        "To keep peace and enforce the law",
+        "To judge court cases"
+      ],
+      "correct": 2,
+      "explanation": "The police are responsible for keeping the peace and enforcing Australian laws."
+    },
+    {
+      "id": 63,
+      "category": "Government and law",
+      "question": "What is the name of the head of a state government?",
+      "options": [
+        "Prime Minister",
+        "Governor-General",
+        "Premier",
+        "Chief Minister"
+      ],
+      "correct": 2,
+      "explanation": "The head of a state government is called the Premier."
+    },
+    {
+      "id": 64,
+      "category": "Government and law",
+      "question": "What is the name of the head of a territory government?",
+      "options": [
+        "Premier",
+        "Governor",
+        "Chief Minister",
+        "Prime Minister"
+      ],
+      "correct": 2,
+      "explanation": "The head of a territory government is called the Chief Minister."
+    },
+    {
+      "id": 65,
+      "category": "Government and law",
+      "question": "Who represents the King in each state?",
+      "options": [
+        "The Premier",
+        "The Governor",
+        "The Chief Minister",
+        "The Governor-General"
+      ],
+      "correct": 1,
+      "explanation": "Each Australian state has a Governor who represents the King."
+    },
+    {
+      "id": 66,
+      "category": "Government and law",
+      "question": "What are local governments also known as?",
+      "options": [
+        "States",
+        "Territories",
+        "Councils or shires",
+        "Districts"
+      ],
+      "correct": 2,
+      "explanation": "Local governments are also called councils, shires, or municipalities."
+    },
+    {
+      "id": 67,
+      "category": "Government and law",
+      "question": "Who leads a local government?",
+      "options": [
+        "Premier",
+        "Mayor or Shire President",
+        "Governor",
+        "Chief Minister"
+      ],
+      "correct": 1,
+      "explanation": "Local governments are led by a Mayor or Shire President."
+    },
+    {
+      "id": 68,
+      "category": "Australian values",
+      "question": "Which of the following is an Australian value?",
+      "options": [
+        "Discrimination against others",
+        "Respect for equal worth, dignity and freedom of the individual",
+        "Judging people by their religion",
+        "Treating people differently based on their background"
+      ],
+      "correct": 1,
+      "explanation": "Australians value respect for the equal worth, dignity, and freedom of every individual."
+    },
+    {
+      "id": 69,
+      "category": "Australian values",
+      "question": "What does 'mutual respect' mean?",
+      "options": [
+        "Only respecting your own culture",
+        "Respecting others and being respected in return",
+        "Disagreeing with everyone",
+        "Never having opinions"
+      ],
+      "correct": 1,
+      "explanation": "Mutual respect means treating others with respect and expecting the same in return."
+    },
+    {
+      "id": 70,
+      "category": "Australian values",
+      "question": "What does 'tolerance' mean in Australian society?",
+      "options": [
+        "Accepting unlawful behavior",
+        "Accepting and respecting differences in others",
+        "Ignoring everyone",
+        "Forcing your beliefs on others"
+      ],
+      "correct": 1,
+      "explanation": "Tolerance means accepting and respecting that others may have different beliefs."
+    },
+    {
+      "id": 71,
+      "category": "Australian values",
+      "question": "What is 'compassion'?",
+      "options": [
+        "Ignoring others' suffering",
+        "Caring for others doing it tough",
+        "Only helping family",
+        "Expecting payment for help"
+      ],
+      "correct": 1,
+      "explanation": "Compassion means showing care and concern for others experiencing difficulties."
+    },
+    {
+      "id": 72,
+      "category": "Australian values",
+      "question": "What is the responsibility of Australian citizens regarding taxes?",
+      "options": [
+        "Taxes are optional",
+        "Paying taxes honestly",
+        "Only wealthy people pay taxes",
+        "Taxes are only for non-citizens"
+      ],
+      "correct": 1,
+      "explanation": "Australian citizens have a responsibility to pay taxes honestly."
+    },
+    {
+      "id": 73,
+      "category": "Australian values",
+      "question": "What is jury service?",
+      "options": [
+        "Optional community work",
+        "A responsibility of citizens to serve on a jury if called",
+        "Only for lawyers",
+        "A punishment for crimes"
+      ],
+      "correct": 1,
+      "explanation": "Jury service is a responsibility of Australian citizens who may be called to serve."
+    },
+    {
+      "id": 74,
+      "category": "Australian values",
+      "question": "What does 'doing the right thing' mean in Australian culture?",
+      "options": [
+        "Breaking the law",
+        "Acting with honesty and integrity",
+        "Never helping others",
+        "Avoiding responsibility"
+      ],
+      "correct": 1,
+      "explanation": "Doing the right thing means acting honestly, fairly, and with integrity."
+    },
+    {
+      "id": 75,
+      "category": "Australian values",
+      "question": "What is the responsibility of citizens regarding defence?",
+      "options": [
+        "Defense is not a citizen responsibility",
+        "Defending Australia if necessary",
+        "Only military personnel defend Australia",
+        "Defense is handled by other countries"
+      ],
+      "correct": 1,
+      "explanation": "Australian citizens have a responsibility to defend Australia if needed."
+    },
+    {
+      "id": 76,
+      "category": "Australia and its people",
+      "question": "What percentage of Australians were born overseas?",
+      "options": [
+        "About 10%",
+        "About 30%",
+        "About 50%",
+        "About 70%"
+      ],
+      "correct": 1,
+      "explanation": "Approximately 30% of Australians were born overseas."
+    },
+    {
+      "id": 77,
+      "category": "Australia and its people",
+      "question": "What is the approximate population of Australia?",
+      "options": [
+        "15 million",
+        "20 million",
+        "26 million",
+        "35 million"
+      ],
+      "correct": 2,
+      "explanation": "Australia's population is approximately 26 million."
+    },
+    {
+      "id": 78,
+      "category": "Australia and its people",
+      "question": "What was Australia's population in 1901 at the time of Federation?",
+      "options": [
+        "About 1 million",
+        "About 4 million",
+        "About 10 million",
+        "About 20 million"
+      ],
+      "correct": 1,
+      "explanation": "At Federation in 1901, Australia's population was approximately 4 million."
+    },
+    {
+      "id": 79,
+      "category": "Australia and its people",
+      "question": "Which continent is Australia part of?",
+      "options": [
+        "Oceania",
+        "Asia",
+        "Australasia",
+        "Australia is its own continent"
+      ],
+      "correct": 3,
+      "explanation": "Australia is the only country that is also a continent."
+    },
+    {
+      "id": 80,
+      "category": "Australia and its people",
+      "question": "Which is the smallest state in Australia by area?",
+      "options": [
+        "Victoria",
+        "Tasmania",
+        "Australian Capital Territory",
+        "South Australia"
+      ],
+      "correct": 1,
+      "explanation": "Tasmania is the smallest state by area."
+    },
+    {
+      "id": 81,
+      "category": "Australia and its people",
+      "question": "What does the black on the Aboriginal Flag represent?",
+      "options": [
+        "The night sky",
+        "Aboriginal people",
+        "The land",
+        "The sun"
+      ],
+      "correct": 1,
+      "explanation": "The black on the Aboriginal Flag represents the Aboriginal people."
+    },
+    {
+      "id": 82,
+      "category": "Australia and its people",
+      "question": "What does the yellow circle on the Aboriginal Flag represent?",
+      "options": [
+        "The moon",
+        "The sun",
+        "Gold",
+        "Hope"
+      ],
+      "correct": 1,
+      "explanation": "The yellow circle represents the sun, the giver of life."
+    },
+    {
+      "id": 83,
+      "category": "Australia and its people",
+      "question": "What does the red on the Aboriginal Flag represent?",
+      "options": [
+        "Blood",
+        "The earth and spiritual relationship to the land",
+        "Fire",
+        "Danger"
+      ],
+      "correct": 1,
+      "explanation": "The red represents the red earth and spiritual relationship to the land."
+    },
+    {
+      "id": 84,
+      "category": "Australia and its people",
+      "question": "What does the green on the Torres Strait Islander Flag represent?",
+      "options": [
+        "The ocean",
+        "The land",
+        "The islands",
+        "The forests"
+      ],
+      "correct": 1,
+      "explanation": "The green stripes represent the land of the Torres Strait Islands."
+    },
+    {
+      "id": 85,
+      "category": "Australia and its people",
+      "question": "What does the blue on the Torres Strait Islander Flag represent?",
+      "options": [
+        "The sky",
+        "The ocean",
+        "Peace",
+        "Unity"
+      ],
+      "correct": 1,
+      "explanation": "The blue represents the waters of the Torres Strait."
+    },
+    {
+      "id": 86,
+      "category": "Australia and its people",
+      "question": "What does the dhari on the Torres Strait Islander Flag represent?",
+      "options": [
+        "War",
+        "Torres Strait Islander people and culture",
+        "Leadership",
+        "Marriage"
+      ],
+      "correct": 1,
+      "explanation": "The dhari represents Torres Strait Islander people and culture."
+    },
+    {
+      "id": 87,
+      "category": "Australia and its people",
+      "question": "Who designed the Australian Aboriginal Flag?",
+      "options": [
+        "Harold Thomas",
+        "Bernard Namok",
+        "Eddie Mabo",
+        "Cathy Freeman"
+      ],
+      "correct": 0,
+      "explanation": "Harold Thomas designed the Australian Aboriginal Flag in 1971."
+    },
+    {
+      "id": 88,
+      "category": "Democratic beliefs",
+      "question": "Which of the following is NOT a democratic belief in Australia?",
+      "options": [
+        "Freedom of speech",
+        "Freedom of religion",
+        "Mandatory military service",
+        "Equality of opportunity"
+      ],
+      "correct": 2,
+      "explanation": "Australia does not have mandatory military service."
+    },
+    {
+      "id": 89,
+      "category": "Democratic beliefs",
+      "question": "What does 'equality of opportunity' mean?",
+      "options": [
+        "Guaranteed equal outcomes for everyone",
+        "Everyone has the same chance to succeed",
+        "Only certain groups can access opportunities",
+        "The government determines everyone's career"
+      ],
+      "correct": 1,
+      "explanation": "Equality of opportunity means everyone should have a fair chance to succeed."
+    },
+    {
+      "id": 90,
+      "category": "Democratic beliefs",
+      "question": "What is 'secular' government?",
+      "options": [
+        "The government follows one religion",
+        "The government is separate from religion",
+        "The government bans all religions",
+        "The government controls all religions"
+      ],
+      "correct": 1,
+      "explanation": "A secular government does not favor any religion."
+    },
+    {
+      "id": 91,
+      "category": "Government and law",
+      "question": "What is a crime?",
+      "options": [
+        "A civil dispute between people",
+        "An offence against the law prosecuted by the state",
+        "A traffic violation",
+        "A minor disagreement"
+      ],
+      "correct": 1,
+      "explanation": "A crime is an offence against the law prosecuted by the state."
+    },
+    {
+      "id": 92,
+      "category": "Government and law",
+      "question": "Can judges be influenced by the government in their decisions?",
+      "options": [
+        "Yes, the government controls the courts",
+        "No, judges are independent of government",
+        "Only in certain cases",
+        "Only in state courts"
+      ],
+      "correct": 1,
+      "explanation": "Judges are independent of government."
+    },
+    {
+      "id": 93,
+      "category": "Government and law",
+      "question": "What is the public service?",
+      "options": [
+        "People who serve in restaurants",
+        "Government employees who implement policies",
+        "Volunteers in the community",
+        "Political party members"
+      ],
+      "correct": 1,
+      "explanation": "The public service consists of government employees who implement policies."
+    },
+    {
+      "id": 94,
+      "category": "Government and law",
+      "question": "What does the Prime Minister do?",
+      "options": [
+        "Represents the King",
+        "Leads the Australian Government",
+        "Runs the courts",
+        "Controls the military alone"
+      ],
+      "correct": 1,
+      "explanation": "The Prime Minister is the leader of the Australian Government."
+    },
+    {
+      "id": 95,
+      "category": "Government and law",
+      "question": "What is the opposition in Parliament?",
+      "options": [
+        "People who oppose all laws",
+        "The political party or parties with the second most seats",
+        "People who protest outside Parliament",
+        "Citizens who disagree with government"
+      ],
+      "correct": 1,
+      "explanation": "The opposition is the party or parties with the second most seats in Parliament."
+    },
+    {
+      "id": 96,
+      "category": "Australian values",
+      "question": "What does being a 'responsible citizen' in Australia mean?",
+      "options": [
+        "Only caring about yourself",
+        "Obeying the law and participating in the community",
+        "Never voting",
+        "Breaking rules when convenient"
+      ],
+      "correct": 1,
+      "explanation": "Being a responsible citizen means obeying the law and participating in the community."
+    },
+    {
+      "id": 97,
+      "category": "Australian values",
+      "question": "What is the importance of community service in Australia?",
+      "options": [
+        "It's not valued",
+        "It brings people together and helps those in need",
+        "It's only for criminals",
+        "It's only for religious groups"
+      ],
+      "correct": 1,
+      "explanation": "Community service strengthens communities and helps people in need."
+    },
+    {
+      "id": 98,
+      "category": "Australian values",
+      "question": "What does it mean to 'respect others' in Australia?",
+      "options": [
+        "Agree with everything they say",
+        "Treat people with courtesy regardless of their background",
+        "Only respect people who agree with you",
+        "Avoid people who are different"
+      ],
+      "correct": 1,
+      "explanation": "Respecting others means treating everyone with courtesy regardless of background."
+    },
+    {
+      "id": 99,
+      "category": "Australian values",
+      "question": "What is one way Australians show 'mateship'?",
+      "options": [
+        "Helping a neighbour in need",
+        "Ignoring strangers",
+        "Competing aggressively",
+        "Keeping to themselves"
+      ],
+      "correct": 0,
+      "explanation": "Australians show mateship by helping others, especially in difficult times."
+    },
+    {
+      "id": 100,
+      "category": "Australian values",
+      "question": "Why is it important to obey the law in Australia?",
+      "options": [
+        "To avoid going to prison only",
+        "To help maintain a safe and orderly society",
+        "Laws don't matter in Australia",
+        "Only some laws need to be obeyed"
+      ],
+      "correct": 1,
+      "explanation": "Obeying the law helps maintain a safe, orderly, and fair society for everyone."
+    },
+    {
+      "id": 101,
+      "category": "Government and law",
+      "question": "What are the two houses of federal Parliament?",
+      "options": [
+        "The Senate and the House of Representatives",
+        "The Lower House and the Upper House",
+        "The People's House and the States' House",
+        "All of the above are correct"
+      ],
+      "correct": 3,
+      "explanation": "The federal Parliament has two houses: the House of Representatives and the Senate."
+    },
+    {
+      "id": 102,
+      "category": "Government and law",
+      "question": "What is the House of Representatives sometimes called?",
+      "options": [
+        "The Upper House",
+        "The People's House",
+        "The States' House",
+        "The Senate"
+      ],
+      "correct": 1,
+      "explanation": "The House of Representatives is sometimes called the People's House or the Lower House."
+    },
+    {
+      "id": 103,
+      "category": "Government and law",
+      "question": "What is the Senate sometimes called?",
+      "options": [
+        "The Lower House",
+        "The People's House",
+        "The States' House",
+        "The House of Government"
+      ],
+      "correct": 2,
+      "explanation": "The Senate is sometimes called the States' House or the Upper House."
+    },
+    {
+      "id": 104,
+      "category": "Government and law",
+      "question": "Why is the House of Representatives called the People's House?",
+      "options": [
+        "Because only people can enter",
+        "Because the government is formed there by the party with majority support",
+        "Because it has the most members",
+        "Because it's the oldest house"
+      ],
+      "correct": 1,
+      "explanation": "It's called the People's House because the government is formed by the party with majority support."
+    },
+    {
+      "id": 105,
+      "category": "Government and law",
+      "question": "Why is the Senate called the States' House?",
+      "options": [
+        "Because it meets in different states",
+        "Because each state has equal representation",
+        "Because only state politicians can be senators",
+        "Because states fund it"
+      ],
+      "correct": 1,
+      "explanation": "The Senate is called the States' House because each state has equal representation (12 senators)."
+    },
+    {
+      "id": 106,
+      "category": "Australia and its people",
+      "question": "What is Anzac Day?",
+      "options": [
+        "A celebration of Federation",
+        "A day to remember the landing at Gallipoli in World War I",
+        "Australia's Independence Day",
+        "A celebration of the Queen's birthday"
+      ],
+      "correct": 1,
+      "explanation": "Anzac Day on 25 April commemorates the landing of Australian and New Zealand troops at Gallipoli in 1915."
+    },
+    {
+      "id": 107,
+      "category": "Australia and its people",
+      "question": "What does ANZAC stand for?",
+      "options": [
+        "Australia and New Zealand Armed Combat",
+        "Australian and New Zealand Army Corps",
+        "Army of New Zealand and Australian Colonies",
+        "Allied Nations Zone Against Conflict"
+      ],
+      "correct": 1,
+      "explanation": "ANZAC stands for Australian and New Zealand Army Corps."
+    },
+    {
+      "id": 108,
+      "category": "Australia and its people",
+      "question": "When is Anzac Day observed?",
+      "options": [
+        "26 January",
+        "25 April",
+        "1 January",
+        "11 November"
+      ],
+      "correct": 1,
+      "explanation": "Anzac Day is observed on 25 April each year."
+    },
+    {
+      "id": 109,
+      "category": "Australia and its people",
+      "question": "What is Remembrance Day?",
+      "options": [
+        "A day to remember all wars",
+        "A day to remember those who died in World War I and all wars",
+        "A celebration of peace",
+        "A military parade day"
+      ],
+      "correct": 1,
+      "explanation": "Remembrance Day on 11 November commemorates those who died in World War I and all wars."
+    },
+    {
+      "id": 110,
+      "category": "Australia and its people",
+      "question": "When is Remembrance Day observed?",
+      "options": [
+        "25 April",
+        "11 November",
+        "26 January",
+        "1 January"
+      ],
+      "correct": 1,
+      "explanation": "Remembrance Day is observed on 11 November, the day World War I ended in 1918."
+    },
+    {
+      "id": 111,
+      "category": "Australia and its people",
+      "question": "What symbol is associated with Remembrance Day?",
+      "options": [
+        "The Australian flag",
+        "The red poppy",
+        "The golden wattle",
+        "The kangaroo"
+      ],
+      "correct": 1,
+      "explanation": "The red poppy is the symbol of Remembrance Day."
+    },
+    {
+      "id": 112,
+      "category": "Democratic beliefs",
+      "question": "What is a political party?",
+      "options": [
+        "A celebration for politicians",
+        "A group of people with similar ideas who work to be elected",
+        "A party thrown by the government",
+        "A court for political crimes"
+      ],
+      "correct": 1,
+      "explanation": "A political party is a group with shared ideas who work together to get elected."
+    },
+    {
+      "id": 113,
+      "category": "Democratic beliefs",
+      "question": "Can you join a political party in Australia?",
+      "options": [
+        "No, it's illegal",
+        "Yes, anyone can join",
+        "Only if you're born in Australia",
+        "Only for wealthy people"
+      ],
+      "correct": 1,
+      "explanation": "Any Australian citizen can join a political party."
+    },
+    {
+      "id": 114,
+      "category": "Democratic beliefs",
+      "question": "Can you start a new political party in Australia?",
+      "options": [
+        "No, only existing parties are allowed",
+        "Yes, you can form a new party",
+        "Only with government permission",
+        "Only in certain states"
+      ],
+      "correct": 1,
+      "explanation": "Australians can form new political parties if they follow the rules."
+    },
+    {
+      "id": 115,
+      "category": "Democratic beliefs",
+      "question": "What happens on election day in Australia?",
+      "options": [
+        "Only rich people vote",
+        "Citizens go to polling places to vote",
+        "The Prime Minister chooses the winner",
+        "The Queen decides"
+      ],
+      "correct": 1,
+      "explanation": "On election day, Australian citizens go to polling places to vote."
+    },
+    {
+      "id": 116,
+      "category": "Government and law",
+      "question": "What does the High Court of Australia do?",
+      "options": [
+        "Makes new laws",
+        "Interprets laws and decides if they comply with the Constitution",
+        "Arrests criminals",
+        "Collects taxes"
+      ],
+      "correct": 1,
+      "explanation": "The High Court interprets laws and can decide if they comply with the Constitution."
+    },
+    {
+      "id": 117,
+      "category": "Government and law",
+      "question": "What is the highest court in Australia?",
+      "options": [
+        "The Supreme Court",
+        "The Federal Court",
+        "The High Court of Australia",
+        "The District Court"
+      ],
+      "correct": 2,
+      "explanation": "The High Court of Australia is the highest court."
+    },
+    {
+      "id": 118,
+      "category": "Government and law",
+      "question": "What is federalism?",
+      "options": [
+        "One level of government",
+        "Power shared between federal and state governments",
+        "Military rule",
+        "The Queen ruling directly"
+      ],
+      "correct": 1,
+      "explanation": "Federalism is the system where power is shared between federal and state governments."
+    },
+    {
+      "id": 119,
+      "category": "Government and law",
+      "question": "Which level of government handles immigration?",
+      "options": [
+        "Local",
+        "State",
+        "Federal",
+        "Territory"
+      ],
+      "correct": 2,
+      "explanation": "The federal government handles immigration."
+    },
+    {
+      "id": 120,
+      "category": "Government and law",
+      "question": "Which level of government handles currency?",
+      "options": [
+        "Local",
+        "State",
+        "Federal",
+        "Territory"
+      ],
+      "correct": 2,
+      "explanation": "The federal government manages currency and coinage."
+    },
+    {
+      "id": 121,
+      "category": "Government and law",
+      "question": "Which level of government handles roads and traffic?",
+      "options": [
+        "Federal only",
+        "State and local",
+        "Local only",
+        "Territory only"
+      ],
+      "correct": 1,
+      "explanation": "State and local governments manage roads and traffic."
+    },
+    {
+      "id": 122,
+      "category": "Government and law",
+      "question": "Which level of government handles hospitals?",
+      "options": [
+        "Federal only",
+        "State and territory governments",
+        "Local only",
+        "Federal and local"
+      ],
+      "correct": 1,
+      "explanation": "State and territory governments manage public hospitals."
+    },
+    {
+      "id": 123,
+      "category": "Government and law",
+      "question": "Which level of government handles parks and recreation?",
+      "options": [
+        "Federal only",
+        "State only",
+        "Local government",
+        "All levels can manage parks"
+      ],
+      "correct": 3,
+      "explanation": "All levels of government can manage parks - national parks (federal), state parks, and local parks."
+    },
+    {
+      "id": 124,
+      "category": "Australian values",
+      "question": "What is 'civic duty' in Australia?",
+      "options": [
+        "Paying taxes only",
+        "Accepting responsibility and contributing to the community",
+        "Military service only",
+        "Voting only"
+      ],
+      "correct": 1,
+      "explanation": "Civic duty means accepting responsibility and contributing to Australia's wellbeing."
+    },
+    {
+      "id": 125,
+      "category": "Australian values",
+      "question": "What does it mean to be an 'active citizen'?",
+      "options": [
+        "Playing sports",
+        "Participating in your community and society",
+        "Traveling frequently",
+        "Having many hobbies"
+      ],
+      "correct": 1,
+      "explanation": "Being an active citizen means participating in community and society, not just voting."
+    },
+    {
+      "id": 126,
+      "category": "Australian values",
+      "question": "What are some ways to participate in Australian society?",
+      "options": [
+        "Only voting",
+        "Volunteering, joining community groups, or helping others",
+        "Only paying taxes",
+        "Only working"
+      ],
+      "correct": 1,
+      "explanation": "Australians can participate through volunteering, community groups, and helping others."
+    },
+    {
+      "id": 127,
+      "category": "Australia and its people",
+      "question": "What is the name of the indigenous people of the Torres Strait Islands?",
+      "options": [
+        "Aboriginal people",
+        "Torres Strait Islander people",
+        "Mainland Australians",
+        "British settlers"
+      ],
+      "correct": 1,
+      "explanation": "Torres Strait Islander people are the indigenous people of the Torres Strait Islands."
+    },
+    {
+      "id": 128,
+      "category": "Australia and its people",
+      "question": "Where are the Torres Strait Islands located?",
+      "options": [
+        "Near Sydney",
+        "Between Australia and Papua New Guinea",
+        "Near Tasmania",
+        "Off the coast of Western Australia"
+      ],
+      "correct": 1,
+      "explanation": "The Torres Strait Islands are located between Australia and Papua New Guinea."
+    },
+    {
+      "id": 129,
+      "category": "Australia and its people",
+      "question": "What are the two Indigenous peoples of Australia?",
+      "options": [
+        "British and Irish",
+        "Aboriginal and Torres Strait Islander peoples",
+        "European and Asian",
+        "Mainland and island peoples"
+      ],
+      "correct": 1,
+      "explanation": "Australia's two Indigenous peoples are Aboriginal and Torres Strait Islander peoples."
+    },
+    {
+      "id": 130,
+      "category": "Australia and its people",
+      "question": "What is Dreamtime or Dreaming?",
+      "options": [
+        "A religious belief",
+        "The Indigenous understanding of the world and its creation",
+        "A type of ceremony",
+        "A form of art"
+      ],
+      "correct": 1,
+      "explanation": "The Dreamtime or Dreaming is the Indigenous understanding of the world, its creation, and spirituality."
+    },
+    {
+      "id": 131,
+      "category": "Australia and its people",
+      "question": "What is the significance of Uluru?",
+      "options": [
+        "It's Australia's largest mountain",
+        "It's a sacred site for Aboriginal people",
+        "It's the location of Parliament",
+        "It's a theme park"
+      ],
+      "correct": 1,
+      "explanation": "Uluru (Ayers Rock) is a sacred site for Aboriginal people."
+    },
+    {
+      "id": 132,
+      "category": "Australia and its people",
+      "question": "Can you climb Uluru?",
+      "options": [
+        "Yes, anytime",
+        "No, climbing is prohibited out of respect for Aboriginal culture",
+        "Only in summer",
+        "Only with permission"
+      ],
+      "correct": 1,
+      "explanation": "Climbing Uluru is prohibited out of respect for its cultural significance to Aboriginal people."
+    },
+    {
+      "id": 133,
+      "category": "Australia and its people",
+      "question": "What percentage of Australia is desert or semi-arid land?",
+      "options": [
+        "About 20%",
+        "About 35%",
+        "About 70%",
+        "About 90%"
+      ],
+      "correct": 2,
+      "explanation": "About 70% of Australia is desert or semi-arid land."
+    },
+    {
+      "id": 134,
+      "category": "Australia and its people",
+      "question": "What is the driest inhabited continent on Earth?",
+      "options": [
+        "Africa",
+        "Asia",
+        "Australia",
+        "South America"
+      ],
+      "correct": 2,
+      "explanation": "Australia is the driest inhabited continent."
+    },
+    {
+      "id": 135,
+      "category": "Australia and its people",
+      "question": "What is the largest desert in Australia?",
+      "options": [
+        "Simpson Desert",
+        "Great Victoria Desert",
+        "Tanami Desert",
+        "Gibson Desert"
+      ],
+      "correct": 1,
+      "explanation": "The Great Victoria Desert is the largest desert in Australia."
+    },
+    {
+      "id": 136,
+      "category": "Australia and its people",
+      "question": "What is the longest river in Australia?",
+      "options": [
+        "Darling River",
+        "Murray River",
+        "Murrumbidgee River",
+        "Lachlan River"
+      ],
+      "correct": 1,
+      "explanation": "The Murray River is Australia's longest river at 2,508 kilometers."
+    },
+    {
+      "id": 137,
+      "category": "Australia and its people",
+      "question": "What is the Great Barrier Reef?",
+      "options": [
+        "A large desert",
+        "The world's largest coral reef system",
+        "A mountain range",
+        "A national park"
+      ],
+      "correct": 1,
+      "explanation": "The Great Barrier Reef is the world's largest coral reef system."
+    },
+    {
+      "id": 138,
+      "category": "Australia and its people",
+      "question": "Where is the Great Barrier Reef located?",
+      "options": [
+        "Off the coast of Western Australia",
+        "Off the coast of Queensland",
+        "In the Northern Territory",
+        "Near Tasmania"
+      ],
+      "correct": 1,
+      "explanation": "The Great Barrier Reef is located off the coast of Queensland."
+    },
+    {
+      "id": 139,
+      "category": "Australia and its people",
+      "question": "What is unique about the Great Barrier Reef?",
+      "options": [
+        "It's man-made",
+        "It can be seen from space",
+        "It's the smallest reef",
+        "It's frozen"
+      ],
+      "correct": 1,
+      "explanation": "The Great Barrier Reef is so large it can be seen from space."
+    },
+    {
+      "id": 140,
+      "category": "Australia and its people",
+      "question": "What is the Sydney Opera House?",
+      "options": [
+        "A government building",
+        "A famous performing arts centre",
+        "A sports stadium",
+        "A shopping mall"
+      ],
+      "correct": 1,
+      "explanation": "The Sydney Opera House is one of the world's most famous performing arts centres."
+    },
+    {
+      "id": 141,
+      "category": "Australia and its people",
+      "question": "When was the Sydney Opera House opened?",
+      "options": [
+        "1950",
+        "1973",
+        "1988",
+        "2000"
+      ],
+      "correct": 1,
+      "explanation": "The Sydney Opera House was opened in 1973."
+    },
+    {
+      "id": 142,
+      "category": "Australia and its people",
+      "question": "What is the Sydney Harbour Bridge?",
+      "options": [
+        "A small footbridge",
+        "A steel arch bridge across Sydney Harbour",
+        "A tunnel",
+        "A railway bridge only"
+      ],
+      "correct": 1,
+      "explanation": "The Sydney Harbour Bridge is a steel arch bridge across Sydney Harbour."
+    },
+    {
+      "id": 143,
+      "category": "Australia and its people",
+      "question": "When did the Sydney Harbour Bridge open?",
+      "options": [
+        "1901",
+        "1932",
+        "1950",
+        "1973"
+      ],
+      "correct": 1,
+      "explanation": "The Sydney Harbour Bridge opened in 1932."
+    },
+    {
+      "id": 144,
+      "category": "Australia and its people",
+      "question": "What is the nickname of the Sydney Harbour Bridge?",
+      "options": [
+        "The Big Bridge",
+        "The Coathanger",
+        "The Steel Arch",
+        "The Harbour Crossing"
+      ],
+      "correct": 1,
+      "explanation": "The Sydney Harbour Bridge is nicknamed 'The Coathanger' because of its shape."
+    },
+    {
+      "id": 145,
+      "category": "Government and law",
+      "question": "How often are federal elections held in Australia?",
+      "options": [
+        "Every 2 years",
+        "Every 3 years",
+        "Every 4 years",
+        "Every 5 years"
+      ],
+      "correct": 1,
+      "explanation": "Federal elections are generally held every 3 years for the House of Representatives."
+    },
+    {
+      "id": 146,
+      "category": "Government and law",
+      "question": "How long is the term for federal senators from states?",
+      "options": [
+        "3 years",
+        "4 years",
+        "6 years",
+        "8 years"
+      ],
+      "correct": 2,
+      "explanation": "State senators serve 6-year terms, with half retiring every 3 years."
+    },
+    {
+      "id": 147,
+      "category": "Government and law",
+      "question": "How many senators does each territory have?",
+      "options": [
+        "2",
+        "4",
+        "6",
+        "12"
+      ],
+      "correct": 0,
+      "explanation": "Territories have 2 senators each."
+    },
+    {
+      "id": 148,
+      "category": "Government and law",
+      "question": "How many members are in the House of Representatives?",
+      "options": [
+        "76",
+        "100",
+        "150",
+        "200"
+      ],
+      "correct": 2,
+      "explanation": "There are approximately 150 members in the House of Representatives."
+    },
+    {
+      "id": 149,
+      "category": "Government and law",
+      "question": "How is the number of seats in the House of Representatives determined for each state?",
+      "options": [
+        "All states have equal seats",
+        "Based on population",
+        "Based on land area",
+        "Decided by the Prime Minister"
+      ],
+      "correct": 1,
+      "explanation": "Seats are allocated based on population, with each state guaranteed at least 5."
+    },
+    {
+      "id": 150,
+      "category": "Government and law",
+      "question": "What is an electorate?",
+      "options": [
+        "A type of election",
+        "A geographical area represented by a member of parliament",
+        "A polling place",
+        "A political party"
+      ],
+      "correct": 1,
+      "explanation": "An electorate is a geographical area represented by a member of the House of Representatives."
+    },
+    {
+      "id": 151,
+      "category": "Democratic beliefs",
+      "question": "What is the Australian way of life often described as?",
+      "options": [
+        "Strict and formal",
+        "Relaxed and informal",
+        "Competitive",
+        "Aggressive"
+      ],
+      "correct": 1,
+      "explanation": "The Australian way of life is often described as relaxed and informal."
+    },
+    {
+      "id": 152,
+      "category": "Democratic beliefs",
+      "question": "What is the importance of English in Australia?",
+      "options": [
+        "It's the only allowed language",
+        "It's the national language and helps people participate in society",
+        "Everyone must speak only English",
+        "Other languages are banned"
+      ],
+      "correct": 1,
+      "explanation": "English is Australia's national language and helps people participate fully in society."
+    },
+    {
+      "id": 153,
+      "category": "Australian values",
+      "question": "What does 'equality between men and women' mean in Australia?",
+      "options": [
+        "Men and women have different rights",
+        "Men and women have equal rights and opportunities",
+        "Only men can work",
+        "Only women can vote"
+      ],
+      "correct": 1,
+      "explanation": "In Australia, men and women have equal rights and opportunities."
+    },
+    {
+      "id": 154,
+      "category": "Australian values",
+      "question": "Can women work in any job in Australia?",
+      "options": [
+        "No, some jobs are for men only",
+        "Yes, women can work in any job they choose",
+        "Only with permission",
+        "Only part-time"
+      ],
+      "correct": 1,
+      "explanation": "Women in Australia can work in any job they choose and have equal opportunities."
+    },
+    {
+      "id": 155,
+      "category": "Australian values",
+      "question": "Can women become politicians in Australia?",
+      "options": [
+        "No",
+        "Yes, women can be elected to parliament",
+        "Only in local government",
+        "Only if they're born in Australia"
+      ],
+      "correct": 1,
+      "explanation": "Women can be elected to any level of government in Australia."
+    },
+    {
+      "id": 156,
+      "category": "Australian values",
+      "question": "What is discrimination?",
+      "options": [
+        "Treating everyone equally",
+        "Treating someone unfairly because of their background",
+        "Choosing the best person for a job",
+        "Having personal opinions"
+      ],
+      "correct": 1,
+      "explanation": "Discrimination means treating someone unfairly because of their race, gender, religion, or background."
+    },
+    {
+      "id": 157,
+      "category": "Australian values",
+      "question": "Is discrimination legal in Australia?",
+      "options": [
+        "Yes, it's allowed",
+        "No, discrimination is against the law",
+        "Only in certain situations",
+        "Only against some groups"
+      ],
+      "correct": 1,
+      "explanation": "Discrimination is against the law in Australia."
+    },
+    {
+      "id": 158,
+      "category": "Australian values",
+      "question": "What types of discrimination are illegal in Australia?",
+      "options": [
+        "Only racial discrimination",
+        "Discrimination based on race, gender, religion, age, or disability",
+        "Only gender discrimination",
+        "No types are illegal"
+      ],
+      "correct": 1,
+      "explanation": "Discrimination based on race, gender, religion, age, disability, and other characteristics is illegal."
+    },
+    {
+      "id": 159,
+      "category": "Australia and its people",
+      "question": "What is multiculturalism in Australia?",
+      "options": [
+        "Everyone must have the same culture",
+        "A policy that respects and values different cultures",
+        "Only British culture is allowed",
+        "Assimilation into one culture"
+      ],
+      "correct": 1,
+      "explanation": "Multiculturalism means respecting and valuing the different cultures that make up Australian society."
+    },
+    {
+      "id": 160,
+      "category": "Australia and its people",
+      "question": "Why is Australia called a multicultural society?",
+      "options": [
+        "Everyone speaks many languages",
+        "People from many different cultures have settled here",
+        "It has many cultures but only one is recognized",
+        "Only people from one country live here"
+      ],
+      "correct": 1,
+      "explanation": "Australia is multicultural because people from over 200 countries have made Australia their home."
+    },
+    {
+      "id": 161,
+      "category": "Government and law",
+      "question": "Who can become a Member of Parliament in Australia?",
+      "options": [
+        "Only lawyers",
+        "Any Australian citizen who meets eligibility requirements",
+        "Only people born in Australia",
+        "Only wealthy people"
+      ],
+      "correct": 1,
+      "explanation": "Any Australian citizen who meets eligibility requirements can stand for parliament."
+    },
+    {
+      "id": 162,
+      "category": "Government and law",
+      "question": "How old must you be to stand for federal parliament?",
+      "options": [
+        "18 years",
+        "21 years",
+        "25 years",
+        "30 years"
+      ],
+      "correct": 0,
+      "explanation": "You must be at least 18 years old to stand for federal parliament."
+    },
+    {
+      "id": 163,
+      "category": "Government and law",
+      "question": "What is the role of the Speaker in the House of Representatives?",
+      "options": [
+        "To make laws",
+        "To run meetings and keep order",
+        "To vote on every issue",
+        "To represent the Queen"
+      ],
+      "correct": 1,
+      "explanation": "The Speaker runs meetings and keeps order in the House of Representatives."
+    },
+    {
+      "id": 164,
+      "category": "Government and law",
+      "question": "What is the role of the President of the Senate?",
+      "options": [
+        "To run meetings and keep order in the Senate",
+        "To sign laws",
+        "To command the military",
+        "To appoint judges"
+      ],
+      "correct": 0,
+      "explanation": "The President runs meetings and keeps order in the Senate."
+    },
+    {
+      "id": 165,
+      "category": "Government and law",
+      "question": "What is Royal Assent?",
+      "options": [
+        "A royal ceremony",
+        "The Governor-General approving a law on behalf of the King",
+        "A type of election",
+        "The Prime Minister's signature"
+      ],
+      "correct": 1,
+      "explanation": "Royal Assent is when the Governor-General approves a bill on behalf of the King, making it law."
+    },
+    {
+      "id": 166,
+      "category": "Government and law",
+      "question": "When does a bill become law in Australia?",
+      "options": [
+        "When parliament votes for it",
+        "When the Prime Minister signs it",
+        "When it receives Royal Assent from the Governor-General",
+        "When the courts approve it"
+      ],
+      "correct": 2,
+      "explanation": "A bill becomes law when it receives Royal Assent from the Governor-General."
+    },
+    {
+      "id": 167,
+      "category": "Government and law",
+      "question": "What is a double dissolution?",
+      "options": [
+        "Ending parliament permanently",
+        "Dissolving both houses of parliament for an election",
+        "Removing the Prime Minister",
+        "A court decision"
+      ],
+      "correct": 1,
+      "explanation": "A double dissolution dissolves both houses of parliament for an election."
+    },
+    {
+      "id": 168,
+      "category": "Government and law",
+      "question": "What is a by-election?",
+      "options": [
+        "An election for both houses",
+        "An election to fill a vacant seat in the House of Representatives",
+        "A local council election",
+        "A referendum"
+      ],
+      "correct": 1,
+      "explanation": "A by-election is held to fill a vacant seat when a member of the House of Representatives resigns or dies."
+    },
+    {
+      "id": 169,
+      "category": "Australia and its people",
+      "question": "What is the coat of arms?",
+      "options": [
+        "A military uniform",
+        "An official symbol representing Australia",
+        "A type of flag",
+        "A national anthem"
+      ],
+      "correct": 1,
+      "explanation": "The coat of arms is Australia's official symbol, featuring the kangaroo and emu."
+    },
+    {
+      "id": 170,
+      "category": "Australia and its people",
+      "question": "What appears above the shield on the Australian Coat of Arms?",
+      "options": [
+        "A kangaroo",
+        "A seven-pointed Commonwealth Star",
+        "A crown",
+        "An emu"
+      ],
+      "correct": 1,
+      "explanation": "A seven-pointed Commonwealth Star appears above the shield."
+    },
+    {
+      "id": 171,
+      "category": "Australia and its people",
+      "question": "What is written on the Australian Coat of Arms?",
+      "options": [
+        "Advance Australia",
+        "Australia",
+        "The Commonwealth of Australia",
+        "Unity and Strength"
+      ],
+      "correct": 2,
+      "explanation": "'The Commonwealth of Australia' is written on the Coat of Arms."
+    },
+    {
+      "id": 172,
+      "category": "Australia and its people",
+      "question": "What floral emblem appears on the Australian Coat of Arms?",
+      "options": [
+        "Waratah",
+        "Golden wattle",
+        "Banksia",
+        "No floral emblem appears"
+      ],
+      "correct": 1,
+      "explanation": "A wreath of golden wattle appears on the Coat of Arms."
+    },
+    {
+      "id": 173,
+      "category": "Democratic beliefs",
+      "question": "What is the role of the media in Australian democracy?",
+      "options": [
+        "To make laws",
+        "To report news and scrutinise government actions",
+        "To control elections",
+        "To run the country"
+      ],
+      "correct": 1,
+      "explanation": "The media plays an important role in informing citizens and scrutinising government actions."
+    },
+    {
+      "id": 174,
+      "category": "Democratic beliefs",
+      "question": "Is press freedom protected in Australia?",
+      "options": [
+        "No, the government controls all media",
+        "Yes, Australia has a free press",
+        "Only for government-approved news",
+        "Only for print media"
+      ],
+      "correct": 1,
+      "explanation": "Australia has a free press that can report on issues without government censorship."
+    },
+    {
+      "id": 175,
+      "category": "Government and law",
+      "question": "What is the Australian Federal Police?",
+      "options": [
+        "Police for one state only",
+        "The national police force",
+        "Local council police",
+        "Private security"
+      ],
+      "correct": 1,
+      "explanation": "The Australian Federal Police (AFP) is Australia's national police force."
+    },
+    {
+      "id": 176,
+      "category": "Government and law",
+      "question": "What does the Australian Federal Police investigate?",
+      "options": [
+        "Only traffic offences",
+        "Federal crimes, organised crime, and terrorism",
+        "Only local disputes",
+        "Only immigration matters"
+      ],
+      "correct": 1,
+      "explanation": "The AFP investigates federal crimes, organised crime, terrorism, and other national matters."
+    },
+    {
+      "id": 177,
+      "category": "Government and law",
+      "question": "Who is responsible for state police?",
+      "options": [
+        "The federal government",
+        "State and territory governments",
+        "Local councils",
+        "The Australian Federal Police"
+      ],
+      "correct": 1,
+      "explanation": "State and territory governments are responsible for their own police forces."
+    },
+    {
+      "id": 178,
+      "category": "Australia and its people",
+      "question": "What is the approximate population of Sydney?",
+      "options": [
+        "2 million",
+        "3 million",
+        "5 million",
+        "7 million"
+      ],
+      "correct": 2,
+      "explanation": "Sydney has a population of approximately 5 million people."
+    },
+    {
+      "id": 179,
+      "category": "Australia and its people",
+      "question": "What is the approximate population of Melbourne?",
+      "options": [
+        "3 million",
+        "4 million",
+        "5 million",
+        "6 million"
+      ],
+      "correct": 2,
+      "explanation": "Melbourne has a population of approximately 5 million people."
+    },
+    {
+      "id": 180,
+      "category": "Australia and its people",
+      "question": "What is the smallest capital city in Australia by population?",
+      "options": [
+        "Hobart",
+        "Darwin",
+        "Canberra",
+        "Adelaide"
+      ],
+      "correct": 1,
+      "explanation": "Darwin is the smallest capital city by population."
+    },
+    {
+      "id": 181,
+      "category": "Australia and its people",
+      "question": "What is the largest city in Western Australia?",
+      "options": [
+        "Perth",
+        "Fremantle",
+        "Bunbury",
+        "Geraldton"
+      ],
+      "correct": 0,
+      "explanation": "Perth is the capital and largest city in Western Australia."
+    },
+    {
+      "id": 182,
+      "category": "Australia and its people",
+      "question": "What is the capital of Queensland?",
+      "options": [
+        "Gold Coast",
+        "Brisbane",
+        "Sunshine Coast",
+        "Cairns"
+      ],
+      "correct": 1,
+      "explanation": "Brisbane is the capital of Queensland."
+    },
+    {
+      "id": 183,
+      "category": "Australia and its people",
+      "question": "What is the capital of South Australia?",
+      "options": [
+        "Adelaide",
+        "Port Lincoln",
+        "Mount Gambier",
+        "Whyalla"
+      ],
+      "correct": 0,
+      "explanation": "Adelaide is the capital of South Australia."
+    },
+    {
+      "id": 184,
+      "category": "Australia and its people",
+      "question": "What is the capital of Tasmania?",
+      "options": [
+        "Launceston",
+        "Hobart",
+        "Devonport",
+        "Burnie"
+      ],
+      "correct": 1,
+      "explanation": "Hobart is the capital of Tasmania."
+    },
+    {
+      "id": 185,
+      "category": "Australia and its people",
+      "question": "What is the capital of Victoria?",
+      "options": [
+        "Geelong",
+        "Melbourne",
+        "Ballarat",
+        "Bendigo"
+      ],
+      "correct": 1,
+      "explanation": "Melbourne is the capital of Victoria."
+    },
+    {
+      "id": 186,
+      "category": "Australia and its people",
+      "question": "What is the capital of New South Wales?",
+      "options": [
+        "Newcastle",
+        "Sydney",
+        "Wollongong",
+        "Canberra"
+      ],
+      "correct": 1,
+      "explanation": "Sydney is the capital of New South Wales."
+    },
+    {
+      "id": 187,
+      "category": "Australia and its people",
+      "question": "What is the capital of the Northern Territory?",
+      "options": [
+        "Alice Springs",
+        "Darwin",
+        "Katherine",
+        "Tennant Creek"
+      ],
+      "correct": 1,
+      "explanation": "Darwin is the capital of the Northern Territory."
+    },
+    {
+      "id": 188,
+      "category": "Australia and its people",
+      "question": "What is unique about the Australian Capital Territory?",
+      "options": [
+        "It's the largest state",
+        "It contains the national capital, Canberra",
+        "It has no population",
+        "It's on the coast"
+      ],
+      "correct": 1,
+      "explanation": "The ACT is a small territory that contains the national capital, Canberra."
+    },
+    {
+      "id": 189,
+      "category": "Government and law",
+      "question": "Who is the current King of Australia?",
+      "options": [
+        "Queen Elizabeth II",
+        "King Charles III",
+        "Prince William",
+        "Prince Harry"
+      ],
+      "correct": 1,
+      "explanation": "King Charles III is the current King of Australia."
+    },
+    {
+      "id": 190,
+      "category": "Government and law",
+      "question": "How often does the King visit Australia?",
+      "options": [
+        "Every year",
+        "Only for elections",
+        "Occasionally, as invited",
+        "Never"
+      ],
+      "correct": 2,
+      "explanation": "The King visits Australia occasionally, when invited by the Australian government."
+    },
+    {
+      "id": 191,
+      "category": "Government and law",
+      "question": "Does the King have any real power in governing Australia?",
+      "options": [
+        "Yes, he makes all decisions",
+        "No, his powers are exercised by the Governor-General on the advice of the government",
+        "Only during emergencies",
+        "Only in some states"
+      ],
+      "correct": 1,
+      "explanation": "The King's powers in Australia are exercised by the Governor-General on advice of the elected government."
+    },
+    {
+      "id": 192,
+      "category": "Government and law",
+      "question": "What is the relationship between Australia and Britain today?",
+      "options": [
+        "Australia is part of Britain",
+        "Australia is independent but shares the same King",
+        "Britain rules Australia",
+        "They have no relationship"
+      ],
+      "correct": 1,
+      "explanation": "Australia is an independent nation that shares the British monarch as head of state."
+    },
+    {
+      "id": 193,
+      "category": "Democratic beliefs",
+      "question": "Can you criticise the government in Australia?",
+      "options": [
+        "No, it's illegal",
+        "Yes, you can peacefully criticise the government",
+        "Only in private",
+        "Only if you're not a citizen"
+      ],
+      "correct": 1,
+      "explanation": "Australians can peacefully criticise the government without fear of punishment."
+    },
+    {
+      "id": 194,
+      "category": "Democratic beliefs",
+      "question": "Can you protest against the government in Australia?",
+      "options": [
+        "No, protests are banned",
+        "Yes, peaceful protests are allowed",
+        "Only with government approval",
+        "Only in certain areas"
+      ],
+      "correct": 1,
+      "explanation": "Peaceful protests are legal in Australia as part of freedom of speech and association."
+    },
+    {
+      "id": 195,
+      "category": "Democratic beliefs",
+      "question": "What are your responsibilities as an Australian citizen?",
+      "options": [
+        "Only paying taxes",
+        "Obeying the law, voting, and defending Australia if needed",
+        "Only voting",
+        "No responsibilities"
+      ],
+      "correct": 1,
+      "explanation": "Citizens must obey the law, vote in elections, and defend Australia if necessary."
+    },
+    {
+      "id": 196,
+      "category": "Democratic beliefs",
+      "question": "What privileges do Australian citizens have?",
+      "options": [
+        "None",
+        "Voting, applying for an Australian passport, and standing for parliament",
+        "Only travel",
+        "Only healthcare"
+      ],
+      "correct": 1,
+      "explanation": "Citizens can vote, apply for an Australian passport, seek consular help overseas, and stand for parliament."
+    },
+    {
+      "id": 197,
+      "category": "Australia and its people",
+      "question": "What is the significance of 1788 in Australian history?",
+      "options": [
+        "Federation occurred",
+        "The First Fleet arrived",
+        "World War I started",
+        "Gold was discovered"
+      ],
+      "correct": 1,
+      "explanation": "1788 marks the arrival of the First Fleet and the beginning of British settlement."
+    },
+    {
+      "id": 198,
+      "category": "Australia and its people",
+      "question": "What happened to the Indigenous population after British settlement?",
+      "options": [
+        "They thrived",
+        "They experienced displacement, disease, and conflict",
+        "Nothing changed",
+        "They left Australia"
+      ],
+      "correct": 1,
+      "explanation": "After settlement, Indigenous Australians suffered from displacement, introduced diseases, and conflict."
+    },
+    {
+      "id": 199,
+      "category": "Australia and its people",
+      "question": "What is the significance of the 1967 referendum?",
+      "options": [
+        "It gave women the vote",
+        "It allowed the federal government to make laws for Indigenous Australians",
+        "It ended World War II",
+        "It made Australia independent"
+      ],
+      "correct": 1,
+      "explanation": "The 1967 referendum allowed the federal government to make laws for Indigenous Australians."
+    },
+    {
+      "id": 200,
+      "category": "Australia and its people",
+      "question": "When did Indigenous Australians get the right to vote?",
+      "options": [
+        "1901",
+        "1962",
+        "1972",
+        "1988"
+      ],
+      "correct": 1,
+      "explanation": "Indigenous Australians gained the right to vote in federal elections in 1962."
+    },
+    {
+      "id": 201,
+      "category": "Australia and its people",
+      "question": "What is Mabo Day?",
+      "options": [
+        "A celebration of Federation",
+        "Commemorates the 1992 High Court decision recognising native title",
+        "Australia Day",
+        "ANZAC Day"
+      ],
+      "correct": 1,
+      "explanation": "Mabo Day commemorates the 1992 High Court decision that recognised native title."
+    },
+    {
+      "id": 202,
+      "category": "Australia and its people",
+      "question": "Who was Eddie Mabo?",
+      "options": [
+        "A Prime Minister",
+        "An Indigenous activist who fought for land rights",
+        "An explorer",
+        "A sports star"
+      ],
+      "correct": 1,
+      "explanation": "Eddie Mabo was a Torres Strait Islander activist who campaigned for Indigenous land rights."
+    },
+    {
+      "id": 203,
+      "category": "Australia and its people",
+      "question": "What is native title?",
+      "options": [
+        "A type of book",
+        "Recognition of Indigenous Australians' traditional rights to land",
+        "A government title",
+        "A legal qualification"
+      ],
+      "correct": 1,
+      "explanation": "Native title recognises Indigenous Australians' traditional rights and interests in land and waters."
+    },
+    {
+      "id": 204,
+      "category": "Australia and its people",
+      "question": "What was the Stolen Generations?",
+      "options": [
+        "Children stolen by strangers",
+        "Indigenous children removed from their families by government policies",
+        "Children lost in the bush",
+        "Immigrant children"
+      ],
+      "correct": 1,
+      "explanation": "The Stolen Generations refers to Indigenous children forcibly removed from their families under past government policies."
+    },
+    {
+      "id": 205,
+      "category": "Australia and its people",
+      "question": "When did the government apologise to the Stolen Generations?",
+      "options": [
+        "1970",
+        "1988",
+        "2008",
+        "2020"
+      ],
+      "correct": 2,
+      "explanation": "Prime Minister Kevin Rudd delivered the formal apology to the Stolen Generations in 2008."
+    },
+    {
+      "id": 206,
+      "category": "Australia and its people",
+      "question": "What is NAIDOC Week?",
+      "options": [
+        "A religious festival",
+        "A celebration of Indigenous Australian history, culture, and achievements",
+        "A sports event",
+        "A political rally"
+      ],
+      "correct": 1,
+      "explanation": "NAIDOC Week is an annual celebration of Indigenous Australian history, culture, and achievements."
+    },
+    {
+      "id": 207,
+      "category": "Australia and its people",
+      "question": "What does NAIDOC stand for?",
+      "options": [
+        "National Aboriginal Islander Day Observance Committee",
+        "Native Australians in Defence of Country",
+        "National Association of Indigenous Development",
+        "Northern Australian Indigenous Organisation"
+      ],
+      "correct": 0,
+      "explanation": "NAIDOC stands for National Aboriginal and Islander Day Observance Committee."
+    },
+    {
+      "id": 208,
+      "category": "Australia and its people",
+      "question": "What is Closing the Gap?",
+      "options": [
+        "Building bridges",
+        "Government policies to improve Indigenous Australians' life outcomes",
+        "A construction project",
+        "An environmental initiative"
+      ],
+      "correct": 1,
+      "explanation": "Closing the Gap aims to improve Indigenous Australians' health, education, and employment outcomes."
+    },
+    {
+      "id": 209,
+      "category": "Australia and its people",
+      "question": "What is Welcome to Country?",
+      "options": [
+        "A greeting card",
+        "A ceremony by traditional owners welcoming visitors to their land",
+        "A passport stamp",
+        "A border control procedure"
+      ],
+      "correct": 1,
+      "explanation": "Welcome to Country is a ceremony where traditional owners welcome visitors to their land."
+    },
+    {
+      "id": 210,
+      "category": "Australia and its people",
+      "question": "Who can perform a Welcome to Country?",
+      "options": [
+        "Anyone",
+        "An Elder or representative of the traditional owners of the land",
+        "Only politicians",
+        "Tour guides"
+      ],
+      "correct": 1,
+      "explanation": "A Welcome to Country is performed by an Elder or representative of the traditional owners."
+    },
+    {
+      "id": 211,
+      "category": "Australia and its people",
+      "question": "What is Acknowledgement of Country?",
+      "options": [
+        "A legal requirement",
+        "A statement showing respect to traditional owners of the land",
+        "A government form",
+        "A citizenship test"
+      ],
+      "correct": 1,
+      "explanation": "Acknowledgement of Country is a statement of respect for the traditional owners of the land."
+    },
+    {
+      "id": 212,
+      "category": "Australia and its people",
+      "question": "Who can give an Acknowledgement of Country?",
+      "options": [
+        "Only Indigenous people",
+        "Anyone can give an acknowledgement",
+        "Only politicians",
+        "Only Elders"
+      ],
+      "correct": 1,
+      "explanation": "Anyone can give an Acknowledgement of Country to show respect."
+    },
+    {
+      "id": 213,
+      "category": "Australia and its people",
+      "question": "What are Indigenous sacred sites?",
+      "options": [
+        "Tourist attractions",
+        "Places of spiritual significance to Indigenous people",
+        "Mining sites",
+        "Government buildings"
+      ],
+      "correct": 1,
+      "explanation": "Sacred sites are places of special spiritual significance to Indigenous Australians."
+    },
+    {
+      "id": 214,
+      "category": "Australia and its people",
+      "question": "What is Indigenous Australian art?",
+      "options": [
+        "Modern paintings only",
+        "Traditional and contemporary art reflecting culture and connection to country",
+        "Graffiti",
+        "European-style art"
+      ],
+      "correct": 1,
+      "explanation": "Indigenous art includes traditional and contemporary works reflecting culture, Dreaming, and connection to country."
+    },
+    {
+      "id": 215,
+      "category": "Australia and its people",
+      "question": "What is a corroboree?",
+      "options": [
+        "A type of food",
+        "A traditional Indigenous ceremony involving dance and music",
+        "A hunting tool",
+        "A type of shelter"
+      ],
+      "correct": 1,
+      "explanation": "A corroboree is a traditional Indigenous ceremony with dance, music, and storytelling."
+    },
+    {
+      "id": 216,
+      "category": "Government and law",
+      "question": "What is Australia's voting system called for the House of Representatives?",
+      "options": [
+        "First past the post",
+        "Preferential voting",
+        "Proportional representation",
+        "Simple majority"
+      ],
+      "correct": 1,
+      "explanation": "Australia uses preferential voting for the House of Representatives."
+    },
+    {
+      "id": 217,
+      "category": "Government and law",
+      "question": "How does preferential voting work?",
+      "options": [
+        "You vote for one candidate only",
+        "You number candidates in order of preference",
+        "The government chooses",
+        "Only the first vote counts"
+      ],
+      "correct": 1,
+      "explanation": "In preferential voting, you number all candidates in order of your preference (1, 2, 3, etc.)."
+    },
+    {
+      "id": 218,
+      "category": "Government and law",
+      "question": "What voting system is used for the Senate?",
+      "options": [
+        "First past the post",
+        "Preferential voting only",
+        "Proportional representation with preferential voting",
+        "Simple majority"
+      ],
+      "correct": 2,
+      "explanation": "The Senate uses proportional representation with preferential voting."
+    },
+    {
+      "id": 219,
+      "category": "Government and law",
+      "question": "What is proportional representation?",
+      "options": [
+        "Each party gets seats based on percentage of votes",
+        "Winner takes all",
+        "Only large parties get seats",
+        "The government decides"
+      ],
+      "correct": 0,
+      "explanation": "Proportional representation means parties gain seats in proportion to their percentage of votes."
+    },
+    {
+      "id": 220,
+      "category": "Government and law",
+      "question": "What is above-the-line voting in Senate elections?",
+      "options": [
+        "Voting while standing up",
+        "Numbering boxes above a line for party preferences",
+        "Voting online",
+        "Voting early"
+      ],
+      "correct": 1,
+      "explanation": "Above-the-line voting means numbering at least 6 boxes above the line for parties or groups."
+    },
+    {
+      "id": 221,
+      "category": "Government and law",
+      "question": "What is below-the-line voting in Senate elections?",
+      "options": [
+        "Voting underground",
+        "Numbering individual candidates below the line",
+        "Late voting",
+        "Invalid voting"
+      ],
+      "correct": 1,
+      "explanation": "Below-the-line voting means numbering individual candidates in order of preference."
+    },
+    {
+      "id": 222,
+      "category": "Government and law",
+      "question": "What happens if your vote is informal?",
+      "options": [
+        "It's counted anyway",
+        "It doesn't count because it wasn't filled out correctly",
+        "You get fined",
+        "You can vote again"
+      ],
+      "correct": 1,
+      "explanation": "An informal vote is not counted because it was not filled out correctly."
+    },
+    {
+      "id": 223,
+      "category": "Government and law",
+      "question": "What makes a vote informal?",
+      "options": [
+        "Voting early",
+        "Not numbering boxes correctly or leaving them blank",
+        "Voting for the wrong party",
+        "Voting too slowly"
+      ],
+      "correct": 1,
+      "explanation": "A vote is informal if it's not filled out correctly, has no markings, or identifies the voter."
+    },
+    {
+      "id": 224,
+      "category": "Government and law",
+      "question": "Can you get help to vote?",
+      "options": [
+        "No, you must do it alone",
+        "Yes, you can ask polling officials for help",
+        "Only lawyers can help",
+        "Only family members"
+      ],
+      "correct": 1,
+      "explanation": "You can ask polling officials or a companion for help to vote."
+    },
+    {
+      "id": 225,
+      "category": "Government and law",
+      "question": "What is a polling booth?",
+      "options": [
+        "A place to buy food",
+        "A private area where you mark your ballot paper",
+        "A place to discuss politics",
+        "A meeting room"
+      ],
+      "correct": 1,
+      "explanation": "A polling booth is a private screened area where you mark your ballot paper."
+    },
+    {
+      "id": 226,
+      "category": "Government and law",
+      "question": "What is postal voting?",
+      "options": [
+        "Voting by email",
+        "Voting by mailing your ballot paper",
+        "Online voting",
+        "Phone voting"
+      ],
+      "correct": 1,
+      "explanation": "Postal voting allows you to mail your completed ballot paper if you can't attend a polling place."
+    },
+    {
+      "id": 227,
+      "category": "Government and law",
+      "question": "What is early voting?",
+      "options": [
+        "Voting before the election date at early voting centres",
+        "Voting early in the morning",
+        "Voting for young people",
+        "Voting before you turn 18"
+      ],
+      "correct": 0,
+      "explanation": "Early voting lets eligible people vote before election day at early voting centres."
+    },
+    {
+      "id": 228,
+      "category": "Government and law",
+      "question": "Who is eligible for early voting?",
+      "options": [
+        "Everyone",
+        "People who can't vote on election day due to travel, work, illness, or other reasons",
+        "Only elderly people",
+        "Only wealthy people"
+      ],
+      "correct": 1,
+      "explanation": "People who cannot attend on election day for various reasons can vote early."
+    },
+    {
+      "id": 229,
+      "category": "Australia and its people",
+      "question": "What is Australia Day now seen as by many Indigenous Australians?",
+      "options": [
+        "A day of celebration",
+        "Invasion Day or Survival Day",
+        "Just a holiday",
+        "A religious festival"
+      ],
+      "correct": 1,
+      "explanation": "Many Indigenous Australians see Australia Day as Invasion Day or Survival Day."
+    },
+    {
+      "id": 230,
+      "category": "Australia and its people",
+      "question": "Why do some people want to change the date of Australia Day?",
+      "options": [
+        "To have better weather",
+        "Because the current date represents colonisation and pain for Indigenous people",
+        "To align with other countries",
+        "To save money"
+      ],
+      "correct": 1,
+      "explanation": "Many want to change the date because 26 January marks colonisation and causes pain for Indigenous Australians."
+    },
+    {
+      "id": 231,
+      "category": "Australian values",
+      "question": "What is reconciliation?",
+      "options": [
+        "Making friends",
+        "Improving relationships between Indigenous and non-Indigenous Australians",
+        "A legal process",
+        "A religious ceremony"
+      ],
+      "correct": 1,
+      "explanation": "Reconciliation aims to improve relationships and understanding between Indigenous and non-Indigenous Australians."
+    },
+    {
+      "id": 232,
+      "category": "Australian values",
+      "question": "What is the role of the Australian Reconciliation Barometer?",
+      "options": [
+        "A weather instrument",
+        "Measuring attitudes and relationships between Indigenous and non-Indigenous Australians",
+        "A government department",
+        "A legal court"
+      ],
+      "correct": 1,
+      "explanation": "The Barometer is a survey measuring relationships and attitudes between Indigenous and non-Indigenous Australians."
+    },
+    {
+      "id": 233,
+      "category": "Government and law",
+      "question": "What is treason?",
+      "options": [
+        "Disagreeing with the government",
+        "Betraying your country",
+        "Not voting",
+        "Late tax payment"
+      ],
+      "correct": 1,
+      "explanation": "Treason is the crime of betraying your country."
+    },
+    {
+      "id": 234,
+      "category": "Government and law",
+      "question": "What is citizenship revocation?",
+      "options": [
+        "Becoming a citizen",
+        "Taking away someone's Australian citizenship",
+        "Applying for citizenship",
+        "Dual citizenship"
+      ],
+      "correct": 1,
+      "explanation": "Citizenship revocation means taking away someone's Australian citizenship in serious cases."
+    },
+    {
+      "id": 235,
+      "category": "Government and law",
+      "question": "In what circumstances can Australian citizenship be revoked?",
+      "options": [
+        "Never",
+        "For serious crimes like terrorism or fraud in the citizenship application",
+        "For minor offences",
+        "For not voting"
+      ],
+      "correct": 1,
+      "explanation": "Citizenship can be revoked for serious crimes like terrorism or if the application was fraudulent."
+    },
+    {
+      "id": 236,
+      "category": "Australia and its people",
+      "question": "What is Australian slang?",
+      "options": [
+        "A secret language",
+        "Informal words and phrases unique to Australian English",
+        "An Indigenous language",
+        "A type of music"
+      ],
+      "correct": 1,
+      "explanation": "Australian slang includes informal words and phrases like 'mate', 'arvo', 'barbie'."
+    },
+    {
+      "id": 237,
+      "category": "Australia and its people",
+      "question": "What does 'arvo' mean in Australian slang?",
+      "options": [
+        "Morning",
+        "Afternoon",
+        "Evening",
+        "Tomorrow"
+      ],
+      "correct": 1,
+      "explanation": "'Arvo' is Australian slang for afternoon."
+    },
+    {
+      "id": 238,
+      "category": "Australia and its people",
+      "question": "What is a 'barbie' in Australian slang?",
+      "options": [
+        "A doll",
+        "A barbecue",
+        "A car",
+        "A beer"
+      ],
+      "correct": 1,
+      "explanation": "'Barbie' is Australian slang for barbecue."
+    },
+    {
+      "id": 239,
+      "category": "Australia and its people",
+      "question": "What does 'G'day' mean?",
+      "options": [
+        "Goodbye",
+        "Hello",
+        "Thank you",
+        "Sorry"
+      ],
+      "correct": 1,
+      "explanation": "'G'day' is an Australian greeting meaning 'good day' or 'hello'."
+    },
+    {
+      "id": 240,
+      "category": "Australia and its people",
+      "question": "What is 'bush tucker'?",
+      "options": [
+        "Food from supermarkets",
+        "Native Australian food from the bush",
+        "Fast food",
+        "Imported food"
+      ],
+      "correct": 1,
+      "explanation": "Bush tucker refers to native Australian food from the bush, like bush tomatoes, wattleseed, and kangaroo."
+    },
+    {
+      "id": 241,
+      "category": "Australia and its people",
+      "question": "What is Australian Rules Football?",
+      "options": [
+        "Soccer",
+        "A uniquely Australian sport played with an oval ball",
+        "Rugby",
+        "Cricket"
+      ],
+      "correct": 1,
+      "explanation": "Australian Rules Football (AFL) is a uniquely Australian sport played with an oval ball on an oval field."
+    },
+    {
+      "id": 242,
+      "category": "Australia and its people",
+      "question": "What is cricket?",
+      "options": [
+        "An insect",
+        "A popular summer sport in Australia",
+        "A dance",
+        "A type of music"
+      ],
+      "correct": 1,
+      "explanation": "Cricket is a popular summer sport in Australia played with a bat and ball."
+    },
+    {
+      "id": 243,
+      "category": "Australia and its people",
+      "question": "What is the Boxing Day Test?",
+      "options": [
+        "A medical test",
+        "A cricket match played annually starting on Boxing Day (26 December)",
+        "A boxing match",
+        "A driving test"
+      ],
+      "correct": 1,
+      "explanation": "The Boxing Day Test is a cricket match played at the Melbourne Cricket Ground starting on 26 December."
+    },
+    {
+      "id": 244,
+      "category": "Australia and its people",
+      "question": "What is the Melbourne Cup?",
+      "options": [
+        "A coffee cup",
+        "A famous horse race held annually in Melbourne",
+        "A sports trophy",
+        "A type of food"
+      ],
+      "correct": 1,
+      "explanation": "The Melbourne Cup is Australia's most famous horse race, held on the first Tuesday in November."
+    },
+    {
+      "id": 245,
+      "category": "Australia and its people",
+      "question": "What is unique about the Melbourne Cup?",
+      "options": [
+        "It's a secret event",
+        "It's known as 'the race that stops the nation'",
+        "Only horses can watch",
+        "It's held at midnight"
+      ],
+      "correct": 1,
+      "explanation": "The Melbourne Cup is called 'the race that stops the nation' because most Australians watch or bet on it."
+    },
+    {
+      "id": 246,
+      "category": "Australia and its people",
+      "question": "What is surf lifesaving?",
+      "options": [
+        "Rescuing surfboards",
+        "A volunteer service that keeps beaches safe",
+        "A type of swimming",
+        "A profession"
+      ],
+      "correct": 1,
+      "explanation": "Surf lifesaving is a volunteer service that patrols beaches to keep swimmers safe."
+    },
+    {
+      "id": 247,
+      "category": "Australia and its people",
+      "question": "What are volunteer surf lifesavers known for wearing?",
+      "options": [
+        "Business suits",
+        "Red and yellow caps and uniforms",
+        "Black clothing",
+        "White lab coats"
+      ],
+      "correct": 1,
+      "explanation": "Surf lifesavers wear distinctive red and yellow caps and uniforms."
+    },
+    {
+      "id": 248,
+      "category": "Australia and its people",
+      "question": "What is the Australian outback?",
+      "options": [
+        "A city area",
+        "Remote, sparsely populated areas of Australia",
+        "A beach",
+        "A forest"
+      ],
+      "correct": 1,
+      "explanation": "The outback refers to Australia's remote, dry, sparsely populated interior regions."
+    },
+    {
+      "id": 249,
+      "category": "Australia and its people",
+      "question": "What is 'the bush' in Australian terms?",
+      "options": [
+        "A shrub",
+        "Natural, undeveloped land or rural areas",
+        "A city",
+        "A garden"
+      ],
+      "correct": 1,
+      "explanation": "'The bush' refers to natural, undeveloped land or rural areas outside cities."
+    },
+    {
+      "id": 250,
+      "category": "Australia and its people",
+      "question": "What percentage of Australians live in cities or towns?",
+      "options": [
+        "About 50%",
+        "About 70%",
+        "About 85%",
+        "About 95%"
+      ],
+      "correct": 2,
+      "explanation": "Approximately 85% of Australians live in cities or towns, mostly along the coast."
+    }
   ],
   "metadata": {
-    "source": "Our Common Bond",
-    "totalQuestions": 48,
-    "lastUpdated": "2026-02-22"
+    "source": "Our Common Bond - Australian Citizenship Test",
+    "totalQuestions": 250,
+    "categories": [
+      "Australia and its people",
+      "Democratic beliefs",
+      "Government and the law",
+      "Australian values"
+    ],
+    "lastUpdated": "2026-02-23"
   }
 }
