@@ -1,0 +1,14 @@
+{
+  "questions": [
+    {"id": 1, "category": "Australia and its people", "question": "Who were the first inhabitants of Australia?", "options": ["British settlers", "Aboriginal and Torres Strait Islander peoples", "European explorers", "Asian migrants"], "correct": 1, "explanation": "Aboriginal and Torres Strait Islander peoples have lived in Australia for at least 65,000 years."},
+    {"id": 2, "category": "Australia and its people", "question": "When did the First Fleet arrive in Australia?", "options": ["1770", "1788", "1801", "1851"], "correct": 1, "explanation": "The First Fleet arrived at Botany Bay on 18 January 1788."},
+    {"id": 3, "category": "Australia and its people", "question": "What is celebrated on Australia Day, 26 January?", "options": ["Independence from Britain", "The arrival of the First Fleet", "The federation of Australia", "The end of World War II"], "correct": 1, "explanation": "Australia Day commemorates the arrival of the First Fleet at Sydney Cove on 26 January 1788."},
+    {"id": 4, "category": "Australia and its people", "question": "When did the colonies join together to form the Commonwealth of Australia?", "options": ["1851", "1888", "1901", "1914"], "correct": 2, "explanation": "On 1 January 1901, the six colonies federated to form the Commonwealth of Australia."}
+  ],
+  "metadata": {
+    "totalQuestions": 4,
+    "source": "Our Common Bond",
+    "lastUpdated": "2026-02-22",
+    "note": "This is a starter file. Full 1000 questions to be generated."
+  }
+}
