@@ -1,164 +1,183 @@
-'use client'
-
-import { useState } from 'react'
+import type { Metadata } from 'next'
 import questions from '../../data/questions.json'
 
-interface Question {
-  id: number
-  category: string
-  question: string
-  options: string[]
-  correct: number
-  explanation: string
+export const metadata: Metadata = {
+  title: 'Study Mode | Australian Citizenship Practice',
+  description: 'Study Australian citizenship topics including history, government, values, and symbols. Based on "Our Common Bond" official resource.',
 }
 
-const categories = ['All', ...Array.from(new Set(questions.questions.map(q => q.category)))]
-
 export default function Study() {
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [showAnswer, setShowAnswer] = useState(false)
+  // Group questions by category
+  const categories = questions.questions.reduce((acc, q) => {
+    if (!acc[q.category]) acc[q.category] = []
+    acc[q.category].push(q)
+    return acc
+  }, {} as Record<string, typeof questions.questions>)
 
-  const filtered = selectedCategory === 'All' 
-    ? questions.questions 
-    : questions.questions.filter(q => q.category === selectedCategory)
-
-  const currentQuestion = filtered[currentIndex] as Question
-
-  const next = () => {
-    setShowAnswer(false)
-    setCurrentIndex(i => Math.min(i + 1, filtered.length - 1))
-  }
-
-  const prev = () => {
-    setShowAnswer(false)
-    setCurrentIndex(i => Math.max(i - 1, 0))
+  const categoryInfo: Record<string, { emoji: string; description: string; topics: string[] }> = {
+    'Australia and its people': {
+      emoji: '🇦🇺',
+      description: 'Learn about Australia\'s history, Indigenous peoples, and national symbols.',
+      topics: ['First inhabitants', 'European settlement', 'Federation', 'National symbols', 'Geography']
+    },
+    'Democratic beliefs': {
+      emoji: '🗳️',
+      description: 'Understand Australia\'s democratic system, freedoms, and values.',
+      topics: ['Parliamentary democracy', 'Rule of law', 'Freedoms', 'Values', 'Voting']
+    },
+    'Government and the law': {
+      emoji: '⚖️',
+      description: 'Learn about Australia\'s government structure and legal system.',
+      topics: ['Constitution', 'Parliament', 'Three levels of government', 'Courts', 'Elections']
+    },
+    'Australian values': {
+      emoji: '🤝',
+      description: 'Understand the values that shape Australian society.',
+      topics: ['Fair go', 'Mateship', 'Equality', 'Multiculturalism', 'Respect']
+    },
+    'Rights and responsibilities': {
+      emoji: '📋',
+      description: 'Know your rights and responsibilities as an Australian citizen.',
+      topics: ['Voting', 'Taxation', 'Jury service', 'Defence', 'Community participation']
+    }
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+    <main className="min-h-screen bg-white">
       {/* Header */}
-      <header className="bg-white border-b border-gray-200 px-6 py-4">
-        <div className="max-w-6xl mx-auto flex justify-between items-center">
-          <a href="/" className="text-2xl font-bold text-green-600">🇦🇺 Citizenship Test</a>
-          <span className="text-gray-500">Study Mode</span>
+      <header className="bg-green-600 text-white py-12 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <h1 className="text-3xl md:text-5xl font-bold mb-4">📚 Study Mode</h1>
+          <p className="text-lg md:text-xl opacity-90 max-w-2xl mx-auto">
+            Learn about Australian citizenship topics. Study by category to master each area.
+          </p>
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto py-8 px-6">
-        {/* Category Filter */}
-        <div className="flex gap-2 flex-wrap mb-8">
-          {categories.map(cat => (
-            <button
-              key={cat}
-              onClick={() => { setSelectedCategory(cat); setCurrentIndex(0); setShowAnswer(false) }}
-              className={`px-4 py-2 rounded-full font-medium transition ${
-                selectedCategory === cat 
-                  ? 'bg-green-600 text-white' 
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              {cat} ({cat === 'All' ? questions.questions.length : questions.questions.filter(q => q.category === cat).length})
-            </button>
-          ))}
-        </div>
-
-        {/* Progress */}
-        <div className="mb-6">
-          <p className="text-gray-500">
-            Question {currentIndex + 1} of {filtered.length}
-          </p>
-          <div className="h-2 bg-gray-200 rounded-full mt-2">
-            <div 
-              className="h-full bg-green-500 rounded-full transition-all"
-              style={{ width: `${((currentIndex + 1) / filtered.length) * 100}%` }}
-            />
+      {/* Quick Tips */}
+      <section className="py-12 px-4 bg-yellow-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold mb-6 text-center">💡 Quick Study Tips</h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-bold mb-2">📖 Read the Booklet</h3>
+              <p className="text-sm text-gray-600">Download and read &quot;Our Common Bond&quot; from the official government website.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-bold mb-2">🔄 Practice Regularly</h3>
+              <p className="text-sm text-gray-600">Take practice tests multiple times to reinforce your knowledge.</p>
+            </div>
+            <div className="bg-white p-6 rounded-xl shadow-sm">
+              <h3 className="font-bold mb-2">📝 Focus on Weak Areas</h3>
+              <p className="text-sm text-gray-600">Spend extra time on categories where you score lowest.</p>
+            </div>
           </div>
         </div>
+      </section>
 
-        {/* Question Card */}
-        <div className="card">
-          <div className="mb-4">
-            <span className="text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
-              {currentQuestion?.category}
-            </span>
-          </div>
+      {/* Categories */}
+      <section className="py-12 px-4">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8 text-center">Topic Categories</h2>
           
-          <h2 className="text-2xl font-semibold mb-8">{currentQuestion?.question}</h2>
-
-          {/* Options */}
-          <div className="space-y-3 mb-8">
-            {currentQuestion?.options.map((option, index) => {
-              let bgClass = 'bg-gray-50 border-gray-200'
-              if (showAnswer) {
-                bgClass = index === currentQuestion.correct
-                  ? 'bg-green-100 border-green-500'
-                  : 'bg-gray-50 border-gray-200'
-              }
+          <div className="grid md:grid-cols-2 gap-6">
+            {Object.entries(categories).map(([category, qs]) => {
+              const info = categoryInfo[category] || { emoji: '📚', description: '', topics: [] }
               return (
-                <div
-                  key={index}
-                  className={`p-5 rounded-xl border-2 ${bgClass}`}
-                >
-                  <span className="font-medium mr-3">{['A', 'B', 'C', 'D'][index]}.</span>
-                  {option}
-                  {showAnswer && index === currentQuestion.correct && (
-                    <span className="ml-2 text-green-600">✓</span>
-                  )}
+                <div key={category} className="border rounded-xl p-6 hover:shadow-lg transition-shadow">
+                  <div className="flex items-start gap-4">
+                    <div className="text-4xl">{info.emoji}</div>
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-2">{category}</h3>
+                      <p className="text-gray-600 text-sm mb-3">{info.description}</p>
+                      <div className="flex flex-wrap gap-2 mb-3">
+                        {info.topics.map(topic => (
+                          <span key={topic} className="text-xs bg-gray-100 px-2 py-1 rounded-full">
+                            {topic}
+                          </span>
+                        ))}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {qs.length} questions available
+                      </div>
+                    </div>
+                  </div>
                 </div>
               )
             })}
           </div>
+        </div>
+      </section>
 
-          {/* Show Answer Button */}
-          {!showAnswer ? (
-            <button 
-              onClick={() => setShowAnswer(true)}
-              className="btn btn-primary w-full"
-            >
-              Show Answer
-            </button>
-          ) : (
-            <div className="space-y-4">
-              <div className="p-6 bg-blue-50 rounded-xl border border-blue-200">
-                <p className="font-semibold text-blue-800 mb-2">💡 Explanation:</p>
-                <p className="text-blue-700">{currentQuestion?.explanation}</p>
-              </div>
+      {/* Key Facts */}
+      <section className="py-12 px-4 bg-gray-50">
+        <div className="max-w-6xl mx-auto">
+          <h2 className="text-2xl font-bold mb-8 text-center">🔑 Key Facts to Remember</h2>
+          
+          <div className="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-green-600">Important Dates</h3>
+              <ul className="space-y-3">
+                <li className="flex gap-3">
+                  <span className="font-mono text-sm bg-white px-2 py-1 rounded">26 Jan 1788</span>
+                  <span className="text-gray-700">First Fleet arrives</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="font-mono text-sm bg-white px-2 py-1 rounded">1 Jan 1901</span>
+                  <span className="text-gray-700">Federation of Australia</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="font-mono text-sm bg-white px-2 py-1 rounded">25 April</span>
+                  <span className="text-gray-700">ANZAC Day</span>
+                </li>
+                <li className="flex gap-3">
+                  <span className="font-mono text-sm bg-white px-2 py-1 rounded">11 November</span>
+                  <span className="text-gray-700">Remembrance Day</span>
+                </li>
+              </ul>
             </div>
-          )}
+            
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-blue-600">Government Structure</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li>✓ <strong>Federal:</strong> Defence, immigration, currency</li>
+                <li>✓ <strong>State:</strong> Schools, hospitals, police</li>
+                <li>✓ <strong>Local:</strong> Rubbish, parks, local roads</li>
+                <li>✓ <strong>Voting:</strong> Compulsory for citizens 18+</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-purple-600">National Symbols</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li>✓ <strong>Anthem:</strong> Advance Australia Fair</li>
+                <li>✓ <strong>Colors:</strong> Green and gold</li>
+                <li>✓ <strong>Floral:</strong> Golden wattle</li>
+                <li>✓ <strong>Gemstone:</strong> Opal</li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-xl font-bold mb-4 text-orange-600">Test Details</h3>
+              <ul className="space-y-3 text-gray-700">
+                <li>✓ <strong>Questions:</strong> 20 randomly selected</li>
+                <li>✓ <strong>Time:</strong> 45 minutes</li>
+                <li>✓ <strong>Pass mark:</strong> 75% (15/20)</li>
+                <li>✓ <strong>Resource:</strong> &quot;Our Common Bond&quot;</li>
+              </ul>
+            </div>
+          </div>
         </div>
+      </section>
 
-        {/* Navigation */}
-        <div className="flex gap-4 mt-6">
-          <button 
-            onClick={prev}
-            disabled={currentIndex === 0}
-            className="btn btn-secondary flex-1 disabled:opacity-50"
-          >
-            ← Previous
-          </button>
-          <button 
-            onClick={next}
-            disabled={currentIndex === filtered.length - 1}
-            className="btn btn-primary flex-1 disabled:opacity-50"
-          >
-            Next →
-          </button>
-        </div>
-
-        {/* Stats */}
-        <div className="mt-12 grid md:grid-cols-4 gap-4">
-          {categories.slice(1).map(cat => {
-            const count = questions.questions.filter(q => q.category === cat).length
-            return (
-              <div key={cat} className="card text-center">
-                <p className="text-3xl font-bold text-green-600">{count}</p>
-                <p className="text-gray-500 text-sm">{cat}</p>
-              </div>
-            )
-          })}
-        </div>
-      </div>
+      {/* Call to Action */}
+      <section className="py-16 px-4 bg-green-600 text-white text-center">
+        <h2 className="text-3xl font-bold mb-4">Ready to Test Your Knowledge?</h2>
+        <p className="text-lg mb-8 opacity-90">Take a practice test to see how much you&apos;ve learned!</p>
+        <a href="/test" className="inline-block bg-white text-green-600 font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition-colors">
+          Start Practice Test →
+        </a>
+      </section>
     </main>
   )
 }

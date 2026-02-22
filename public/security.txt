@@ -1,0 +1,6 @@
+Contact: contact@getcitizenship.com.au
+Expires: 2026-12-31T23:59:59.000Z
+Preferred-Languages: en
+
+# Australian Citizenship Practice Test Security Contact
+# If you find any security vulnerabilities, please report them responsibly

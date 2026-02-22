@@ -1,0 +1,16 @@
+{
+  "name": "Australian Citizenship Practice Test",
+  "short_name": "Citizenship Test",
+  "description": "Prepare for your Australian citizenship test with 250+ free practice questions",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#00843D",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}
