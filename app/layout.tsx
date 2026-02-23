@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 import Script from 'next/script'
+import { AuthProvider } from '@/lib/auth/AuthProvider'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -93,7 +94,9 @@ export default function RootLayout({
         </Script>
         
         {/* Main Content */}
-        {children}
+        <AuthProvider>
+          {children}
+        </AuthProvider>
       </body>
     </html>
   )

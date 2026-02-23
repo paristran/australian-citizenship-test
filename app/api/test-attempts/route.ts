@@ -24,7 +24,7 @@ export async function POST(request: Request) {
         time_spent_seconds: timeSpentSeconds,
         status: 'completed',
         completed_at: new Date().toISOString(),
-      })
+      } as any)
       .select()
       .single()
 
@@ -44,7 +44,7 @@ export async function POST(request: Request) {
 
       const { error: answersError } = await supabase
         .from('test_answers')
-        .insert(answersData)
+        .insert(answersData as any)
 
       if (answersError) {
         console.error('Error saving answers:', answersError)

@@ -46,7 +46,7 @@ export async function PUT(request: Request) {
         australian_council: australianCouncil,
         citizenship_application_date: citizenshipApplicationDate,
         updated_at: new Date().toISOString(),
-      })
+      } as any)
       .eq('id', user.id)
       .select()
       .single()

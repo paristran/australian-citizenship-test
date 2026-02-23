@@ -1,5 +1,7 @@
 'use client'
 
+export const dynamic = 'force-dynamic'
+
 import { useEffect, useState } from 'react'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
@@ -13,7 +15,9 @@ export default function DashboardPage() {
   const [attempts, setAttempts] = useState<TestAttempt[]>([])
   const [loading, setLoading] = useState(true)
   const router = useRouter()
-  const supabase = createClient()
+  const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+    ? createClient()
+    : null
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -22,16 +26,20 @@ export default function DashboardPage() {
   }, [user, authLoading, router])
 
   useEffect(() => {
-    if (user) {
+    if (user && supabase) {
       fetchAttempts()
+    } else if (!supabase) {
+      setLoading(false)
     }
-  }, [user])
+  }, [user, supabase])
 
   const fetchAttempts = async () => {
+    if (!supabase || !user) return
+    
     const { data, error } = await supabase
       .from('test_attempts')
       .select('*')
-      .eq('user_id', user!.id)
+      .eq('user_id', user.id)
       .order('created_at', { ascending: false })
 
     if (!error && data) {
