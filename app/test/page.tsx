@@ -1,6 +1,11 @@
 'use client'
 
 import { useState, useEffect, useMemo } from 'react'
+import { useAuth } from '@/lib/auth/AuthProvider'
+import { saveTestAttempt } from '@/lib/api/test'
+import { useRouter } from 'next/navigation'
+import Link from 'next/link'
+import toast from 'react-hot-toast'
 import questions from '../../data/questions.json'
 import funfacts from '../../data/funfacts.json'
 
@@ -20,6 +25,8 @@ interface FunFact {
 }
 
 export default function Test() {
+  const { user } = useAuth()
+  const router = useRouter()
   const [currentQuestion, setCurrentQuestion] = useState<Question | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null)
@@ -32,6 +39,8 @@ export default function Test() {
   const [testStarted, setTestStarted] = useState(false)
   const [showFunFact, setShowFunFact] = useState(false)
   const [currentFunFact, setCurrentFunFact] = useState<FunFact | null>(null)
+  const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
+  const [savingResults, setSavingResults] = useState(false)
 
   const getRandomFunFact = (): FunFact => {
     return funfacts.funFacts[Math.floor(Math.random() * funfacts.funFacts.length)]
@@ -44,6 +53,9 @@ export default function Test() {
     setCurrentIndex(0)
     setTestStarted(true)
     setTimeLeft(2700)
+    setSelectedAnswers([])
+    setScore(0)
+    setAnswered(0)
   }
 
   useEffect(() => {
@@ -69,6 +81,11 @@ export default function Test() {
   const selectAnswer = (index: number) => {
     if (showResult || showFunFact) return
     setSelectedAnswer(index)
+    
+    // Track all answers
+    const newAnswers = [...selectedAnswers]
+    newAnswers[currentIndex] = index
+    setSelectedAnswers(newAnswers)
   }
 
   const submitAnswer = () => {
@@ -110,6 +127,40 @@ export default function Test() {
     setShowResult(false)
   }
 
+  // Save test results when complete
+  useEffect(() => {
+    const saveResults = async () => {
+      if (testComplete && user && !savingResults) {
+        setSavingResults(true)
+        try {
+          const timeSpent = 2700 - timeLeft
+          const percentage = (score / 20) * 100
+          
+          const answersData = testQuestions.map((q, index) => ({
+            questionId: q.id,
+            selectedAnswer: selectedAnswers[index] ?? null,
+            isCorrect: selectedAnswers[index] === q.correct
+          }))
+
+          await saveTestAttempt({
+            score: score,
+            totalQuestions: 20,
+            percentage: percentage,
+            timeSpentSeconds: timeSpent,
+            answers: answersData
+          })
+          
+          toast.success('Results saved to your dashboard!')
+        } catch (error) {
+          console.error('Failed to save results:', error)
+          // Don't show error to user, test still worked
+        }
+      }
+    }
+    
+    saveResults()
+  }, [testComplete, user])
+
   const restart = () => {
     setScore(0)
     setAnswered(0)
@@ -117,7 +168,11 @@ export default function Test() {
     setTestStarted(false)
     setTimeLeft(2700)
     setShowFunFact(false)
+    setSelectedAnswers([])
+    setSavingResults(false)
   }
+
+  const percentage = (score / 20) * 100
 
   if (!testStarted) {
     return (
@@ -128,6 +183,21 @@ export default function Test() {
           <p className="text-lg md:text-xl text-gray-500 mb-8">
             20 questions • 45 minutes • 75% to pass
           </p>
+          
+          {!user && (
+            <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <p className="text-sm text-blue-800">
+                💡 <strong>Sign up</strong> to track your progress and see your improvement over time!
+              </p>
+              <Link
+                href="/signup"
+                className="inline-block mt-2 text-sm bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+              >
+                Create Free Account
+              </Link>
+            </div>
+          )}
+          
           <div className="card text-left mb-8 bg-white/80 backdrop-blur">
             <h3 className="font-semibold text-lg mb-4">Before you begin:</h3>
             <ul className="space-y-3 text-gray-600 text-sm md:text-base">
@@ -147,15 +217,24 @@ export default function Test() {
                 <span className="text-green-500 font-bold">✓</span>
                 After each question, you'll see the correct answer
               </li>
-              <li className="flex items-start gap-2">
-                <span className="text-green-500 font-bold">✓</span>
-                Enjoy fun facts about Australia during your test! 🎉
-              </li>
+              {user && (
+                <li className="flex items-start gap-2">
+                  <span className="text-green-500 font-bold">✓</span>
+                  Your results will be saved to your dashboard
+                </li>
+              )}
             </ul>
           </div>
-          <button onClick={startTest} className="btn btn-primary text-lg md:text-xl px-8 md:px-12 py-3 md:py-4">
-            Start Test
+
+          <button onClick={startTest} className="btn btn-primary text-lg">
+            Start Practice Test →
           </button>
+
+          <div className="mt-8">
+            <Link href="/study" className="text-green-600 hover:text-green-700">
+              Or study by topic →
+            </Link>
+          </div>
         </div>
       </main>
     )
@@ -176,14 +255,48 @@ export default function Test() {
               {passed ? '✅ You passed! You\'re ready for the real test.' : '❌ You need 15/20 to pass. Keep studying!'}
             </p>
           </div>
+          
+          {user && (
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
+              <p className="text-sm text-green-800">
+                ✅ Your results have been saved to your dashboard!
+              </p>
+            </div>
+          )}
+          
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button onClick={restart} className="btn btn-primary">
-              Try Again
+              🔄 Take Another Test
             </button>
+            
+            {user && (
+              <button
+                onClick={() => router.push('/dashboard')}
+                className="btn btn-secondary"
+              >
+                📊 View Dashboard
+              </button>
+            )}
+            
             <a href="/" className="btn btn-secondary text-center">
               Back to Home
             </a>
           </div>
+          
+          {!user && (
+            <div className="mt-8 p-6 bg-gradient-to-r from-green-50 to-blue-50 rounded-lg">
+              <p className="text-lg font-semibold mb-2">🎯 Track Your Progress</p>
+              <p className="text-gray-600 mb-4">
+                Sign up to save your results, track your improvement, and get personalized study recommendations.
+              </p>
+              <Link
+                href="/signup"
+                className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+              >
+                Create Free Account
+              </Link>
+            </div>
+          )}
         </div>
       </main>
     )
@@ -243,18 +356,18 @@ export default function Test() {
       )}
 
       {/* Question */}
-      {!showFunFact && (
+      {!showFunFact && currentQuestion && (
         <div className="max-w-3xl mx-auto py-8 px-4 md:px-6">
           <div className="mb-4">
             <span className="text-sm font-medium text-green-600 bg-green-50 px-3 py-1 rounded-full">
-              {currentQuestion?.category}
+              {currentQuestion.category}
             </span>
           </div>
-          <h2 className="text-xl md:text-2xl font-semibold mb-6 md:mb-8">{currentQuestion?.question}</h2>
+          <h2 className="text-xl md:text-2xl font-semibold mb-6 md:mb-8">{currentQuestion.question}</h2>
 
           {/* Options */}
           <div className="space-y-3">
-            {currentQuestion?.options.map((option, index) => {
+            {currentQuestion.options.map((option, index) => {
               let bgClass = 'bg-white hover:bg-gray-50 border-gray-200'
               if (showResult) {
                 if (index === currentQuestion.correct) {
@@ -280,7 +393,7 @@ export default function Test() {
           </div>
 
           {/* Explanation */}
-          {showResult && currentQuestion && (
+          {showResult && (
             <div className="mt-6 md:mt-8 p-4 md:p-6 bg-blue-50 rounded-xl border border-blue-200">
               <p className="font-semibold text-blue-800 mb-2 text-sm md:text-base">💡 Explanation:</p>
               <p className="text-blue-700 text-sm md:text-base">{currentQuestion.explanation}</p>
