@@ -57,7 +57,3 @@ The Australian citizenship test:
 ## 📝 License
 
 MIT
-
----
-
-**Note:** This is a practice tool and is not affiliated with the Australian Government.
