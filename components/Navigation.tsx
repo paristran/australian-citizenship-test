@@ -52,6 +52,12 @@ export default function Navigation() {
                     Dashboard
                   </Link>
                   <Link
+                    href="/journey"
+                    className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
+                  >
+                    My Journey
+                  </Link>
+                  <Link
                     href="/test"
                     className="text-gray-700 hover:text-gray-900 font-medium transition-colors"
                   >
@@ -114,6 +120,21 @@ export default function Navigation() {
                           <div className="flex-1">
                             <div className="font-medium text-gray-900">My Progress</div>
                             <div className="text-sm text-gray-500">View test history & stats</div>
+                          </div>
+                        </div>
+                      </Link>
+
+                      {/* Journey Section */}
+                      <Link
+                        href="/journey"
+                        onClick={() => setShowDropdown(false)}
+                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+                      >
+                        <div className="flex items-center gap-3">
+                          <span className="text-2xl">🇦🇺</span>
+                          <div className="flex-1">
+                            <div className="font-medium text-gray-900">My Journey</div>
+                            <div className="text-sm text-gray-500">Create & share citizenship timeline</div>
                           </div>
                         </div>
                       </Link>
