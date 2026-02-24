@@ -172,8 +172,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     if (!supabase) return
+    
+    setLoading(true)
+    setUser(null)
+    setSession(null)
+    setProfile(null)
+    
     await supabase.auth.signOut()
     router.push('/')
+    setLoading(false)
   }
 
   const signInWithGoogle = async () => {
