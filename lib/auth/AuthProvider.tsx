@@ -117,20 +117,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     if (!supabase) return
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`
+        redirectTo: `${redirectUrl}/auth/callback`
       }
     })
   }
 
   const signInWithFacebook = async () => {
     if (!supabase) return
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
     await supabase.auth.signInWithOAuth({
       provider: 'facebook',
       options: {
-        redirectTo: `${window.location.origin}/auth/callback`
+        redirectTo: `${redirectUrl}/auth/callback`
       }
     })
   }

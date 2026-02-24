@@ -84,30 +84,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* Header */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <span className="text-3xl">🇦🇺</span>
-            <span className="font-bold text-xl">GetCitizenship</span>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/profile"
-              className="text-gray-700 hover:text-gray-900 transition"
-            >
-              {profile?.full_name || user.email}
-            </Link>
-            <button
-              onClick={signOut}
-              className="text-sm text-gray-600 hover:text-gray-900 transition"
-            >
-              Sign Out
-            </button>
-          </div>
-        </div>
-      </header>
-
+      {/* Header removed - Navigation now in layout */}
+      
       <main className="max-w-7xl mx-auto px-4 py-12">
         {/* Welcome Section */}
         <div className="mb-12">
