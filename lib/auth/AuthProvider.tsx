@@ -117,7 +117,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithGoogle = async () => {
     if (!supabase) return
-    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    
+    // Production URL fallback
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || 
+                        (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+                          ? 'https://www.getcitizenship.com.au' 
+                          : window.location.origin)
+    
+    console.log('OAuth redirect URL:', `${redirectUrl}/auth/callback`)
+    
     await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -128,7 +136,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signInWithFacebook = async () => {
     if (!supabase) return
-    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || window.location.origin
+    
+    // Production URL fallback
+    const redirectUrl = process.env.NEXT_PUBLIC_APP_URL || 
+                        (typeof window !== 'undefined' && window.location.hostname !== 'localhost' 
+                          ? 'https://www.getcitizenship.com.au' 
+                          : window.location.origin)
+    
+    console.log('OAuth redirect URL:', `${redirectUrl}/auth/callback`)
+    
     await supabase.auth.signInWithOAuth({
       provider: 'facebook',
       options: {
