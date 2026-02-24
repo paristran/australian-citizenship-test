@@ -5,7 +5,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Session, User } from '@supabase/supabase-js'
 import { UserProfile } from '@/types/auth'
 import { Toaster } from 'react-hot-toast'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 
 interface AuthContextType {
   user: User | null
@@ -29,6 +29,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const router = useRouter()
+  const pathname = usePathname()
   
   // Only create Supabase client if env vars are available
   const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
@@ -49,6 +50,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }
 
+  // Initial session load + auth state listener
   useEffect(() => {
     if (!supabase) {
       setLoading(false)
@@ -69,7 +71,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     getSession()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event: any, session: any) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: any, session: any) => {
+      console.log('Auth state changed:', event, session?.user?.email)
+      
       setSession(session)
       setUser(session?.user ?? null)
       
@@ -84,6 +88,45 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     return () => subscription.unsubscribe()
   }, [supabase?.auth])
+
+  // Refresh session on page navigation (detects server-side logins after OAuth redirect)
+  useEffect(() => {
+    if (!supabase || loading) return
+
+    const checkSession = async () => {
+      const { data: { session: newSession } } = await supabase.auth.getSession()
+      
+      // If we have a new session but state doesn't reflect it, update
+      if (newSession && (!user || user.id !== newSession.user.id)) {
+        console.log('Session detected on navigation, updating state...')
+        setSession(newSession)
+        setUser(newSession.user)
+        await fetchProfile(newSession.user.id)
+        setLoading(false)
+      }
+    }
+
+    checkSession()
+  }, [pathname, supabase, loading, user])
+
+  // Refresh session on window focus
+  useEffect(() => {
+    if (!supabase) return
+
+    const handleFocus = async () => {
+      const { data: { session } } = await supabase.auth.getSession()
+      if (session && !user) {
+        console.log('Session detected on focus, refreshing...')
+        setSession(session)
+        setUser(session.user)
+        await fetchProfile(session.user.id)
+        setLoading(false)
+      }
+    }
+
+    window.addEventListener('focus', handleFocus)
+    return () => window.removeEventListener('focus', handleFocus)
+  }, [supabase, user])
 
   const signIn = async (email: string, password: string) => {
     if (!supabase) return { error: new Error('Supabase not configured') }
