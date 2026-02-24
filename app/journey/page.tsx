@@ -18,6 +18,58 @@ export default function JourneyPage() {
   const [loadingJourney, setLoadingJourney] = useState(true)
   const [saving, setSaving] = useState(false)
   const [generatingImage, setGeneratingImage] = useState(false)
+  const [selectedTheme, setSelectedTheme] = useState('default')
+
+  const themes = [
+    {
+      id: 'default',
+      name: 'Aussie Green',
+      preview: 'from-green-50 to-emerald-100',
+      bg: 'bg-gradient-to-br from-green-50 to-emerald-100',
+      accent: 'bg-green-600',
+      text: 'text-green-800',
+    },
+    {
+      id: 'sunset',
+      name: 'Golden Sunset',
+      preview: 'from-orange-100 to-amber-200',
+      bg: 'bg-gradient-to-br from-orange-100 to-amber-200',
+      accent: 'bg-orange-500',
+      text: 'text-orange-800',
+    },
+    {
+      id: 'ocean',
+      name: 'Ocean Blue',
+      preview: 'from-blue-100 to-cyan-100',
+      bg: 'bg-gradient-to-br from-blue-100 to-cyan-100',
+      accent: 'bg-blue-600',
+      text: 'text-blue-800',
+    },
+    {
+      id: 'aboriginal',
+      name: 'Outback Red',
+      preview: 'from-red-100 to-orange-200',
+      bg: 'bg-gradient-to-br from-red-100 to-orange-200',
+      accent: 'bg-red-600',
+      text: 'text-red-800',
+    },
+    {
+      id: 'wattle',
+      name: 'Golden Wattle',
+      preview: 'from-yellow-100 to-green-100',
+      bg: 'bg-gradient-to-br from-yellow-100 to-green-100',
+      accent: 'bg-yellow-600',
+      text: 'text-yellow-800',
+    },
+    {
+      id: 'twilight',
+      name: 'Twilight Purple',
+      preview: 'from-purple-100 to-pink-100',
+      bg: 'bg-gradient-to-br from-purple-100 to-pink-100',
+      accent: 'bg-purple-600',
+      text: 'text-purple-800',
+    },
+  ]
 
   useEffect(() => {
     if (!loading && !user) {
@@ -208,6 +260,39 @@ export default function JourneyPage() {
           <p className="text-gray-600">Create and share your path to Australian citizenship</p>
         </div>
 
+        {/* Theme Selector */}
+        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
+          <h2 className="text-2xl font-bold mb-4">🎨 Choose Your Theme</h2>
+          <p className="text-gray-600 mb-4">Select a background style for your journey image</p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {themes.map((theme) => (
+              <button
+                key={theme.id}
+                onClick={() => setSelectedTheme(theme.id)}
+                className={`relative overflow-hidden rounded-lg transition-all ${
+                  selectedTheme === theme.id 
+                    ? 'ring-4 ring-green-500 ring-offset-2 transform scale-105' 
+                    : 'hover:scale-102'
+                }`}
+              >
+                <div className={`aspect-square ${theme.preview} p-4`}>
+                  <div className="text-4xl mb-2">🇦🇺</div>
+                  <div className="text-xs font-semibold">Sample</div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-xs p-2 text-center">
+                  {theme.name}
+                </div>
+                {selectedTheme === theme.id && (
+                  <div className="absolute top-2 right-2 bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
+                    ✓
+                  </div>
+                )}
+              </button>
+            ))}
+          </div>
+        </div>
+
         {/* Edit Section */}
         <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
           <h2 className="text-2xl font-bold mb-4">Add Your Milestones</h2>
@@ -230,12 +315,17 @@ export default function JourneyPage() {
                     className="w-full font-semibold bg-transparent border-none focus:outline-none mb-2"
                     placeholder="Milestone title"
                   />
-                  <input
-                    type="date"
-                    value={milestone.milestone_date || ''}
-                    onChange={(e) => updateMilestone(index, 'milestone_date', e.target.value)}
-                    className="text-sm text-gray-600 bg-transparent border-none focus:outline-none"
-                  />
+                  <div className="flex gap-2 items-center">
+                    <input
+                      type="date"
+                      value={milestone.milestone_date || ''}
+                      onChange={(e) => updateMilestone(index, 'milestone_date', e.target.value)}
+                      className="text-sm text-gray-600 bg-white border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-500"
+                    />
+                    <span className="text-xs text-gray-500">
+                      {milestone.milestone_date && format(new Date(milestone.milestone_date), 'MMMM d, yyyy')}
+                    </span>
+                  </div>
                 </div>
                 {milestone.milestone_type === 'custom' && (
                   <button
@@ -270,7 +360,7 @@ export default function JourneyPage() {
         {milestones.some(m => m.milestone_date) && (
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-xl font-bold">Preview</h2>
+              <h2 className="text-xl font-bold">📸 Preview ({themes.find(t => t.id === selectedTheme)?.name})</h2>
               <div className="flex gap-2">
                 <button
                   onClick={copyImageToClipboard}
@@ -292,9 +382,18 @@ export default function JourneyPage() {
             {/* Image Preview Area */}
             <div 
               ref={journeyRef}
-              className="p-8 bg-gradient-to-br from-green-50 to-emerald-100"
+              className={`p-8 ${themes.find(t => t.id === selectedTheme)?.bg || 'bg-gradient-to-br from-green-50 to-emerald-100'}`}
               style={{ minHeight: '500px' }}
             >
+              {/* Confetti decorations */}
+              <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
+                <div className="absolute top-10 left-10 text-2xl">✨</div>
+                <div className="absolute top-20 right-20 text-xl">⭐</div>
+                <div className="absolute bottom-40 left-20 text-lg">🌟</div>
+                <div className="absolute top-40 right-40 text-sm">💫</div>
+                <div className="absolute bottom-20 right-10 text-xl">✨</div>
+              </div>
+              
               {/* Header */}
               <div className="text-center mb-6">
                 <div className="text-5xl mb-2">🇦🇺</div>
@@ -307,7 +406,7 @@ export default function JourneyPage() {
               {/* Timeline */}
               <div className="relative">
                 {/* Connecting Line */}
-                <div className="absolute top-1/2 left-0 right-0 h-1 bg-green-300 transform -translate-y-1/2" />
+                <div className={`absolute top-1/2 left-0 right-0 h-1 ${themes.find(t => t.id === selectedTheme)?.accent || 'bg-green-300'} transform -translate-y-1/2 opacity-50`} />
                 
                 <div className="relative grid grid-cols-1 md:grid-cols-5 gap-4">
                   {milestones
@@ -318,12 +417,12 @@ export default function JourneyPage() {
                     .map((milestone, index) => (
                       <div key={index} className="relative flex flex-col items-center">
                         {/* Node */}
-                        <div className="w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-3xl z-10 mb-4">
+                        <div className={`w-16 h-16 rounded-full bg-white shadow-lg flex items-center justify-center text-3xl z-10 mb-4 ring-4 ${themes.find(t => t.id === selectedTheme)?.accent || 'ring-green-300'} ring-opacity-30`}>
                           {milestone.icon}
                         </div>
                         
                         {/* Content */}
-                        <div className="text-center bg-white rounded-lg p-3 shadow-md w-full">
+                        <div className="text-center bg-white rounded-lg p-3 shadow-md w-full hover:shadow-lg transition-shadow">
                           <div className="font-semibold text-sm text-gray-900 mb-1">
                             {milestone.title}
                           </div>
