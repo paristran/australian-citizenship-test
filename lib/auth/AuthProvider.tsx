@@ -59,6 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession()
+      console.log('Initial session check:', session?.user?.email)
       setSession(session)
       setUser(session?.user ?? null)
       
@@ -89,16 +90,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => subscription.unsubscribe()
   }, [supabase?.auth])
 
-  // Refresh session on page navigation (detects server-side logins after OAuth redirect)
+  // Force session check on mount and pathname change (for server-side OAuth logins)
   useEffect(() => {
-    if (!supabase || loading) return
+    if (!supabase) return
 
     const checkSession = async () => {
       const { data: { session: newSession } } = await supabase.auth.getSession()
       
+      console.log('Session check on mount/nav:', newSession?.user?.email, 'current user:', user?.email)
+      
       // If we have a new session but state doesn't reflect it, update
-      if (newSession && (!user || user.id !== newSession.user.id)) {
-        console.log('Session detected on navigation, updating state...')
+      if (newSession?.user && (!user || user.id !== newSession.user.id)) {
+        console.log('Updating session from navigation check')
         setSession(newSession)
         setUser(newSession.user)
         await fetchProfile(newSession.user.id)
@@ -106,8 +109,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     }
 
-    checkSession()
-  }, [pathname, supabase, loading, user])
+    // Small delay to ensure cookies are available
+    const timeoutId = setTimeout(checkSession, 100)
+    return () => clearTimeout(timeoutId)
+  }, [pathname, supabase])
 
   // Refresh session on window focus
   useEffect(() => {
