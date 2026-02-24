@@ -2,6 +2,11 @@ import { createServerClient } from '@supabase/ssr'
 import { NextResponse, NextRequest } from 'next/server'
 
 export async function middleware(req: NextRequest) {
+  // Skip auth operations on callback page to avoid conflicts
+  if (req.nextUrl.pathname.startsWith('/auth/callback')) {
+    return NextResponse.next()
+  }
+  
   const res = NextResponse.next()
   
   const supabase = createServerClient(
@@ -22,6 +27,7 @@ export async function middleware(req: NextRequest) {
     }
   )
 
+  // Just refresh session, don't block
   await supabase.auth.getUser()
   
   return res
@@ -29,6 +35,6 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   matcher: [
-    '/((?!api|_next/static|_next/image|favicon.ico|public).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|public|auth/callback).*)',
   ],
 }
