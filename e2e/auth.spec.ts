@@ -2,12 +2,22 @@ import { test, expect } from '@playwright/test'
 
 test.describe('Authentication Flow', () => {
   test.beforeEach(async ({ page }) => {
+    // Navigate to page first, then clear auth state
+    await page.goto('/')
+    
     // Clear any existing auth state
     await page.context().clearCookies()
     await page.evaluate(() => {
-      localStorage.clear()
-      sessionStorage.clear()
+      try {
+        localStorage.clear()
+        sessionStorage.clear()
+      } catch (e) {
+        // Ignore errors if storage is not accessible
+      }
     })
+    
+    // Reload to get fresh state
+    await page.reload()
   })
 
   test('should show guest navigation for unauthenticated users', async ({ page }) => {

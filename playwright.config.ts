@@ -1,4 +1,9 @@
 import { defineConfig, devices } from '@playwright/test'
+import dotenv from 'dotenv'
+
+// Load test environment variables
+dotenv.config({ path: '.env.test' })
+dotenv.config({ path: '.env.local' })
 
 export default defineConfig({
   testDir: './e2e',
@@ -19,10 +24,7 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
   ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-    timeout: 120 * 1000,
-  },
+  // No webServer config - manually start dev server before running tests
+  // Run: npm run dev (in separate terminal)
+  // Then: npm run test:e2e
 })
