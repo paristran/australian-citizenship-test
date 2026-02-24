@@ -75,6 +75,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: any, session: any) => {
       console.log('Auth state changed:', event, session?.user?.email)
       
+      // Set loading true while we process
+      setLoading(true)
+      
       setSession(session)
       setUser(session?.user ?? null)
       
@@ -84,13 +87,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setProfile(null)
       }
       
+      // Force loading to false after state updates
       setLoading(false)
+      
+      // Log final state
+      console.log('Auth update complete, user:', session?.user?.email)
     })
 
     return () => subscription.unsubscribe()
   }, [supabase?.auth])
 
-  // Force session check on mount and pathname change (for server-side OAuth logins)
+  // Sync loading state - ensure it's false once we have user data
+  useEffect(() => {
+    if (user !== undefined && loading) {
+      console.log('Syncing loading state - user exists, setting loading to false')
+      setLoading(false)
+    }
+  }, [user, loading])
   useEffect(() => {
     if (!supabase) return
 
