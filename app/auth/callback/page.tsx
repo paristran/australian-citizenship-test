@@ -8,89 +8,45 @@ function AuthCallbackContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [error, setError] = useState<string | null>(null)
-  const [processing, setProcessing] = useState(true)
   const [status, setStatus] = useState('Starting...')
 
   useEffect(() => {
     const handleCallback = async () => {
       try {
         setStatus('Initializing...')
-        console.log('🚀 Starting auth callback...')
-        
-        // Create fresh client
         const supabase = createClient()
         
-        // Check for code in URL
         const code = searchParams.get('code')
         
         if (!code) {
-          console.log('⚠️ No code in URL, checking existing session...')
-          setStatus('Checking session...')
-          
-          const { data: { session } } = await supabase.auth.getSession()
-          
-          if (session) {
-            console.log('✅ Existing session found:', session.user.email)
-            setStatus('Redirecting...')
-            router.replace('/')
-            return
-          }
-          
-          throw new Error('No authorization code or session found')
+          throw new Error('No authorization code found')
         }
         
-        console.log('📝 Exchanging authorization code...')
         setStatus('Exchanging code...')
         
-        // Exchange code for session with timeout
-        const exchangePromise = supabase.auth.exchangeCodeForSession(code)
-        const timeoutPromise = new Promise((_, reject) => 
-          setTimeout(() => reject(new Error('Code exchange timed out')), 10000)
-        )
-        
-        const { data, error: exchangeError } = await Promise.race([
-          exchangePromise,
-          timeoutPromise
-        ]) as any
+        const { data, error: exchangeError } = await supabase.auth.exchangeCodeForSession(code)
         
         if (exchangeError) {
-          console.error('❌ Code exchange error:', exchangeError)
           throw exchangeError
         }
         
-        console.log('✅ Code exchanged successfully')
-        setStatus('Verifying session...')
+        if (!data.session) {
+          throw new Error('No session created')
+        }
         
-        // Small delay to let the session persist
+        setStatus('Success! Redirecting...')
+        
+        // Small delay to ensure session is persisted
         await new Promise(resolve => setTimeout(resolve, 500))
         
-        // Verify session was created
-        const { data: { session }, error: sessionError } = await supabase.auth.getSession()
-        
-        if (sessionError) {
-          console.error('❌ Session error:', sessionError)
-          throw sessionError
-        }
-
-        if (!session) {
-          console.error('❌ No session found after code exchange')
-          throw new Error('Authentication failed - no session created')
-        }
-
-        console.log('✅ User authenticated:', session.user.email)
-        setStatus('Redirecting...')
-        
-        // Use replace instead of push to avoid history issues
         router.replace('/')
         
       } catch (error: any) {
-        console.error('❌ Callback error:', error)
+        console.error('Auth callback error:', error)
         setError(error.message || 'Authentication failed')
-        setProcessing(false)
         
-        // Redirect to login on error after delay
         setTimeout(() => {
-          router.replace('/login?error=' + encodeURIComponent(error.message || 'auth_failed'))
+          router.replace('/login?error=' + encodeURIComponent(error.message))
         }, 2000)
       }
     }
