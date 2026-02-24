@@ -25,49 +25,67 @@ export default function JourneyPage() {
       id: 'default',
       name: 'Aussie Green',
       preview: 'from-green-50 to-emerald-100',
-      bg: 'bg-gradient-to-br from-green-50 to-emerald-100',
+      bg: 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50',
       accent: 'bg-green-600',
       text: 'text-green-800',
+      primary: 'green',
+      showHill: true,
+      showConfetti: true,
     },
     {
       id: 'sunset',
       name: 'Golden Sunset',
       preview: 'from-orange-100 to-amber-200',
-      bg: 'bg-gradient-to-br from-orange-100 to-amber-200',
+      bg: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
       accent: 'bg-orange-500',
       text: 'text-orange-800',
+      primary: 'orange',
+      showHill: true,
+      showConfetti: true,
     },
     {
       id: 'ocean',
       name: 'Ocean Blue',
       preview: 'from-blue-100 to-cyan-100',
-      bg: 'bg-gradient-to-br from-blue-100 to-cyan-100',
+      bg: 'bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50',
       accent: 'bg-blue-600',
       text: 'text-blue-800',
+      primary: 'blue',
+      showHill: true,
+      showConfetti: true,
     },
     {
       id: 'aboriginal',
       name: 'Outback Red',
       preview: 'from-red-100 to-orange-200',
-      bg: 'bg-gradient-to-br from-red-100 to-orange-200',
+      bg: 'bg-gradient-to-br from-red-50 via-orange-50 to-amber-50',
       accent: 'bg-red-600',
       text: 'text-red-800',
+      primary: 'red',
+      showHill: true,
+      showConfetti: true,
     },
     {
       id: 'wattle',
       name: 'Golden Wattle',
       preview: 'from-yellow-100 to-green-100',
-      bg: 'bg-gradient-to-br from-yellow-100 to-green-100',
+      bg: 'bg-gradient-to-br from-yellow-50 via-lime-50 to-green-50',
       accent: 'bg-yellow-600',
       text: 'text-yellow-800',
+      primary: 'yellow',
+      showHill: true,
+      showConfetti: true,
     },
     {
       id: 'twilight',
       name: 'Twilight Purple',
       preview: 'from-purple-100 to-pink-100',
-      bg: 'bg-gradient-to-br from-purple-100 to-pink-100',
+      bg: 'bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50',
       accent: 'bg-purple-600',
       text: 'text-purple-800',
+      primary: 'purple',
+      showHill: true,
+      showConfetti: true,
     },
   ]
 
@@ -382,17 +400,53 @@ export default function JourneyPage() {
             {/* Image Preview Area */}
             <div 
               ref={journeyRef}
-              className={`p-8 ${themes.find(t => t.id === selectedTheme)?.bg || 'bg-gradient-to-br from-green-50 to-emerald-100'}`}
-              style={{ minHeight: '500px' }}
+              className={`relative p-8 overflow-hidden ${themes.find(t => t.id === selectedTheme)?.bg || 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50'}`}
+              style={{ minHeight: '600px' }}
             >
+              {/* Decorative Hill with Flag */}
+              {themes.find(t => t.id === selectedTheme)?.showHill && (
+                <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-full opacity-20 pointer-events-none">
+                  <svg viewBox="0 0 800 200" className="w-full" style={{ maxHeight: '150px' }}>
+                    <path
+                      d="M0,200 Q200,50 400,100 T800,150 L800,200 Z"
+                      fill={`url(#hillGradient-${selectedTheme})`}
+                    />
+                    <defs>
+                      <linearGradient id={`hillGradient-${selectedTheme}`} x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stopColor={themes.find(t => t.id === selectedTheme)?.primary === 'green' ? '#10b981' : themes.find(t => t.id === selectedTheme)?.primary === 'orange' ? '#f97316' : themes.find(t => t.id === selectedTheme)?.primary === 'blue' ? '#3b82f6' : themes.find(t => t.id === selectedTheme)?.primary === 'red' ? '#ef4444' : themes.find(t => t.id === selectedTheme)?.primary === 'yellow' ? '#eab308' : '#9333ea'} />
+                        <stop offset="100%" stopColor={themes.find(t => t.id === selectedTheme)?.primary === 'green' ? '#059669' : themes.find(t => t.id === selectedTheme)?.primary === 'orange' ? '#ea580c' : themes.find(t => t.id === selectedTheme)?.primary === 'blue' ? '#2563eb' : themes.find(t => t.id === selectedTheme)?.primary === 'red' ? '#dc2626' : themes.find(t => t.id === selectedTheme)?.primary === 'yellow' ? '#ca8a04' : '#7e22ce'} />
+                      </linearGradient>
+                    </defs>
+                    {/* Small flag on hill */}
+                    <g transform="translate(400, 60)">
+                      <line x1="0" y1="0" x2="0" y2="-40" stroke="#1e293b" strokeWidth="3" />
+                      <rect x="2" y="-40" width="25" height="15" fill="#00008B" />
+                      <text x="14" y="-30" fontSize="8" fill="white" textAnchor="middle">🇦🇺</text>
+                    </g>
+                  </svg>
+                </div>
+              )}
+
               {/* Confetti decorations */}
-              <div className="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
-                <div className="absolute top-10 left-10 text-2xl">✨</div>
-                <div className="absolute top-20 right-20 text-xl">⭐</div>
-                <div className="absolute bottom-40 left-20 text-lg">🌟</div>
-                <div className="absolute top-40 right-40 text-sm">💫</div>
-                <div className="absolute bottom-20 right-10 text-xl">✨</div>
-              </div>
+              {themes.find(t => t.id === selectedTheme)?.showConfetti && (
+                <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                  {[...Array(20)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute animate-pulse"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        fontSize: `${Math.random() * 10 + 8}px`,
+                        opacity: Math.random() * 0.3 + 0.1,
+                        animationDelay: `${Math.random() * 2}s`,
+                      }}
+                    >
+                      {['✨', '⭐', '🌟', '💫', '✦'][Math.floor(Math.random() * 5)]}
+                    </div>
+                  ))}
+                </div>
+              )}
               
               {/* Header */}
               <div className="text-center mb-6">
@@ -405,10 +459,19 @@ export default function JourneyPage() {
 
               {/* Timeline */}
               <div className="relative">
-                {/* Connecting Line */}
-                <div className={`absolute top-1/2 left-0 right-0 h-1 ${themes.find(t => t.id === selectedTheme)?.accent || 'bg-green-300'} transform -translate-y-1/2 opacity-50`} />
+                {/* Curved Connecting Line */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ zIndex: 0 }}>
+                  <path
+                    d="M 50 150 Q 200 100 350 150 T 650 150 T 950 150"
+                    fill="none"
+                    stroke={themes.find(t => t.id === selectedTheme)?.primary === 'green' ? '#86efac' : themes.find(t => t.id === selectedTheme)?.primary === 'orange' ? '#fed7aa' : themes.find(t => t.id === selectedTheme)?.primary === 'blue' ? '#bfdbfe' : themes.find(t => t.id === selectedTheme)?.primary === 'red' ? '#fecaca' : themes.find(t => t.id === selectedTheme)?.primary === 'yellow' ? '#fef08a' : '#d8b4fe'}
+                    strokeWidth="4"
+                    strokeDasharray="10,5"
+                    opacity="0.5"
+                  />
+                </svg>
                 
-                <div className="relative grid grid-cols-1 md:grid-cols-5 gap-4">
+                <div className="relative grid grid-cols-1 md:grid-cols-5 gap-4" style={{ zIndex: 1 }}>
                   {milestones
                     .filter(m => m.milestone_date)
                     .sort((a, b) => 
