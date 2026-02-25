@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url)
     const category = searchParams.get('category')
 
-    // Get progress with question details
+    // Get progress
     let query = supabase
       .from('question_progress')
       .select('*')
@@ -29,26 +29,32 @@ export async function GET(request: Request) {
     const { data: progress, error } = await query
 
     if (error) {
+      // If table doesn't exist, return empty progress
+      if (error.code === '42P01') {
+        return NextResponse.json({ 
+          progress: [],
+          categoryStats: {},
+          totalStudied: 0
+        })
+      }
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
-    // Get statistics by category
-    const { data: stats } = await supabase
-      .from('question_progress')
-      .select('category, is_correct')
-      .eq('user_id', user.id)
-
-    const categoryStats = stats?.reduce((acc: any, item) => {
-      if (!acc[item.category]) {
-        acc[item.category] = { total: 0, correct: 0 }
+    // Calculate statistics by category
+    const categoryStats: Record<string, { total: number; correct: number }> = {}
+    
+    progress?.forEach((item: any) => {
+      if (!categoryStats[item.category]) {
+        categoryStats[item.category] = { total: 0, correct: 0 }
       }
-      acc[item.category].total++
-      if (item.is_correct) acc[item.category].correct++
-      return acc
-    }, {})
+      categoryStats[item.category].total++
+      if (item.is_correct) {
+        categoryStats[item.category].correct++
+      }
+    })
 
     return NextResponse.json({ 
-      progress,
+      progress: progress || [],
       categoryStats,
       totalStudied: progress?.length || 0
     })
@@ -90,6 +96,11 @@ export async function POST(request: Request) {
       .single()
 
     if (error) {
+      // If table doesn't exist, return success anyway (graceful degradation)
+      if (error.code === '42P01') {
+        console.log('question_progress table does not exist - run SQL schema')
+        return NextResponse.json({ success: true, warning: 'Table not created yet' })
+      }
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
