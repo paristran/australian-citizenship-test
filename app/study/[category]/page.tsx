@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import Link from 'next/link'
 import questions from '@/data/questions.json'
+import { getRandomFunFact } from '@/data/funFacts'
 
 interface Question {
   id: number
@@ -41,6 +42,7 @@ export default function CategoryStudyPage() {
   const [correctCount, setCorrectCount] = useState(0)
   const [answeredCount, setAnsweredCount] = useState(0)
   const [progressRecorded, setProgressRecorded] = useState(false)
+  const [currentFunFact, setCurrentFunFact] = useState<{ fact: string; category: string } | null>(null)
 
   const currentQuestion = categoryQuestions[currentIndex]
 
@@ -49,6 +51,7 @@ export default function CategoryStudyPage() {
     setSelectedAnswer(null)
     setShowExplanation(false)
     setProgressRecorded(false)
+    setCurrentFunFact(null)
   }, [currentIndex])
 
   // Record progress to API when user answers
@@ -88,6 +91,13 @@ export default function CategoryStudyPage() {
     
     // Record progress to API
     recordProgress(currentQuestion.id, currentQuestion.category, isCorrect)
+    
+    // Show a random fun fact (50% chance)
+    if (Math.random() > 0.5) {
+      setCurrentFunFact(getRandomFunFact())
+    } else {
+      setCurrentFunFact(null)
+    }
   }
 
   const nextQuestion = () => {
@@ -182,6 +192,19 @@ export default function CategoryStudyPage() {
                 {selectedAnswer === currentQuestion.correct ? '✓ Correct!' : '✗ Incorrect'}
               </p>
               <p className="text-gray-700">{currentQuestion.explanation}</p>
+            </div>
+          )}
+
+          {/* Fun Fact */}
+          {showExplanation && currentFunFact && (
+            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-start gap-2">
+                <span className="text-xl">💡</span>
+                <div>
+                  <p className="font-semibold text-blue-900 mb-1">Fun Fact</p>
+                  <p className="text-gray-700">{currentFunFact.fact}</p>
+                </div>
+              </div>
             </div>
           )}
 
