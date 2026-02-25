@@ -21,7 +21,7 @@ export default function Navigation() {
   }, [])
 
   return (
-    <nav className="bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm">
+    <nav className="bg-white border-b border-gray-200 sticky top-0 z-[100] shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center">
@@ -41,9 +41,12 @@ export default function Navigation() {
                   <Link href="/study" className="text-gray-700 hover:text-gray-900 font-medium">Study</Link>
                 </div>
 
-                <div className="relative" ref={dropdownRef}>
+                <div className="relative z-[200]" ref={dropdownRef}>
                   <button
-                    onClick={() => setShowDropdown(!showDropdown)}
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      setShowDropdown(!showDropdown)
+                    }}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
                   >
                     <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
@@ -56,7 +59,7 @@ export default function Navigation() {
                   </button>
 
                   {showDropdown && (
-                    <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-xl border border-gray-200 py-2 z-[100]">
+                    <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-[9999]">
                       <div className="px-4 py-3 border-b border-gray-100">
                         <div className="font-semibold">{profile?.full_name || user.email}</div>
                         <div className="text-sm text-gray-500">{user.email}</div>
