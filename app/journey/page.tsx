@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
-import { format, differenceInDays, differenceInYears, differenceInMonths } from 'date-fns'
+import { format, differenceInDays, differenceInYears } from 'date-fns'
 import { toPng } from 'html-to-image'
 import toast from 'react-hot-toast'
 import { DEFAULT_MILESTONES, MilestoneType, JourneyMilestone, CitizenshipJourney } from '@/types/journey'
@@ -50,7 +50,6 @@ export default function JourneyPage() {
         setJourney(data.journey)
         setMilestones(data.journey.milestones || [])
       } else {
-        // Initialize with default milestones
         setMilestones(DEFAULT_MILESTONES.map(m => ({
           milestone_type: m.type,
           title: m.title,
@@ -86,7 +85,6 @@ export default function JourneyPage() {
     setMilestones(updated)
   }
 
-  // Calculate duration between first and last milestone
   const calculateDuration = () => {
     const validDates = milestones
       .filter(m => m.milestone_date)
@@ -100,13 +98,11 @@ export default function JourneyPage() {
     const lastDate = validDates[validDates.length - 1]
     
     const years = differenceInYears(lastDate, firstDate)
-    const months = differenceInMonths(lastDate, firstDate) % 12
     const totalDays = differenceInDays(lastDate, firstDate)
     const daysAfterYears = totalDays % 365
     
     return {
       years,
-      months,
       totalDays,
       daysAfterYears,
       firstDate,
@@ -200,7 +196,7 @@ export default function JourneyPage() {
   }
 
   const shareOnSocial = (platform: 'facebook' | 'twitter' | 'linkedin') => {
-    const text = `I just completed my Australian citizenship journey! 🇦🇺 Check out my milestones.`
+    const text = `I just completed my Australian citizenship journey! 🇦🇺`
     const url = window.location.href
     
     const urls = {
@@ -231,18 +227,18 @@ export default function JourneyPage() {
     .sort((a, b) => new Date(a.milestone_date!).getTime() - new Date(b.milestone_date!).getTime())
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white py-8 px-4">
-      <div className="max-w-5xl mx-auto">
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <h1 className="text-4xl font-bold mb-2">My Citizenship Journey</h1>
           <p className="text-gray-600">Create and share your path to Australian citizenship</p>
         </div>
 
         {/* Theme Selector */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4">Choose Theme</h2>
-          <div className="flex flex-wrap gap-3">
+        <div className="bg-white rounded-xl shadow p-4 mb-6">
+          <h2 className="text-lg font-bold mb-3">Theme</h2>
+          <div className="flex flex-wrap gap-2">
             {themes.map((theme) => (
               <button
                 key={theme.id}
@@ -259,161 +255,163 @@ export default function JourneyPage() {
           </div>
         </div>
 
-        {/* Add Milestones Section */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4">Add Milestones</h2>
-          
-          <div className="space-y-3">
-            {milestones.map((milestone, index) => (
-              <div key={index} className="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
-                <button
-                  onClick={() => {
-                    const icons = ['✈️', '🛂', '📄', '🏛️', '🎉', '📍', '⭐', '🏠', '💼', '🎓']
-                    const currentIndex = icons.indexOf(milestone.icon || '📍')
-                    const nextIcon = icons[(currentIndex + 1) % icons.length]
-                    updateMilestone(index, 'icon', nextIcon)
-                  }}
-                  className="text-2xl hover:scale-110 transition-transform"
-                >
-                  {milestone.icon || '📍'}
-                </button>
-                
-                <input
-                  type="text"
-                  value={milestone.title || ''}
-                  onChange={(e) => updateMilestone(index, 'title', e.target.value)}
-                  className="flex-1 font-medium bg-transparent border-none focus:outline-none"
-                  placeholder="Milestone title"
-                />
-                
-                <input
-                  type="date"
-                  value={milestone.milestone_date || ''}
-                  onChange={(e) => updateMilestone(index, 'milestone_date', e.target.value)}
-                  className="text-sm text-gray-600 bg-white border border-gray-200 rounded px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-green-500"
-                />
-                
-                {milestone.milestone_type === 'custom' && (
+        {/* Main Layout: Milestones Editor + Preview Side by Side */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+          {/* Left: Milestones Editor */}
+          <div className="bg-white rounded-xl shadow-lg p-6">
+            <h2 className="text-xl font-bold mb-4">Milestones</h2>
+            
+            <div className="space-y-3 max-h-[600px] overflow-y-auto">
+              {milestones.map((milestone, index) => (
+                <div key={index} className="flex items-center gap-2 p-3 bg-gray-50 rounded-lg">
                   <button
-                    onClick={() => removeMilestone(index)}
-                    className="text-red-400 hover:text-red-600 text-lg"
+                    onClick={() => {
+                      const icons = ['✈️', '🛂', '📄', '🏛️', '🎉', '📍', '⭐', '🏠', '💼', '🎓']
+                      const currentIndex = icons.indexOf(milestone.icon || '📍')
+                      const nextIcon = icons[(currentIndex + 1) % icons.length]
+                      updateMilestone(index, 'icon', nextIcon)
+                    }}
+                    className="text-2xl hover:scale-110 transition-transform flex-shrink-0"
                   >
-                    ✕
+                    {milestone.icon || '📍'}
                   </button>
-                )}
-              </div>
-            ))}
+                  
+                  <input
+                    type="text"
+                    value={milestone.title || ''}
+                    onChange={(e) => updateMilestone(index, 'title', e.target.value)}
+                    className="flex-1 font-medium bg-transparent border-none focus:outline-none text-sm"
+                    placeholder="Milestone title"
+                  />
+                  
+                  <input
+                    type="date"
+                    value={milestone.milestone_date || ''}
+                    onChange={(e) => updateMilestone(index, 'milestone_date', e.target.value)}
+                    className="text-xs text-gray-600 bg-white border border-gray-200 rounded px-2 py-1.5 focus:outline-none focus:ring-2 focus:ring-green-500"
+                  />
+                  
+                  {milestone.milestone_type === 'custom' && (
+                    <button
+                      onClick={() => removeMilestone(index)}
+                      className="text-red-400 hover:text-red-600 text-sm"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="flex gap-2 mt-4 pt-4 border-t">
+              <button
+                onClick={addCustomMilestone}
+                className="px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors text-gray-600 text-sm"
+              >
+                + Add Custom
+              </button>
+              <button
+                onClick={saveJourney}
+                disabled={saving}
+                className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 font-semibold text-sm"
+              >
+                {saving ? 'Saving...' : 'Save'}
+              </button>
+            </div>
           </div>
 
-          <div className="flex gap-3 mt-4">
-            <button
-              onClick={addCustomMilestone}
-              className="px-4 py-2 border-2 border-dashed border-gray-300 rounded-lg hover:border-green-500 hover:bg-green-50 transition-colors text-gray-600"
-            >
-              + Add Custom Milestone
-            </button>
-            <button
-              onClick={saveJourney}
-              disabled={saving}
-              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 font-semibold"
-            >
-              {saving ? 'Saving...' : 'Save Journey'}
-            </button>
-          </div>
-        </div>
-
-        {/* Preview Card */}
-        {sortedMilestones.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-8">
+          {/* Right: Live Preview */}
+          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
             <div className="p-4 border-b border-gray-200 flex justify-between items-center">
-              <h2 className="text-xl font-bold">Preview</h2>
-              <div className="flex gap-2">
-                <button
-                  onClick={copyImageToClipboard}
-                  disabled={generatingImage}
-                  className="px-4 py-2 text-sm border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-                >
-                  📋 Copy
-                </button>
-                <button
-                  onClick={downloadImage}
-                  disabled={generatingImage}
-                  className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
-                >
-                  📥 Download
-                </button>
-              </div>
+              <h2 className="text-lg font-bold">Preview</h2>
+              {sortedMilestones.length > 0 && (
+                <div className="flex gap-2">
+                  <button
+                    onClick={copyImageToClipboard}
+                    disabled={generatingImage}
+                    className="px-3 py-1.5 text-xs border border-gray-300 rounded hover:bg-gray-50 transition-colors"
+                  >
+                    📋 Copy
+                  </button>
+                  <button
+                    onClick={downloadImage}
+                    disabled={generatingImage}
+                    className="px-3 py-1.5 text-xs bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+                  >
+                    📥 Download
+                  </button>
+                </div>
+              )}
             </div>
             
-            {/* Image Preview */}
+            {/* Preview Card */}
             <div 
               ref={journeyRef}
-              className={`p-8 bg-gradient-to-br ${themes.find(t => t.id === selectedTheme)?.bg || 'from-green-50 via-emerald-50 to-teal-50'}`}
-              style={{ minHeight: '600px' }}
+              className={`p-6 bg-gradient-to-br ${themes.find(t => t.id === selectedTheme)?.bg || 'from-green-50 via-emerald-50 to-teal-50'} min-h-[500px]`}
             >
               {/* Header */}
-              <div className="text-center mb-6">
-                <div className="text-5xl mb-2">🇦🇺</div>
-                <h1 className="text-3xl font-bold text-gray-900">My Citizenship Journey</h1>
+              <div className="text-center mb-4">
+                <div className="text-4xl mb-2">🇦🇺</div>
+                <h1 className="text-2xl font-bold text-gray-900">My Citizenship Journey</h1>
                 {duration && (
-                  <p className="text-gray-600 mt-2 text-lg font-medium">
-                    Total duration: {duration.formatted}
+                  <p className="text-gray-600 mt-1 font-medium">
+                    Total: {duration.formatted}
                   </p>
                 )}
               </div>
 
               {/* Timeline */}
-              <div className="max-w-3xl mx-auto">
-                {/* Vertical Line */}
-                <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-green-200 to-green-400 hidden md:block" style={{ top: '0', height: 'calc(100% - 100px)' }} />
-                
-                <div className="space-y-8 relative">
-                  {sortedMilestones.map((milestone, index) => (
-                    <div key={index} className="relative flex items-center gap-4">
-                      {/* Timeline Node */}
-                      <div className={`w-14 h-14 rounded-full bg-white shadow-lg flex items-center justify-center text-2xl z-10 ring-4 ring-green-100 flex-shrink-0`}>
+              <div className="max-w-md mx-auto space-y-4">
+                {sortedMilestones.length === 0 ? (
+                  <div className="text-center text-gray-400 py-8">
+                    Add milestones to see your journey
+                  </div>
+                ) : (
+                  sortedMilestones.map((milestone, index) => (
+                    <div key={index} className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-lg flex-shrink-0">
                         {milestone.icon}
                       </div>
-                      
-                      {/* Content */}
-                      <div className="flex-1 bg-white rounded-lg p-4 shadow-md">
-                        <div className="font-semibold text-gray-900">
+                      <div className="flex-1 bg-white rounded-lg p-3 shadow-sm">
+                        <div className="font-semibold text-gray-900 text-sm">
                           {milestone.title}
                         </div>
-                        <div className="text-sm text-gray-500 mt-1">
-                          {milestone.milestone_date && format(new Date(milestone.milestone_date), 'MMMM d, yyyy')}
+                        <div className="text-xs text-gray-500 mt-0.5">
+                          {milestone.milestone_date && format(new Date(milestone.milestone_date), 'MMM d, yyyy')}
                         </div>
                       </div>
                     </div>
-                  ))}
-                </div>
+                  ))
+                )}
               </div>
 
               {/* Stats */}
-              <div className="mt-8 flex justify-center gap-4 flex-wrap">
-                {duration && (
-                  <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow">
-                    <span>⏱️</span>
-                    <span className="font-semibold">{duration.formatted}</span>
+              {sortedMilestones.length > 0 && (
+                <div className="mt-6 flex justify-center gap-3 flex-wrap">
+                  {duration && (
+                    <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg shadow text-sm">
+                      <span>⏱️</span>
+                      <span className="font-semibold">{duration.formatted}</span>
+                    </div>
+                  )}
+                  <div className="flex items-center gap-1 bg-white px-3 py-1.5 rounded-lg shadow text-sm">
+                    <span>📍</span>
+                    <span className="font-semibold">{sortedMilestones.length} Milestones</span>
                   </div>
-                )}
-                <div className="flex items-center gap-2 bg-white px-4 py-2 rounded-lg shadow">
-                  <span>📍</span>
-                  <span className="font-semibold">{sortedMilestones.length} Milestones</span>
                 </div>
-              </div>
+              )}
 
               {/* Watermark */}
-              <div className="mt-8 text-center text-xs text-gray-400">
+              <div className="mt-6 text-center text-xs text-gray-400">
                 getcitizenship.com.au
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Share Section */}
         {sortedMilestones.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-6">
+          <div className="bg-white rounded-xl shadow p-6">
             <h2 className="text-xl font-bold mb-4 text-center">Share Your Journey</h2>
             <div className="flex justify-center gap-4">
               <button
