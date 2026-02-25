@@ -175,6 +175,13 @@ export default function TestPage() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
+                <span className="text-2xl">📚</span>
+                <div>
+                  <strong>Study the official resource</strong>
+                  <p className="text-sm text-gray-500">This app supplements but does not replace "Our Common Bond"</p>
+                </div>
+              </li>
+              <li className="flex items-start gap-3">
                 <span className="text-2xl">⏱️</span>
                 <div>
                   <strong>45 minutes time limit</strong>
