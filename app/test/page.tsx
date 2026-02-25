@@ -171,7 +171,7 @@ export default function TestPage() {
                 <span className="text-2xl">📝</span>
                 <div>
                   <strong>20 multiple choice questions</strong>
-                  <p className="text-sm text-gray-500">From a pool of 500 questions based on "Our Common Bond"</p>
+                  <p className="text-sm text-gray-500">From a pool of 250 questions based on "Our Common Bond"</p>
                 </div>
               </li>
               <li className="flex items-start gap-3">

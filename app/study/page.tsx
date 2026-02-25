@@ -9,28 +9,28 @@ const categories = [
     slug: 'australia-and-its-people',
     icon: '🇦🇺',
     description: 'Learn about Australia\'s history, culture, geography, and people',
-    questionCount: 242
+    questionCount: 120
   },
   {
     name: 'Government and law',
     slug: 'government-and-law',
     icon: '⚖️',
     description: 'Understand Australia\'s government, constitution, and legal system',
-    questionCount: 156
+    questionCount: 70
   },
   {
     name: 'Democratic beliefs',
     slug: 'democratic-beliefs',
     icon: '🗳️',
     description: 'Learn about Australia\'s democratic values and rights',
-    questionCount: 63
+    questionCount: 35
   },
   {
     name: 'Australian values',
     slug: 'australian-values',
     icon: '🌟',
     description: 'Understand the values that shape Australian society',
-    questionCount: 39
+    questionCount: 25
   }
 ]
 
