@@ -1,252 +1,393 @@
 'use client'
 
-export const dynamic = 'force-dynamic'
-
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/client'
-import { TestAttempt } from '@/types/tests'
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts'
+import { format, formatDistanceToNow } from 'date-fns'
+
+interface CategoryProgress {
+  category: string
+  total: number
+  correct: number
+  percentage: number
+  lastStudied?: string
+  recentQuestions: any[]
+}
+
+interface TestAttempt {
+  id: string
+  score: number
+  total_questions: number
+  values_score: number
+  values_total: number
+  passed: boolean
+  completed_at: string
+  answers?: any[]
+}
+
+interface DashboardStats {
+  totalTests: number
+  passedTests: number
+  passRate: number
+  avgScore: number
+  totalQuestionsStudied: number
+  strongestCategory: string
+  weakestCategory: string
+}
 
 export default function DashboardPage() {
-  const { user, profile, loading: authLoading, signOut } = useAuth()
-  const [attempts, setAttempts] = useState<TestAttempt[]>([])
-  const [loading, setLoading] = useState(true)
+  const { user, loading } = useAuth()
   const router = useRouter()
-  const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-    ? createClient()
-    : null
+  
+  const [categoryProgress, setCategoryProgress] = useState<CategoryProgress[]>([])
+  const [testAttempts, setTestAttempts] = useState<TestAttempt[]>([])
+  const [stats, setStats] = useState<DashboardStats | null>(null)
+  const [recommendations, setRecommendations] = useState<string[]>([])
+  const [loadingData, setLoadingData] = useState(true)
 
   useEffect(() => {
-    if (!authLoading && !user) {
+    if (!loading && !user) {
       router.push('/login')
     }
-  }, [user, authLoading, router])
+  }, [user, loading, router])
 
   useEffect(() => {
-    if (user && supabase) {
-      fetchAttempts()
-    } else if (!supabase) {
-      setLoading(false)
+    if (user) {
+      fetchDashboardData()
     }
-  }, [user, supabase])
+  }, [user])
 
-  const fetchAttempts = async () => {
-    if (!supabase || !user) return
-    
-    const { data, error } = await supabase
-      .from('test_attempts')
-      .select('*')
-      .eq('user_id', user.id)
-      .order('created_at', { ascending: false })
+  const fetchDashboardData = async () => {
+    try {
+      // Fetch progress data
+      const progressRes = await fetch('/api/progress')
+      const progressData = await progressRes.json()
 
-    if (!error && data) {
-      setAttempts(data)
+      // Fetch test attempts
+      const attemptsRes = await fetch('/api/test-attempts?limit=10')
+      const attemptsData = await attemptsRes.json()
+
+      // Process category progress
+      const categories = [
+        'Australia and its people',
+        'Government and law',
+        'Democratic beliefs',
+        'Australian values'
+      ]
+
+      const categoryStats: CategoryProgress[] = categories.map(category => {
+        const categoryQuestions = progressData.progress?.filter((p: any) => p.category === category) || []
+        const total = categoryQuestions.length
+        const correct = categoryQuestions.filter((p: any) => p.is_correct).length
+        
+        return {
+          category,
+          total,
+          correct,
+          percentage: total > 0 ? Math.round((correct / total) * 100) : 0,
+          lastStudied: categoryQuestions[0]?.studied_at,
+          recentQuestions: categoryQuestions.slice(0, 5)
+        }
+      })
+
+      setCategoryProgress(categoryStats)
+      setTestAttempts(attemptsData.attempts || [])
+
+      // Calculate overall stats
+      const attempts = attemptsData.attempts || []
+      const totalTests = attempts.length
+      const passedTests = attempts.filter((a: TestAttempt) => a.passed).length
+      
+      const stats: DashboardStats = {
+        totalTests,
+        passedTests,
+        passRate: totalTests > 0 ? Math.round((passedTests / totalTests) * 100) : 0,
+        avgScore: totalTests > 0 
+          ? Math.round((attempts.reduce((sum: number, a: TestAttempt) => sum + a.score, 0) / totalTests) * 10) / 10 
+          : 0,
+        totalQuestionsStudied: progressData.totalStudied || 0,
+        strongestCategory: categoryStats.reduce((best, cat) => 
+          cat.percentage > (best?.percentage || 0) && cat.total >= 5 ? cat : best, categoryStats[0])?.category || '',
+        weakestCategory: categoryStats.reduce((worst, cat) => 
+          cat.percentage < (worst?.percentage || 100) && cat.total >= 5 ? cat : worst, categoryStats[0])?.category || ''
+      }
+
+      setStats(stats)
+
+      // Generate personalized recommendations
+      const tips = generateRecommendations(categoryStats, attempts)
+      setRecommendations(tips)
+
+    } catch (error) {
+      console.error('Error fetching dashboard data:', error)
+    } finally {
+      setLoadingData(false)
     }
-    setLoading(false)
   }
 
-  if (authLoading || loading) {
+  const generateRecommendations = (categories: CategoryProgress[], attempts: TestAttempt[]): string[] => {
+    const tips: string[] = []
+    
+    // Check Australian values (must be 100%)
+    const valuesCategory = categories.find(c => c.category === 'Australian values')
+    if (valuesCategory && valuesCategory.percentage < 100 && valuesCategory.total >= 5) {
+      tips.push(`🎯 Focus on Australian Values - You need 100% correct on these questions to pass the test. Current: ${valuesCategory.percentage}%`)
+    }
+
+    // Check overall weak areas
+    const weakCategories = categories.filter(c => c.percentage < 75 && c.total >= 5)
+    if (weakCategories.length > 0) {
+      weakCategories.forEach(cat => {
+        tips.push(`📖 Practice "${cat.category}" more - Current accuracy: ${cat.percentage}%`)
+      })
+    }
+
+    // Check test performance
+    const recentAttempts = attempts.slice(0, 5)
+    const recentPassRate = recentAttempts.filter(a => a.passed).length / recentAttempts.length
+    
+    if (recentAttempts.length >= 3 && recentPassRate < 0.6) {
+      tips.push('📝 Take more practice tests - Try to improve your consistency')
+    }
+
+    // Check if not enough practice
+    const totalStudied = categories.reduce((sum, c) => sum + c.total, 0)
+    if (totalStudied < 100) {
+      tips.push(`📚 Study more questions - You've practiced ${totalStudied} out of 500 questions`)
+    }
+
+    // Encourage good performance
+    if (recentPassRate >= 0.8 && recentAttempts.length >= 3) {
+      tips.push('⭐ Great job! You\'re doing well - keep practicing to maintain your performance')
+    }
+
+    // Values score specific
+    const failedValues = attempts.filter(a => a.values_score < 5).slice(0, 3)
+    if (failedValues.length > 0) {
+      tips.push('⚠️ Review Australian Values questions - You must get all 5 correct to pass')
+    }
+
+    return tips.length > 0 ? tips : ['💪 Keep studying to build your skills!']
+  }
+
+  if (loading || loadingData) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-green-50 to-white flex items-center justify-center">
         <div className="text-center">
-          <div className="text-6xl animate-spin mb-4">🇦🇺</div>
-          <p className="text-gray-600">Loading...</p>
+          <div className="text-6xl mb-4 animate-spin">🇦🇺</div>
+          <p className="text-gray-600">Loading your dashboard...</p>
         </div>
       </div>
     )
   }
 
-  if (!user) {
-    return null
-  }
-
-  const completedAttempts = attempts.filter((a) => a.status === 'completed')
-  const averageScore =
-    completedAttempts.length > 0
-      ? completedAttempts.reduce((sum, a) => sum + a.percentage, 0) / completedAttempts.length
-      : 0
-
-  const highestScore =
-    completedAttempts.length > 0
-      ? Math.max(...completedAttempts.map((a) => a.percentage))
-      : 0
-
-  const chartData = completedAttempts
-    .slice(0, 10)
-    .reverse()
-    .map((a, i) => ({
-      name: `Test ${i + 1}`,
-      score: a.percentage,
-    }))
+  if (!user) return null
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 to-white">
-      {/* Header removed - Navigation now in layout */}
-      
-      <main className="max-w-7xl mx-auto px-4 py-12">
-        {/* Welcome Section */}
-        <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-2">
-            Welcome back, {profile?.full_name?.split(' ')[0] || 'Citizen'}! 👋
-          </h1>
-          <p className="text-gray-600">
-            Track your progress and continue preparing for your citizenship test
-          </p>
+    <div className="min-h-screen bg-gray-50 py-8 px-4">
+      <div className="max-w-7xl mx-auto">
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-4xl font-bold mb-2">Your Dashboard</h1>
+          <p className="text-gray-600">Track your progress and improve your citizenship knowledge</p>
         </div>
 
-        {/* Quick Stats */}
-        <div className="grid md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="text-4xl mb-2">📝</div>
-            <div className="text-3xl font-bold">{completedAttempts.length}</div>
-            <div className="text-gray-600 text-sm">Tests Completed</div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="text-4xl mb-2">📊</div>
-            <div className="text-3xl font-bold">{averageScore.toFixed(1)}%</div>
-            <div className="text-gray-600 text-sm">Average Score</div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="text-4xl mb-2">🎯</div>
-            <div className="text-3xl font-bold">{highestScore.toFixed(1)}%</div>
-            <div className="text-gray-600 text-sm">Highest Score</div>
-          </div>
-
-          <div className="bg-white rounded-2xl shadow-lg p-6">
-            <div className="text-4xl mb-2">
-              {averageScore >= 75 ? '✅' : '📚'}
+        {/* Stats Cards */}
+        {stats && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            <div className="bg-white rounded-xl shadow p-6">
+              <div className="text-sm text-gray-500 mb-1">Total Tests</div>
+              <div className="text-3xl font-bold text-gray-900">{stats.totalTests}</div>
+              <div className="text-sm text-green-600 mt-2">{stats.passedTests} passed</div>
             </div>
-            <div className="text-3xl font-bold">
-              {averageScore >= 75 ? 'Ready' : 'Keep Going'}
+            
+            <div className="bg-white rounded-xl shadow p-6">
+              <div className="text-sm text-gray-500 mb-1">Pass Rate</div>
+              <div className="text-3xl font-bold text-gray-900">{stats.passRate}%</div>
+              <div className="text-sm text-gray-500 mt-2">of attempts</div>
             </div>
-            <div className="text-gray-600 text-sm">
-              {averageScore >= 75 ? 'Test Ready' : 'Practice More'}
+            
+            <div className="bg-white rounded-xl shadow p-6">
+              <div className="text-sm text-gray-500 mb-1">Avg Score</div>
+              <div className="text-3xl font-bold text-gray-900">{stats.avgScore}/20</div>
+              <div className="text-sm text-gray-500 mt-2">on practice tests</div>
             </div>
-          </div>
-        </div>
-
-        {/* Action Buttons */}
-        <div className="grid md:grid-cols-2 gap-6 mb-12">
-          <Link
-            href="/test"
-            className="bg-green-600 hover:bg-green-700 text-white rounded-2xl shadow-lg p-8 flex items-center justify-between transition-colors"
-          >
-            <div>
-              <div className="text-5xl mb-3">🎯</div>
-              <h3 className="text-2xl font-bold mb-2">Take a Practice Test</h3>
-              <p className="opacity-90">20 questions, 45 minutes</p>
+            
+            <div className="bg-white rounded-xl shadow p-6">
+              <div className="text-sm text-gray-500 mb-1">Questions Studied</div>
+              <div className="text-3xl font-bold text-gray-900">{stats.totalQuestionsStudied}</div>
+              <div className="text-sm text-gray-500 mt-2">out of 500</div>
             </div>
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-
-          <Link
-            href="/study"
-            className="bg-blue-600 hover:bg-blue-700 text-white rounded-2xl shadow-lg p-8 flex items-center justify-between transition-colors"
-          >
-            <div>
-              <div className="text-5xl mb-3">📚</div>
-              <h3 className="text-2xl font-bold mb-2">Study Mode</h3>
-              <p className="opacity-90">Learn with instant feedback</p>
-            </div>
-            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-            </svg>
-          </Link>
-        </div>
-
-        {/* Progress Chart */}
-        {completedAttempts.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-8 mb-12">
-            <h2 className="text-2xl font-bold mb-6">Your Progress</h2>
-            <ResponsiveContainer width="100%" height={300}>
-              <LineChart data={chartData}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#e0e0e0" />
-                <XAxis dataKey="name" stroke="#666" />
-                <YAxis domain={[0, 100]} stroke="#666" />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: '#1A1A1A',
-                    border: 'none',
-                    borderRadius: '8px',
-                    color: '#fff',
-                  }}
-                />
-                <Line
-                  type="monotone"
-                  dataKey="score"
-                  stroke="#00843D"
-                  strokeWidth={3}
-                  dot={{ fill: '#00843D', strokeWidth: 2, r: 6 }}
-                  activeDot={{ r: 8 }}
-                />
-              </LineChart>
-            </ResponsiveContainer>
           </div>
         )}
 
-        {/* Recent Tests */}
-        {completedAttempts.length > 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6">Recent Tests</h2>
-            <div className="space-y-4">
-              {completedAttempts.slice(0, 5).map((attempt) => (
-                <div
-                  key={attempt.id}
-                  className="flex items-center justify-between p-4 bg-gray-50 rounded-xl"
-                >
-                  <div>
-                    <div className="font-semibold">
-                      Score: {attempt.score}/{attempt.total_questions}
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {/* Left Column: Category Progress */}
+          <div className="lg:col-span-2">
+            <div className="bg-white rounded-xl shadow mb-6">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-xl font-bold">Progress by Category</h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-6">
+                  {categoryProgress.map((cat) => (
+                    <div key={cat.category}>
+                      <div className="flex justify-between items-center mb-2">
+                        <h3 className="font-semibold text-gray-900">{cat.category}</h3>
+                        <span className="text-sm text-gray-500">
+                          {cat.total} questions studied
+                        </span>
+                      </div>
+                      
+                      <div className="w-full bg-gray-200 rounded-full h-3 mb-3">
+                        <div 
+                          className={`h-3 rounded-full transition-all ${
+                            cat.percentage >= 80 ? 'bg-green-500' :
+                            cat.percentage >= 60 ? 'bg-yellow-500' : 'bg-red-500'
+                          }`}
+                          style={{ width: `${cat.percentage}%` }}
+                        />
+                      </div>
+                      
+                      <div className="flex justify-between items-center">
+                        <span className="text-sm">
+                          <span className="font-semibold">{cat.correct}</span>/{cat.total} correct
+                        </span>
+                        <span className="text-sm font-semibold">{cat.percentage}%</span>
+                      </div>
+                      
+                      {cat.lastStudied && (
+                        <p className="text-xs text-gray-400 mt-2">
+                          Last studied {formatDistanceToNow(new Date(cat.lastStudied))} ago
+                        </p>
+                      )}
+                      
+                      {cat.total > 0 && (
+                        <Link
+                          href={`/study/${cat.category.toLowerCase().replace(/\s+/g, '-')}`}
+                          className="inline-block mt-3 text-sm text-green-600 hover:text-green-700 font-medium"
+                        >
+                          Continue studying →
+                        </Link>
+                      )}
                     </div>
-                    <div className="text-sm text-gray-600">
-                      {new Date(attempt.created_at).toLocaleDateString('en-AU', {
-                        month: 'short',
-                        day: 'numeric',
-                        year: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                      })}
-                    </div>
-                  </div>
-                  <div
-                    className={`px-4 py-2 rounded-lg font-bold ${
-                      attempt.percentage >= 75
-                        ? 'bg-green-100 text-green-700'
-                        : 'bg-yellow-100 text-yellow-700'
-                    }`}
-                  >
-                    {attempt.percentage.toFixed(1)}%
-                  </div>
+                  ))}
                 </div>
-              ))}
+              </div>
+            </div>
+
+            {/* Test History */}
+            <div className="bg-white rounded-xl shadow">
+              <div className="p-6 border-b border-gray-200 flex justify-between items-center">
+                <h2 className="text-xl font-bold">Practice Test History</h2>
+                <Link
+                  href="/test"
+                  className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors text-sm"
+                >
+                  Take New Test
+                </Link>
+              </div>
+              <div className="p-6">
+                {testAttempts.length === 0 ? (
+                  <div className="text-center text-gray-400 py-8">
+                    No practice tests taken yet
+                  </div>
+                ) : (
+                  <div className="space-y-4">
+                    {testAttempts.map((attempt) => (
+                      <div 
+                        key={attempt.id} 
+                        className={`p-4 rounded-lg border-2 ${
+                          attempt.passed 
+                            ? 'border-green-200 bg-green-50' 
+                            : 'border-red-200 bg-red-50'
+                        }`}
+                      >
+                        <div className="flex justify-between items-start">
+                          <div>
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className={`text-lg font-bold ${attempt.passed ? 'text-green-700' : 'text-red-700'}`}>
+                                {attempt.passed ? '✓ PASSED' : '✗ NOT PASSED'}
+                              </span>
+                            </div>
+                            <div className="grid grid-cols-2 gap-4 text-sm">
+                              <div>
+                                <span className="text-gray-500">Overall:</span>
+                                <span className="font-semibold ml-2">{attempt.score}/{attempt.total_questions}</span>
+                              </div>
+                              <div>
+                                <span className="text-gray-500">Values:</span>
+                                <span className={`font-semibold ml-2 ${attempt.values_score === 5 ? 'text-green-700' : 'text-red-700'}`}>
+                                  {attempt.values_score}/{attempt.values_total}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="text-xs text-gray-400 mt-2">
+                              {format(new Date(attempt.completed_at), 'MMM d, yyyy \'at\' h:mm a')}
+                            </div>
+                          </div>
+                          <div className="text-right">
+                            <div className="text-3xl font-bold">
+                              {Math.round((attempt.score / attempt.total_questions) * 100)}%
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        )}
 
-        {/* Empty State */}
-        {completedAttempts.length === 0 && (
-          <div className="bg-white rounded-2xl shadow-lg p-12 text-center">
-            <div className="text-6xl mb-4">🎯</div>
-            <h2 className="text-2xl font-bold mb-4">Ready to Start?</h2>
-            <p className="text-gray-600 mb-6">
-              Take your first practice test to begin tracking your progress
-            </p>
-            <Link
-              href="/test"
-              className="inline-block bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-8 rounded-lg transition-colors"
-            >
-              Start Practice Test
-            </Link>
+          {/* Right Column: Recommendations */}
+          <div className="lg:col-span-1">
+            <div className="bg-white rounded-xl shadow mb-6">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-xl font-bold">Personalized Tips</h2>
+              </div>
+              <div className="p-6">
+                <div className="space-y-4">
+                  {recommendations.map((tip, index) => (
+                    <div key={index} className="p-4 bg-blue-50 rounded-lg border border-blue-100">
+                      <p className="text-sm text-gray-700">{tip}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Quick Actions */}
+            <div className="bg-white rounded-xl shadow">
+              <div className="p-6 border-b border-gray-200">
+                <h2 className="text-xl font-bold">Quick Actions</h2>
+              </div>
+              <div className="p-6 space-y-3">
+                <Link
+                  href="/test"
+                  className="block w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors text-center"
+                >
+                  📝 Take Practice Test
+                </Link>
+                <Link
+                  href="/study"
+                  className="block w-full bg-white border-2 border-green-600 text-green-600 hover:bg-green-50 font-semibold py-3 px-4 rounded-lg transition-colors text-center"
+                >
+                  📚 Study Questions
+                </Link>
+                <Link
+                  href="/journey"
+                  className="block w-full bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50 font-semibold py-3 px-4 rounded-lg transition-colors text-center"
+                >
+                  🇦🇺 My Journey
+                </Link>
+              </div>
+            </div>
           </div>
-        )}
-      </main>
+        </div>
+      </div>
     </div>
   )
 }
