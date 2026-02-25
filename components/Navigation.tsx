@@ -1,24 +1,68 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, useCallback } from 'react'
 import Link from 'next/link'
 import { useAuth } from '@/lib/auth/AuthProvider'
+import { createPortal } from 'react-dom'
 
 export default function Navigation() {
   const { user, profile, signOut, loading } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
-  const dropdownRef = useRef<HTMLDivElement>(null)
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, right: 0 })
+  const dropdownButtonRef = useRef<HTMLDivElement>(null)
+  const [mounted, setMounted] = useState(false)
 
   // Debug logging
   useEffect(() => {
     console.log('Navigation state:', { loading, hasUser: !!user, userEmail: user?.email })
   }, [loading, user])
 
+  // Client-side only
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Update dropdown position when it opens
+  const updatePosition = useCallback(() => {
+    if (dropdownButtonRef.current) {
+      const rect = dropdownButtonRef.current.getBoundingClientRect()
+      setDropdownPosition({
+        top: rect.bottom + 8,
+        right: window.innerWidth - rect.right
+      })
+    }
+  }, [])
+
+  useEffect(() => {
+    if (showDropdown) {
+      updatePosition()
+    }
+  }, [showDropdown, updatePosition])
+
+  useEffect(() => {
+    if (showDropdown) {
+      const handleScroll = () => updatePosition()
+      const handleResize = () => updatePosition()
+      
+      window.addEventListener('scroll', handleScroll, true)
+      window.addEventListener('resize', handleResize)
+      
+      return () => {
+        window.removeEventListener('scroll', handleScroll, true)
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+  }, [showDropdown, updatePosition])
+
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setShowDropdown(false)
+      if (dropdownButtonRef.current && !dropdownButtonRef.current.contains(event.target as Node)) {
+        // Also check if click is inside dropdown portal
+        const dropdownEl = document.getElementById('user-dropdown-portal')
+        if (dropdownEl && !dropdownEl.contains(event.target as Node)) {
+          setShowDropdown(false)
+        }
       }
     }
 
@@ -39,9 +83,8 @@ export default function Navigation() {
           </div>
 
           {/* Navigation Links */}
-          <div className="flex items-center gap-2 sm:gap-4 relative">
+          <div className="flex items-center gap-2 sm:gap-4">
             {user ? (
-              // Show user dropdown even if still loading profile
               <>
                 {/* Desktop Navigation */}
                 <div className="hidden md:flex items-center gap-4">
@@ -71,8 +114,8 @@ export default function Navigation() {
                   </Link>
                 </div>
 
-                {/* User Account Dropdown */}
-                <div className="relative z-[200]" ref={dropdownRef}>
+                {/* User Account Dropdown Button */}
+                <div className="relative" ref={dropdownButtonRef}>
                   <button
                     onClick={() => setShowDropdown(!showDropdown)}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -97,114 +140,6 @@ export default function Navigation() {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </button>
-
-                  {/* Dropdown Menu */}
-                  {showDropdown && (
-                    <div className="absolute right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-gray-200 py-2 z-[9999]">
-                      {/* User Info Header */}
-                      <div className="px-4 py-3 border-b border-gray-100">
-                        <div className="font-semibold text-gray-900">
-                          {profile?.full_name || user.email}
-                        </div>
-                        <div className="text-sm text-gray-500">{user.email}</div>
-                      </div>
-
-                      {/* Progress Section */}
-                      <Link
-                        href="/dashboard"
-                        onClick={() => setShowDropdown(false)}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">📊</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900">My Progress</div>
-                            <div className="text-sm text-gray-500">View test history & stats</div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Journey Section */}
-                      <Link
-                        href="/journey"
-                        onClick={() => setShowDropdown(false)}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">🇦🇺</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900">My Journey</div>
-                            <div className="text-sm text-gray-500">Create & share citizenship timeline</div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Profile Link */}
-                      <Link
-                        href="/complete-profile"
-                        onClick={() => setShowDropdown(false)}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">👤</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900">Profile Settings</div>
-                            <div className="text-sm text-gray-500">Update your details</div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Practice Test Link */}
-                      <Link
-                        href="/test"
-                        onClick={() => setShowDropdown(false)}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors md:hidden"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">📝</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900">Practice Test</div>
-                            <div className="text-sm text-gray-500">Take a new test</div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Study Link */}
-                      <Link
-                        href="/study"
-                        onClick={() => setShowDropdown(false)}
-                        className="block px-4 py-3 hover:bg-gray-50 transition-colors md:hidden"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">📚</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-gray-900">Study Mode</div>
-                            <div className="text-sm text-gray-500">Learn by topic</div>
-                          </div>
-                        </div>
-                      </Link>
-
-                      {/* Divider */}
-                      <div className="border-t border-gray-100 my-2"></div>
-
-                      {/* Sign Out */}
-                      <button
-                        onClick={() => {
-                          setShowDropdown(false)
-                          signOut()
-                        }}
-                        className="w-full px-4 py-3 text-left hover:bg-red-50 transition-colors"
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-2xl">🚪</span>
-                          <div className="flex-1">
-                            <div className="font-medium text-red-600">Sign Out</div>
-                            <div className="text-sm text-gray-500">Log out of your account</div>
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                  )}
                 </div>
               </>
             ) : loading ? (
@@ -246,6 +181,124 @@ export default function Navigation() {
           </div>
         </div>
       </div>
+
+      {/* Portal Dropdown - renders at body level */}
+      {mounted && showDropdown && createPortal(
+        <div 
+          id="user-dropdown-portal"
+          className="fixed bg-white rounded-xl shadow-2xl border border-gray-200 py-2"
+          style={{
+            top: `${dropdownPosition.top}px`,
+            right: `${dropdownPosition.right}px`,
+            width: '288px',
+            zIndex: 999999
+          }}
+        >
+          {/* User Info Header */}
+          <div className="px-4 py-3 border-b border-gray-100">
+            <div className="font-semibold text-gray-900">
+              {profile?.full_name || user?.email}
+            </div>
+            <div className="text-sm text-gray-500">{user?.email}</div>
+          </div>
+
+          {/* Progress Section */}
+          <Link
+            href="/dashboard"
+            onClick={() => setShowDropdown(false)}
+            className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">📊</span>
+              <div className="flex-1">
+                <div className="font-medium text-gray-900">My Progress</div>
+                <div className="text-sm text-gray-500">View test history & stats</div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Journey Section */}
+          <Link
+            href="/journey"
+            onClick={() => setShowDropdown(false)}
+            className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🇦🇺</span>
+              <div className="flex-1">
+                <div className="font-medium text-gray-900">My Journey</div>
+                <div className="text-sm text-gray-500">Create & share citizenship timeline</div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Profile Link */}
+          <Link
+            href="/complete-profile"
+            onClick={() => setShowDropdown(false)}
+            className="block px-4 py-3 hover:bg-gray-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">👤</span>
+              <div className="flex-1">
+                <div className="font-medium text-gray-900">Profile Settings</div>
+                <div className="text-sm text-gray-500">Update your details</div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Practice Test Link */}
+          <Link
+            href="/test"
+            onClick={() => setShowDropdown(false)}
+            className="block px-4 py-3 hover:bg-gray-50 transition-colors md:hidden"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">📝</span>
+              <div className="flex-1">
+                <div className="font-medium text-gray-900">Practice Test</div>
+                <div className="text-sm text-gray-500">Take a new test</div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Study Link */}
+          <Link
+            href="/study"
+            onClick={() => setShowDropdown(false)}
+            className="block px-4 py-3 hover:bg-gray-50 transition-colors md:hidden"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">📚</span>
+              <div className="flex-1">
+                <div className="font-medium text-gray-900">Study Mode</div>
+                <div className="text-sm text-gray-500">Learn by topic</div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Divider */}
+          <div className="border-t border-gray-100 my-2"></div>
+
+          {/* Sign Out */}
+          <button
+            onClick={() => {
+              setShowDropdown(false)
+              signOut()
+            }}
+            className="w-full px-4 py-3 text-left hover:bg-red-50 transition-colors"
+          >
+            <div className="flex items-center gap-3">
+              <span className="text-2xl">🚪</span>
+              <div className="flex-1">
+                <div className="font-medium text-red-600">Sign Out</div>
+                <div className="text-sm text-gray-500">Log out of your account</div>
+              </div>
+            </div>
+          </button>
+        </div>,
+        document.body
+      )}
     </nav>
   )
 }
