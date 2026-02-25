@@ -21,15 +21,19 @@ export default function CategoryStudyPage() {
   const { user } = useAuth()
   const categorySlug = params.category as string
   
-  // Map URL slug to category name
+  // Map URL slug to category name (handle both formats)
   const categoryMap: Record<string, string> = {
     'australia-and-its-people': 'Australia and its people',
+    'Australia and its people': 'Australia and its people',
     'government-and-law': 'Government and law',
+    'Government and law': 'Government and law',
     'democratic-beliefs': 'Democratic beliefs',
+    'Democratic beliefs': 'Democratic beliefs',
     'australian-values': 'Australian values',
+    'Australian values': 'Australian values',
   }
   
-  const categoryName = categoryMap[categorySlug] || categorySlug
+  const categoryName = categoryMap[categorySlug] || categoryMap[categorySlug.toLowerCase()] || categorySlug
   
   // Filter questions by category
   const categoryQuestions = questions.questions.filter(
@@ -117,6 +121,7 @@ export default function CategoryStudyPage() {
       <div className="min-h-screen bg-gray-50 py-12 px-4">
         <div className="max-w-3xl mx-auto text-center">
           <h1 className="text-2xl font-bold mb-4">Category not found</h1>
+          <p className="text-gray-600 mb-4">The category "{categorySlug}" was not found.</p>
           <Link href="/study" className="text-green-600 hover:underline">
             ← Back to Study
           </Link>
