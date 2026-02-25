@@ -16,7 +16,7 @@ const nextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data:",
-              "connect-src 'self' https://tccakhttmqnqosdkckgs.supabase.co https://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com",
+              "connect-src 'self' https://tccakhttmqnqosdkckgs.supabase.co https://*.supabase.co https://www.google-analytics.com https://www.googletagmanager.com data:",
               "frame-ancestors 'none'",
             ].join('; '),
           },
