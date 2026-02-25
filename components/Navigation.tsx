@@ -69,33 +69,24 @@ export default function Navigation() {
 
             <div className="flex items-center gap-4">
               {user ? (
-                <>
-                  <div className="hidden md:flex items-center gap-4">
-                    <Link href="/dashboard" className="text-gray-700 hover:text-gray-900 font-medium">Dashboard</Link>
-                    <Link href="/journey" className="text-gray-700 hover:text-gray-900 font-medium">My Journey</Link>
-                    <Link href="/test" className="text-gray-700 hover:text-gray-900 font-medium">Practice Test</Link>
-                    <Link href="/study" className="text-gray-700 hover:text-gray-900 font-medium">Study</Link>
+                <button
+                  ref={buttonRef}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    setShowDropdown(v => !v)
+                  }}
+                  className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+                  type="button"
+                >
+                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
+                    {(profile?.full_name || user.email || 'U')[0].toUpperCase()}
                   </div>
-
-                  <button
-                    ref={buttonRef}
-                    onClick={(e) => {
-                      e.preventDefault()
-                      e.stopPropagation()
-                      setShowDropdown(v => !v)
-                    }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
-                    type="button"
-                  >
-                    <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                      {(profile?.full_name || user.email || 'U')[0].toUpperCase()}
-                    </div>
-                    <span className="hidden sm:block font-medium">{profile?.full_name?.split(' ')[0] || user.email?.split('@')[0]}</span>
-                    <svg className={`w-4 h-4 transition-transform ${showDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                </>
+                  <span className="hidden sm:block font-medium">{profile?.full_name?.split(' ')[0] || user.email?.split('@')[0]}</span>
+                  <svg className={`w-4 h-4 transition-transform ${showDropdown ? 'rotate-180' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                  </svg>
+                </button>
               ) : (
                 <div className="flex items-center gap-2">
                   <Link href="/login" className="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50">Sign In</Link>
@@ -130,7 +121,10 @@ export default function Navigation() {
             className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
           >
             <span className="text-xl">📊</span>
-            <span>My Progress</span>
+            <div>
+              <div className="font-medium">Dashboard</div>
+              <div className="text-xs text-gray-500">View progress & stats</div>
+            </div>
           </Link>
 
           <Link 
@@ -139,7 +133,34 @@ export default function Navigation() {
             className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
           >
             <span className="text-xl">🇦🇺</span>
-            <span>My Journey</span>
+            <div>
+              <div className="font-medium">My Journey</div>
+              <div className="text-xs text-gray-500">Create citizenship timeline</div>
+            </div>
+          </Link>
+
+          <Link 
+            href="/test" 
+            onClick={() => setShowDropdown(false)}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+          >
+            <span className="text-xl">📝</span>
+            <div>
+              <div className="font-medium">Practice Test</div>
+              <div className="text-xs text-gray-500">Take a timed test</div>
+            </div>
+          </Link>
+
+          <Link 
+            href="/study" 
+            onClick={() => setShowDropdown(false)}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+          >
+            <span className="text-xl">📚</span>
+            <div>
+              <div className="font-medium">Study Mode</div>
+              <div className="text-xs text-gray-500">Learn by category</div>
+            </div>
           </Link>
 
           <Link 
@@ -148,7 +169,10 @@ export default function Navigation() {
             className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
           >
             <span className="text-xl">👤</span>
-            <span>Profile Settings</span>
+            <div>
+              <div className="font-medium">Profile Settings</div>
+              <div className="text-xs text-gray-500">Update your details</div>
+            </div>
           </Link>
 
           <div className="border-t border-gray-100 my-2"></div>
@@ -158,7 +182,10 @@ export default function Navigation() {
             className="flex items-center gap-3 w-full px-4 py-3 hover:bg-red-50 text-red-600 text-left"
           >
             <span className="text-xl">🚪</span>
-            <span>Sign Out</span>
+            <div>
+              <div className="font-medium">Sign Out</div>
+              <div className="text-xs text-red-400">Log out of your account</div>
+            </div>
           </button>
         </div>,
         document.body
