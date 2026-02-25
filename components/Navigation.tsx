@@ -9,50 +9,53 @@ export default function Navigation() {
   const { user, profile, signOut, loading } = useAuth()
   const [showDropdown, setShowDropdown] = useState(false)
   const [mounted, setMounted] = useState(false)
-  const [position, setPosition] = useState({ top: 0, right: 0 })
+  const [coords, setCoords] = useState({ top: 0, left: 0 })
   const buttonRef = useRef<HTMLButtonElement>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
+  const updateCoords = () => {
+    if (buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setCoords({
+        top: rect.bottom + window.scrollY + 8,
+        left: rect.right - 280
+      })
+    }
+  }
+
   useEffect(() => {
-    const updatePosition = () => {
-      if (buttonRef.current) {
-        const rect = buttonRef.current.getBoundingClientRect()
-        setPosition({
-          top: rect.bottom + 8,
-          right: window.innerWidth - rect.right
-        })
-      }
-    }
-
     if (showDropdown) {
-      updatePosition()
-      window.addEventListener('scroll', updatePosition, true)
-      window.addEventListener('resize', updatePosition)
-    }
-
-    return () => {
-      window.removeEventListener('scroll', updatePosition, true)
-      window.removeEventListener('resize', updatePosition)
+      updateCoords()
     }
   }, [showDropdown])
 
   useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (showDropdown) {
-        const dropdown = document.getElementById('nav-dropdown')
-        const button = buttonRef.current
-        if (dropdown && button && !dropdown.contains(e.target as Node) && !button.contains(e.target as Node)) {
+    const handleOutsideClick = (e: MouseEvent) => {
+      if (!showDropdown) return
+      
+      const target = e.target as Node
+      const button = buttonRef.current
+      const dropdown = dropdownRef.current
+      
+      if (button && dropdown) {
+        if (!button.contains(target) && !dropdown.contains(target)) {
           setShowDropdown(false)
         }
       }
     }
 
-    document.addEventListener('click', handleClick)
-    return () => document.removeEventListener('click', handleClick)
+    document.addEventListener('mousedown', handleOutsideClick)
+    return () => document.removeEventListener('mousedown', handleOutsideClick)
   }, [showDropdown])
+
+  const handleSignOut = async () => {
+    setShowDropdown(false)
+    await signOut()
+  }
 
   return (
     <>
@@ -76,8 +79,13 @@ export default function Navigation() {
 
                   <button
                     ref={buttonRef}
-                    onClick={() => setShowDropdown(!showDropdown)}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
+                    onClick={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                      setShowDropdown(v => !v)
+                    }}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 cursor-pointer"
+                    type="button"
                   >
                     <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
                       {(profile?.full_name || user.email || 'U')[0].toUpperCase()}
@@ -100,40 +108,57 @@ export default function Navigation() {
       </nav>
 
       {mounted && showDropdown && createPortal(
-        <div
-          id="nav-dropdown"
-          className="fixed bg-white rounded-xl shadow-2xl border border-gray-200 py-2"
+        <div 
+          ref={dropdownRef}
           style={{
-            top: `${position.top}px`,
-            right: `${position.right}px`,
+            position: 'absolute',
+            top: `${coords.top}px`,
+            left: `${coords.left}px`,
             width: '280px',
-            zIndex: 99999
+            zIndex: 999999,
           }}
+          className="bg-white rounded-xl shadow-2xl border border-gray-200 py-2"
         >
           <div className="px-4 py-3 border-b border-gray-100">
-            <div className="font-semibold">{profile?.full_name || user?.email}</div>
+            <div className="font-semibold text-gray-900">{profile?.full_name || user?.email}</div>
             <div className="text-sm text-gray-500">{user?.email}</div>
           </div>
 
-          <Link href="/dashboard" onClick={() => setShowDropdown(false)} className="block px-4 py-3 hover:bg-gray-50">
-            📊 <span className="ml-2">My Progress</span>
+          <Link 
+            href="/dashboard" 
+            onClick={() => setShowDropdown(false)}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+          >
+            <span className="text-xl">📊</span>
+            <span>My Progress</span>
           </Link>
 
-          <Link href="/journey" onClick={() => setShowDropdown(false)} className="block px-4 py-3 hover:bg-gray-50">
-            🇦🇺 <span className="ml-2">My Journey</span>
+          <Link 
+            href="/journey" 
+            onClick={() => setShowDropdown(false)}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+          >
+            <span className="text-xl">🇦🇺</span>
+            <span>My Journey</span>
           </Link>
 
-          <Link href="/complete-profile" onClick={() => setShowDropdown(false)} className="block px-4 py-3 hover:bg-gray-50">
-            👤 <span className="ml-2">Profile Settings</span>
+          <Link 
+            href="/complete-profile" 
+            onClick={() => setShowDropdown(false)}
+            className="flex items-center gap-3 px-4 py-3 hover:bg-gray-50"
+          >
+            <span className="text-xl">👤</span>
+            <span>Profile Settings</span>
           </Link>
 
           <div className="border-t border-gray-100 my-2"></div>
 
           <button
-            onClick={() => { setShowDropdown(false); signOut(); }}
-            className="w-full px-4 py-3 text-left hover:bg-red-50 text-red-600"
+            onClick={handleSignOut}
+            className="flex items-center gap-3 w-full px-4 py-3 hover:bg-red-50 text-red-600 text-left"
           >
-            🚪 <span className="ml-2">Sign Out</span>
+            <span className="text-xl">🚪</span>
+            <span>Sign Out</span>
           </button>
         </div>,
         document.body
