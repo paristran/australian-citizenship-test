@@ -58,7 +58,6 @@ export default function Navigation() {
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownButtonRef.current && !dropdownButtonRef.current.contains(event.target as Node)) {
-        // Also check if click is inside dropdown portal
         const dropdownEl = document.getElementById('user-dropdown-portal')
         if (dropdownEl && !dropdownEl.contains(event.target as Node)) {
           setShowDropdown(false)
@@ -143,7 +142,6 @@ export default function Navigation() {
                 </div>
               </>
             ) : loading ? (
-              // Show loading skeleton only if no user
               <div className="h-8 w-24 bg-gray-200 animate-pulse rounded"></div>
             ) : (
               <>
@@ -202,7 +200,7 @@ export default function Navigation() {
             <div className="text-sm text-gray-500">{user?.email}</div>
           </div>
 
-          {/* Progress Section */}
+          {/* Dashboard Link */}
           <Link
             href="/dashboard"
             onClick={() => setShowDropdown(false)}
@@ -217,7 +215,7 @@ export default function Navigation() {
             </div>
           </Link>
 
-          {/* Journey Section */}
+          {/* Journey Link */}
           <Link
             href="/journey"
             onClick={() => setShowDropdown(false)}
@@ -247,7 +245,7 @@ export default function Navigation() {
             </div>
           </Link>
 
-          {/* Practice Test Link */}
+          {/* Mobile Links */}
           <Link
             href="/test"
             onClick={() => setShowDropdown(false)}
@@ -262,7 +260,6 @@ export default function Navigation() {
             </div>
           </Link>
 
-          {/* Study Link */}
           <Link
             href="/study"
             onClick={() => setShowDropdown(false)}
