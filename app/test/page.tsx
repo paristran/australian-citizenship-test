@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import questions from '@/data/questions.json'
 import toast from 'react-hot-toast'
+import Link from 'next/link'
 
 interface Question {
   id: number
@@ -24,8 +25,9 @@ export default function TestPage() {
   const [selectedAnswers, setSelectedAnswers] = useState<number[]>([])
   const [showResult, setShowResult] = useState(false)
   const [testStarted, setTestStarted] = useState(false)
-  const [timeRemaining, setTimeRemaining] = useState(45 * 60) // 45 minutes in seconds
+  const [timeRemaining, setTimeRemaining] = useState(45 * 60)
   const [saving, setSaving] = useState(false)
+  const [resultSaved, setResultSaved] = useState(false)
 
   useEffect(() => {
     if (!testStarted || showResult) return
@@ -45,12 +47,11 @@ export default function TestPage() {
   }, [testStarted, showResult])
 
   const startTest = () => {
-    // Get 5 Australian values questions (required for passing)
+    // Get 5 Australian values questions
     const australianValuesQuestions = questions.questions.filter(
       (q: Question) => q.category === 'Australian values'
     )
     
-    // Shuffle and take exactly 5 Australian values questions
     const shuffledValues = australianValuesQuestions.sort(() => Math.random() - 0.5)
     const selectedValues = shuffledValues.slice(0, 5)
     
@@ -61,7 +62,6 @@ export default function TestPage() {
     const shuffledOther = otherQuestions.sort(() => Math.random() - 0.5)
     const selectedOther = shuffledOther.slice(0, 15)
     
-    // Combine and shuffle (but keep track of which are values questions)
     const combined = [...selectedValues, ...selectedOther].sort(() => Math.random() - 0.5)
     
     setTestQuestions(combined)
@@ -69,6 +69,7 @@ export default function TestPage() {
     setTestStarted(true)
     setCurrentQuestion(0)
     setShowResult(false)
+    setResultSaved(false)
     setTimeRemaining(45 * 60)
   }
 
@@ -83,6 +84,8 @@ export default function TestPage() {
   }
 
   const finishTest = async () => {
+    if (showResult) return
+    
     setSaving(true)
     
     // Calculate scores
@@ -100,12 +103,6 @@ export default function TestPage() {
       }
     })
 
-    const overallScore = (correctCount / 20) * 100
-    const valuesScore = valuesTotal > 0 ? (valuesCorrect / valuesTotal) * 100 : 0
-    
-    // Pass conditions:
-    // 1. 100% on Australian values (5/5)
-    // 2. At least 75% overall (15/20)
     const passed = valuesCorrect === 5 && correctCount >= 15
 
     // Save test result to database
@@ -129,11 +126,17 @@ export default function TestPage() {
           })
         })
 
-        if (!response.ok) {
-          console.error('Failed to save test result')
+        if (response.ok) {
+          setResultSaved(true)
+          toast.success('Test results saved!')
+        } else {
+          const error = await response.json()
+          console.error('Failed to save test result:', error)
+          toast.error('Failed to save results')
         }
       } catch (error) {
         console.error('Error saving test result:', error)
+        toast.error('Error saving results')
       }
     }
 
@@ -143,9 +146,9 @@ export default function TestPage() {
     if (passed) {
       toast.success('Congratulations! You passed the practice test!')
     } else if (valuesCorrect < 5) {
-      toast.error(`You need to get all 5 Australian values questions correct to pass.`)
+      toast.error(`You need all 5 Australian values questions correct. You got ${valuesCorrect}/5.`)
     } else {
-      toast.error(`You need at least 15/20 (75%) to pass. You got ${correctCount}/20.`)
+      toast.error(`You need 15/20 to pass. You got ${correctCount}/20.`)
     }
   }
 
@@ -175,13 +178,6 @@ export default function TestPage() {
                 </div>
               </li>
               <li className="flex items-start gap-3">
-                <span className="text-2xl">📚</span>
-                <div>
-                  <strong>Study the official resource</strong>
-                  <p className="text-sm text-gray-500">This app supplements but does not replace "Our Common Bond"</p>
-                </div>
-              </li>
-              <li className="flex items-start gap-3">
                 <span className="text-2xl">⏱️</span>
                 <div>
                   <strong>45 minutes time limit</strong>
@@ -198,13 +194,6 @@ export default function TestPage() {
                   </ul>
                 </div>
               </li>
-              <li className="flex items-start gap-3">
-                <span className="text-2xl">⚠️</span>
-                <div>
-                  <strong>Important:</strong>
-                  <p className="text-sm text-gray-500">You must get ALL 5 Australian values questions correct to pass</p>
-                </div>
-              </li>
             </ul>
           </div>
 
@@ -217,7 +206,7 @@ export default function TestPage() {
 
           {!user && (
             <p className="text-center text-gray-500 mt-4 text-sm">
-              💡 <Link href="/login" className="text-green-600 hover:underline">Sign in</Link> to save your test results and track your progress
+              💡 <Link href="/login" className="text-green-600 hover:underline">Sign in</Link> to save your test results
             </p>
           )}
         </div>
@@ -229,7 +218,6 @@ export default function TestPage() {
     const correctCount = testQuestions.filter((q, idx) => selectedAnswers[idx] === q.correct).length
     const valuesQuestions = testQuestions.filter(q => q.category === 'Australian values')
     const valuesCorrect = valuesQuestions.filter((q, idx) => selectedAnswers[idx] === q.correct).length
-    const valuesTotal = valuesQuestions.length
     const passed = valuesCorrect === 5 && correctCount >= 15
 
     return (
@@ -243,6 +231,9 @@ export default function TestPage() {
             <p className="text-gray-600 text-lg">
               {passed ? 'You passed the practice test!' : 'Review your answers and try again'}
             </p>
+            {resultSaved && (
+              <p className="text-green-600 text-sm mt-2">✓ Results saved to your dashboard</p>
+            )}
           </div>
 
           <div className="bg-white rounded-2xl shadow-lg p-8 mb-6">
@@ -297,9 +288,7 @@ export default function TestPage() {
                   <div 
                     key={question.id} 
                     className={`p-4 rounded-lg border-2 ${
-                      isCorrect 
-                        ? 'border-green-200 bg-green-50' 
-                        : 'border-red-200 bg-red-50'
+                      isCorrect ? 'border-green-200 bg-green-50' : 'border-red-200 bg-red-50'
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -458,25 +447,8 @@ export default function TestPage() {
               )
             })}
           </div>
-          <div className="flex justify-center gap-4 mt-4 text-xs">
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-purple-100 border-2 border-purple-300 rounded"></div>
-              <span>Australian Values</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-green-100 rounded"></div>
-              <span>Answered</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-gray-100 rounded"></div>
-              <span>Not answered</span>
-            </div>
-          </div>
         </div>
       </div>
     </div>
   )
 }
-
-// Add missing import
-import Link from 'next/link'

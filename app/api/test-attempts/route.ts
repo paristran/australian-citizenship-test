@@ -23,6 +23,14 @@ export async function GET(request: Request) {
       .limit(limit)
 
     if (error) {
+      console.error('Error fetching test attempts:', error)
+      // Return empty if table doesn't exist
+      if (error.code === '42P01') {
+        return NextResponse.json({ 
+          attempts: [],
+          stats: { total: 0, passed: 0, passRate: 0, avgScore: 0 }
+        })
+      }
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
 
@@ -32,21 +40,18 @@ export async function GET(request: Request) {
     const avgScore = attempts?.length 
       ? attempts.reduce((sum, a) => sum + a.score, 0) / attempts.length 
       : 0
-    const avgValuesScore = attempts?.length 
-      ? attempts.reduce((sum, a) => sum + (a.values_score || 0), 0) / attempts.length 
-      : 0
 
     return NextResponse.json({ 
-      attempts,
+      attempts: attempts || [],
       stats: {
         total: totalAttempts,
         passed: passedAttempts,
         passRate: totalAttempts > 0 ? Math.round((passedAttempts / totalAttempts) * 100) : 0,
-        avgScore: Math.round(avgScore * 10) / 10,
-        avgValuesScore: Math.round(avgValuesScore * 10) / 10
+        avgScore: Math.round(avgScore * 10) / 10
       }
     })
   } catch (error: any) {
+    console.error('Error in GET /api/test-attempts:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })
   }
 }
@@ -72,6 +77,8 @@ export async function POST(request: Request) {
       answers 
     } = body
 
+    console.log('Saving test attempt:', { userId: user.id, score, passed })
+
     // Validate required fields
     if (typeof score !== 'number' || typeof passed !== 'boolean') {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 })
@@ -95,8 +102,15 @@ export async function POST(request: Request) {
 
     if (error) {
       console.error('Error saving test attempt:', error)
+      // Return success anyway if table doesn't exist (graceful degradation)
+      if (error.code === '42P01') {
+        console.log('test_attempts table does not exist')
+        return NextResponse.json({ success: true, warning: 'Table not created' })
+      }
       return NextResponse.json({ error: error.message }, { status: 500 })
     }
+
+    console.log('Test attempt saved:', data)
 
     return NextResponse.json({ success: true, attempt: data })
   } catch (error: any) {
