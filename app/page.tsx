@@ -84,6 +84,24 @@ export default function HomePage() {
               <h3 className="text-xl font-semibold mb-2">Track Progress</h3>
               <p className="text-gray-600">Monitor your improvement with detailed statistics and history</p>
             </div>
+
+            <div className="text-center p-6">
+              <div className="text-5xl mb-4">🇦🇺</div>
+              <h3 className="text-xl font-semibold mb-2">Citizenship Journey</h3>
+              <p className="text-gray-600">Create and share your personal citizenship timeline with milestones</p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="text-5xl mb-4">💡</div>
+              <h3 className="text-xl font-semibold mb-2">Fun Facts</h3>
+              <p className="text-gray-600">Learn interesting facts about Australia while you study</p>
+            </div>
+
+            <div className="text-center p-6">
+              <div className="text-5xl mb-4">📈</div>
+              <h3 className="text-xl font-semibold mb-2">Personalized Tips</h3>
+              <p className="text-gray-600">Get recommendations based on your performance and weak areas</p>
+            </div>
           </div>
         </div>
       </section>
@@ -131,9 +149,9 @@ export default function HomePage() {
       {/* CTA Section */}
       <section className="py-16 bg-green-600 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Start Practicing?</h2>
+          <h2 className="text-3xl font-bold mb-4">Ready to Start Your Citizenship Journey?</h2>
           <p className="text-green-100 mb-8">
-            Sign up to track your progress and improve your chances of passing the citizenship test.
+            Sign up to track your progress, generate your citizenship timeline, and improve your chances of passing the test.
           </p>
           
           {!user ? (
@@ -152,12 +170,20 @@ export default function HomePage() {
               </Link>
             </div>
           ) : (
-            <Link
-              href="/dashboard"
-              className="bg-white text-green-700 hover:bg-green-50 font-bold py-3 px-8 rounded-xl transition-colors inline-block"
-            >
-              Go to Dashboard
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Link
+                href="/dashboard"
+                className="bg-white text-green-700 hover:bg-green-50 font-bold py-3 px-8 rounded-xl transition-colors"
+              >
+                Go to Dashboard
+              </Link>
+              <Link
+                href="/journey"
+                className="bg-green-500 hover:bg-green-400 text-white font-bold py-3 px-8 rounded-xl transition-colors border-2 border-white/30"
+              >
+                My Journey
+              </Link>
+            </div>
           )}
         </div>
       </section>
