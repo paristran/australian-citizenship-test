@@ -2,53 +2,11 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState } from 'react'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
 
 export default function SignUpPage() {
-  const [fullName, setFullName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [confirmPassword, setConfirmPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [agreed, setAgreed] = useState(false)
-  const { signUp, signInWithGoogle, signInWithFacebook } = useAuth()
-  const router = useRouter()
-
-  const handleEmailSignUp = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (password !== confirmPassword) {
-      toast.error('Passwords do not match')
-      return
-    }
-
-    if (password.length < 8) {
-      toast.error('Password must be at least 8 characters')
-      return
-    }
-
-    if (!agreed) {
-      toast.error('Please agree to the Terms of Service and Privacy Policy')
-      return
-    }
-
-    setLoading(true)
-    
-    const { error } = await signUp(email, password, fullName)
-    
-    if (error) {
-      toast.error(error.message)
-    } else {
-      toast.success('Account created! Please check your email to verify your account.')
-      router.push('/login')
-    }
-    
-    setLoading(false)
-  }
+  const { signInWithGoogle, signInWithFacebook } = useAuth()
 
   const handleGoogleSignUp = async () => {
     await signInWithGoogle()
@@ -68,102 +26,8 @@ export default function SignUpPage() {
           <p className="text-gray-600">Start your citizenship journey today</p>
         </div>
 
-        {/* Sign Up Form */}
-        <form onSubmit={handleEmailSignUp} className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="fullName">
-              Full Name
-            </label>
-            <input
-              id="fullName"
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="John Smith"
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="your@email.com"
-              required
-            />
-          </div>
-
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="••••••••"
-              required
-              minLength={8}
-            />
-            <p className="text-xs text-gray-500 mt-1">Must be at least 8 characters</p>
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2" htmlFor="confirmPassword">
-              Confirm Password
-            </label>
-            <input
-              id="confirmPassword"
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="flex items-start gap-2">
-              <input
-                type="checkbox"
-                checked={agreed}
-                onChange={(e) => setAgreed(e.target.checked)}
-                className="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-              />
-              <span className="text-sm text-gray-600">
-                I agree to the{' '}
-                <Link href="/legal/terms" className="text-green-600 hover:text-green-700">
-                  Terms of Service
-                </Link>{' '}
-                and{' '}
-                <Link href="/legal/privacy" className="text-green-600 hover:text-green-700">
-                  Privacy Policy
-                </Link>
-              </span>
-            </label>
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Creating account...' : 'Create Account'}
-          </button>
-        </form>
-
         {/* Social Sign Up */}
-        <div className="space-y-3">
+        <div className="bg-white rounded-2xl shadow-lg p-8 space-y-4">
           <button
             onClick={handleGoogleSignUp}
             className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
@@ -198,6 +62,17 @@ export default function SignUpPage() {
             </svg>
             Continue with Facebook
           </button>
+
+          <div className="text-center text-xs text-gray-500 mt-4">
+            By continuing, you agree to our{' '}
+            <Link href="/legal/terms" className="text-green-600 hover:text-green-700">
+              Terms of Service
+            </Link>{' '}
+            and{' '}
+            <Link href="/legal/privacy" className="text-green-600 hover:text-green-700">
+              Privacy Policy
+            </Link>
+          </div>
         </div>
 
         {/* Login Link */}

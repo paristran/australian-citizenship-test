@@ -2,34 +2,11 @@
 
 export const dynamic = 'force-dynamic'
 
-import { useState } from 'react'
 import { useAuth } from '@/lib/auth/AuthProvider'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import toast from 'react-hot-toast'
 
 export default function LoginPage() {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const { signIn, signInWithGoogle, signInWithFacebook } = useAuth()
-  const router = useRouter()
-
-  const handleEmailLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    
-    const { error } = await signIn(email, password)
-    
-    if (error) {
-      toast.error(error.message)
-    } else {
-      toast.success('Welcome back!')
-      router.push('/dashboard')
-    }
-    
-    setLoading(false)
-  }
+  const { signInWithGoogle, signInWithFacebook } = useAuth()
 
   const handleGoogleLogin = async () => {
     await signInWithGoogle()
@@ -49,55 +26,8 @@ export default function LoginPage() {
           <p className="text-gray-600">Sign in to track your progress</p>
         </div>
 
-        {/* Login Form */}
-        <form onSubmit={handleEmailLogin} className="bg-white rounded-2xl shadow-lg p-8 mb-6">
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-2" htmlFor="email">
-              Email
-            </label>
-            <input
-              id="email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="your@email.com"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="block text-sm font-medium mb-2" htmlFor="password">
-              Password
-            </label>
-            <input
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              placeholder="••••••••"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? 'Signing in...' : 'Sign In'}
-          </button>
-
-          <div className="mt-4 text-center">
-            <Link href="/forgot-password" className="text-sm text-green-600 hover:text-green-700">
-              Forgot password?
-            </Link>
-          </div>
-        </form>
-
         {/* Social Login */}
-        <div className="space-y-3">
+        <div className="bg-white rounded-2xl shadow-lg p-8 space-y-4">
           <button
             onClick={handleGoogleLogin}
             className="w-full bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 font-semibold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2"
