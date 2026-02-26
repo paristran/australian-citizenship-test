@@ -42,10 +42,10 @@ export const metadata: Metadata = {
     description: 'Prepare for your Australian citizenship test with 250+ free practice questions. Pass with confidence!',
     images: [
       {
-        url: '/og-image.png',
+        url: 'https://www.getcitizenship.com.au/api/og',
         width: 1200,
         height: 630,
-        alt: 'Australian Citizenship Practice Test',
+        alt: 'Australian Citizenship Practice Test - 250+ Free Questions',
       },
     ],
   },
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Australian Citizenship Practice Test',
     description: '250+ free practice questions based on Our Common Bond. Pass your citizenship test!',
-    images: ['/og-image.png'],
+    images: ['https://www.getcitizenship.com.au/api/og'],
   },
   verification: {
     google: 'your-google-verification-code',
