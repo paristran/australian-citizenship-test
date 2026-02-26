@@ -17,7 +17,7 @@ interface Question {
 }
 
 export default function TestPage() {
-  const { user } = useAuth()
+  const { user, loading } = useAuth()
   const router = useRouter()
   
   const [testQuestions, setTestQuestions] = useState<Question[]>([])
@@ -28,6 +28,12 @@ export default function TestPage() {
   const [timeRemaining, setTimeRemaining] = useState(45 * 60)
   const [saving, setSaving] = useState(false)
   const [resultSaved, setResultSaved] = useState(false)
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.push('/login?redirect=/test')
+    }
+  }, [user, loading, router])
 
   useEffect(() => {
     if (!testStarted || showResult) return
@@ -45,6 +51,17 @@ export default function TestPage() {
 
     return () => clearInterval(timer)
   }, [testStarted, showResult])
+
+  if (loading || !user) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center">
+          <div className="text-6xl mb-4 animate-spin">🇦🇺</div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    )
+  }
 
   const startTest = () => {
     // Get 5 Australian values questions
