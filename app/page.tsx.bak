@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: 'Australian Citizenship Practice Test 2025 | Free Practice Questions',
+  title: 'Australian Citizenship Practice Test | Free Practice Questions',
   description: 'Prepare for your Australian citizenship test with 250+ free practice questions based on "Our Common Bond". Practice tests, study guides, and instant feedback. Pass your test with confidence!',
   keywords: ['Australian citizenship test', 'citizenship practice test', 'Our Common Bond', 'Australian citizenship questions', 'citizenship test 2025', 'Australian citizenship preparation'],
 }
@@ -16,7 +16,7 @@ export default function Home() {
           <div className="text-6xl md:text-8xl mb-6 animate-bounce">🇦🇺</div>
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
             Australian Citizenship<br/>
-            <span className="text-green-600">Practice Test 2025</span>
+            <span className="text-green-600">Practice Test</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
             Prepare with confidence. 250+ practice questions based on &quot;Our Common Bond&quot; — the official test resource.

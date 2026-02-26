@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.getcitizenship.com.au'),
   title: {
-    default: 'Australian Citizenship Practice Test 2025 | Free Practice Questions',
+    default: 'Australian Citizenship Practice Test | Free Practice Questions',
     template: '%s | GetCitizenship.com.au'
   },
   description: 'Prepare for your Australian citizenship test with 250+ free practice questions based on "Our Common Bond". Practice tests, study guides, and instant feedback. Pass your test with confidence!',
@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     locale: 'en_AU',
     url: 'https://www.getcitizenship.com.au',
     siteName: 'Australian Citizenship Practice Test',
-    title: 'Australian Citizenship Practice Test 2025 | Free Practice Questions',
+    title: 'Australian Citizenship Practice Test | Free Practice Questions',
     description: 'Prepare for your Australian citizenship test with 250+ free practice questions. Pass with confidence!',
     images: [
       {
@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Australian Citizenship Practice Test 2025',
+    title: 'Australian Citizenship Practice Test',
     description: '250+ free practice questions based on Our Common Bond. Pass your citizenship test!',
     images: ['/og-image.png'],
   },
