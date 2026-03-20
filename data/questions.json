@@ -3249,6 +3249,188 @@
       ],
       "correct": 2,
       "explanation": "Approximately 85% of Australians live in cities or towns, mostly along the coast."
+    },
+    {
+      "id": 251,
+      "category": "Australia and its people",
+      "question": "Which is the biggest city in Australia?",
+      "options": [
+        "Melbourne",
+        "Sydney",
+        "Brisbane",
+        "Perth"
+      ],
+      "correct": 1,
+      "explanation": "Sydney is the biggest city in Australia with a population of over 5 million people."
+    },
+    {
+      "id": 252,
+      "category": "Australia and its people",
+      "question": "Where is Uluru located?",
+      "options": [
+        "Western Australia",
+        "Northern Territory",
+        "Queensland",
+        "South Australia"
+      ],
+      "correct": 1,
+      "explanation": "Uluru is located in the Northern Territory. It is a large sandstone rock formation sacred to the Anangu people."
+    },
+    {
+      "id": 253,
+      "category": "Australia and its people",
+      "question": "Which is the capital city of the Northern Territory?",
+      "options": [
+        "Alice Springs",
+        "Darwin",
+        "Palmerston",
+        "Katherine"
+      ],
+      "correct": 1,
+      "explanation": "Darwin is the capital city of the Northern Territory."
+    },
+    {
+      "id": 254,
+      "category": "Government and law",
+      "question": "What is a duty of an Australian citizen?",
+      "options": [
+        "Only to obey the law",
+        "To vote in elections and serve on a jury if called",
+        "To work for the government",
+        "To join the military"
+      ],
+      "correct": 1,
+      "explanation": "Australian citizens have a duty to vote in federal and state elections and to serve on a jury if called upon."
+    },
+    {
+      "id": 255,
+      "category": "Government and law",
+      "question": "What is the duty of a minister?",
+      "options": [
+        "To represent the Queen in Australia",
+        "To oversee a government department and be responsible for it",
+        "To interpret the law",
+        "To command the defence force"
+      ],
+      "correct": 1,
+      "explanation": "A minister is a member of parliament responsible for overseeing a government department and making decisions about it."
+    },
+    {
+      "id": 256,
+      "category": "Government and law",
+      "question": "What is the lower house of the Australian Parliament called?",
+      "options": [
+        "The Senate",
+        "The House of Representatives",
+        "The Legislative Assembly",
+        "The House of Commons"
+      ],
+      "correct": 1,
+      "explanation": "The House of Representatives is the lower house of the Australian Parliament, also known as the People's House."
+    },
+    {
+      "id": 257,
+      "category": "Government and law",
+      "question": "What does the Governor-General do?",
+      "options": [
+        "Leads the defence force",
+        "Represents the King in Australia and signs laws into effect",
+        "Runs the government",
+        "Is the leader of the opposition"
+      ],
+      "correct": 1,
+      "explanation": "The Governor-General is the King's representative in Australia. They give Royal Assent to laws, appoint ministers, and perform ceremonial duties."
+    },
+    {
+      "id": 258,
+      "category": "Australian values",
+      "question": "In Australia, men and women have equal rights.",
+      "options": [
+        "True",
+        "False",
+        "Only in some states",
+        "Only for citizens"
+      ],
+      "correct": 0,
+      "explanation": "In Australia, men and women have equal rights and opportunities. Equality between men and women is a core Australian value."
+    },
+    {
+      "id": 259,
+      "category": "Democratic beliefs",
+      "question": "Are peaceful protests allowed in Australia?",
+      "options": [
+        "No, protests are not allowed",
+        "Yes, peaceful protests are allowed as part of freedom of assembly",
+        "Only with government permission",
+        "Only for citizens"
+      ],
+      "correct": 1,
+      "explanation": "Australians can gather peacefully to protest, demonstrate, or march as part of their freedom of assembly and association."
+    },
+    {
+      "id": 260,
+      "category": "Australia and its people",
+      "question": "Who are the First Peoples of Australia?",
+      "options": [
+        "The British settlers",
+        "Aboriginal and Torres Strait Islander peoples",
+        "The First Fleet convicts",
+        "The explorers"
+      ],
+      "correct": 1,
+      "explanation": "Aboriginal and Torres Strait Islander peoples are the First Peoples of Australia, with a continuous culture stretching back over 65,000 years."
+    },
+    {
+      "id": 261,
+      "category": "Government and law",
+      "question": "What does a Member of Parliament (MP) represent?",
+      "options": [
+        "The Prime Minister",
+        "The people in their electorate or state/territory",
+        "The Governor-General",
+        "The political party only"
+      ],
+      "correct": 1,
+      "explanation": "A Member of Parliament represents the people of their electorate (in the House of Representatives) or their state/territory (in the Senate)."
+    },
+    {
+      "id": 262,
+      "category": "Government and law",
+      "question": "Who can get an Australian passport?",
+      "options": [
+        "Anyone living in Australia",
+        "Only Australian citizens",
+        "Only people born in Australia",
+        "Permanent residents and citizens"
+      ],
+      "correct": 1,
+      "explanation": "Only Australian citizens can apply for and hold an Australian passport."
+    },
+    {
+      "id": 263,
+      "category": "Australian values",
+      "question": "Is violence against family members accepted in Australia?",
+      "options": [
+        "Yes, in some circumstances",
+        "No, it is illegal and not accepted",
+        "Only if they are your own children",
+        "It depends on the culture"
+      ],
+      "correct": 1,
+      "explanation": "Violence against anyone, including family members, is illegal in Australia and is never accepted or tolerated."
+    },
+    {
+      "id": 264,
+      "category": "Government and law",
+      "question": "Schools are the responsibility of which government?",
+      "options": [
+        "The federal government only",
+        "State and territory governments",
+        "Local councils",
+        "The Governor-General"
+      ],
+      "correct": 1,
+      "explanation": "Schools are primarily the responsibility of state and territory governments, though the federal government also provides funding."
     }
   ]
 }
